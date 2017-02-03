@@ -1,0 +1,109 @@
+﻿<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FamilieLaissBackend.Data.Model.Store" Alias="Self" Provider="Devart.Data.Oracle" ProviderManifestToken="Oracle, 11.2.0.2" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:devart="http://devart.com/schemas/edml/StorageSchemaExtensions/1.0" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="FamilieLaissEntitiesStoreContainer">
+          <EntitySet Name="MEDIA_GROUPs" EntityType="FamilieLaissBackend.Data.Model.Store.MEDIA_GROUP" store:Type="Tables" Schema="FAMILIELAISS" Table="MEDIA_GROUP" />
+        </EntityContainer>
+        <EntityType Name="MEDIA_GROUP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int64" Nullable="false" />
+          <Property Name="TYP" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="NVARCHAR2" Nullable="false" MaxLength="200" />
+          <Property Name="DESCRIPTION" Type="NVARCHAR2" MaxLength="2000" />
+          <Property Name="CREATE_DATE" Type="datetimeoffset" Nullable="false" Precision="6" />
+        </EntityType>
+        <Function Name="SP_DELETE" IsComposable="false" BuiltIn="false" Aggregate="false" NiladicFunction="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FAMILIELAISS" StoreFunctionName="PA_MEDIAGROUP.SP_DELETE">
+          <Parameter Name="P_ID" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="SP_UPDATE" IsComposable="false" BuiltIn="false" Aggregate="false" NiladicFunction="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FAMILIELAISS" StoreFunctionName="PA_MEDIAGROUP.SP_UPDATE">
+          <Parameter Name="P_ID" Type="decimal" Mode="In" />
+          <Parameter Name="P_NAME" Type="NVARCHAR2" Mode="In" />
+          <Parameter Name="P_DESCRIPTION" Type="NVARCHAR2" Mode="In" />
+        </Function>
+        <Function Name="SP_INSERT" devart:ResultSetParameterName="OUTPARAM" IsComposable="false" BuiltIn="false" Aggregate="false" NiladicFunction="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="FAMILIELAISS" StoreFunctionName="PA_MEDIAGROUP.SP_INSERT">
+          <Parameter Name="P_TYP" Type="decimal" Mode="In" />
+          <Parameter Name="P_NAME" Type="NVARCHAR2" Mode="In" />
+          <Parameter Name="P_DESCRIPTION" Type="NVARCHAR2" Mode="In" />
+        </Function>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FamilieLaissBackend.Data.Model" Alias="Self" d4p1:ViewGeneration="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:devart="http://devart.com/schemas/edml/ConceptualSchemaExtensions/1.0" xmlns:ed="http://devart.com/schemas/EntityDeveloper/1.0" annotation:UseStrongSpatialTypes="false" xmlns:d4p1="http://devart.com/schemas/edml/ConceptualSchemaExtensions/1.0" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FamilieLaissEntities" annotation:LazyLoadingEnabled="true" ed:Guid="a2b31c90-270d-4f5c-9b10-9f37f133a24a">
+          <EntitySet Name="MediaGroups" EntityType="FamilieLaissBackend.Data.Model.MediaGroup" />
+        </EntityContainer>
+        <EntityType Name="MediaGroup" ed:Guid="5e1037ca-eca9-4a70-8f39-bdd0ac0df7da">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" ed:ValidateRequired="true" ed:Guid="720121e7-7994-4ff9-b9c9-59aee319478e" />
+          <Property Name="Typ" Type="Int32" Nullable="false" ed:ValidateRequired="true" ed:Guid="6a850703-81f8-4eb1-ad10-cf82a3bacc55" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" Unicode="true" ed:ValidateMaxLength="200" ed:ValidateRequired="true" ed:Guid="caded595-3187-4d3a-98f8-1b40be8a8d61" />
+          <Property Name="Description" Type="String" MaxLength="2000" Unicode="true" ed:ValidateMaxLength="2000" ed:ValidateRequired="false" ed:Guid="467b7d67-b48f-42a6-88b7-d29e7a294aa1" />
+          <Property Name="CreateDate" Type="DateTimeOffset" Nullable="false" Precision="6" ed:ValidateRequired="true" ed:Guid="bea60a41-384d-4d9d-9ddd-b9a179bdd076" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- MSL content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FamilieLaissEntitiesStoreContainer" CdmEntityContainer="FamilieLaissEntities">
+          <EntitySetMapping Name="MediaGroups">
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.MediaGroup">
+              <MappingFragment StoreEntitySet="MEDIA_GROUPs">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Typ" ColumnName="TYP" />
+                <ScalarProperty Name="Name" ColumnName="NAME" />
+                <ScalarProperty Name="Description" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="CreateDate" ColumnName="CREATE_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.MediaGroup">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="FamilieLaissBackend.Data.Model.Store.SP_INSERT">
+                  <ScalarProperty Name="Typ" ParameterName="P_TYP" />
+                  <ScalarProperty Name="Name" ParameterName="P_NAME" />
+                  <ScalarProperty Name="Description" ParameterName="P_DESCRIPTION" />
+                  <ResultBinding Name="ID" ColumnName="ID_Out" />
+                  <ResultBinding Name="CreateDate" ColumnName="Create_Date_Out" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="FamilieLaissBackend.Data.Model.Store.SP_UPDATE">
+                  <ScalarProperty Name="ID" ParameterName="P_ID" Version="Current" />
+                  <ScalarProperty Name="Name" ParameterName="P_NAME" Version="Current" />
+                  <ScalarProperty Name="Description" ParameterName="P_DESCRIPTION" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="FamilieLaissBackend.Data.Model.Store.SP_DELETE">
+                  <ScalarProperty Name="ID" ParameterName="P_ID" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <edmx:Diagrams>
+      <Diagram Name="Main" />
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
