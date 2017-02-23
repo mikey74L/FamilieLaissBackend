@@ -30,19 +30,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Devart.Data, Version=5.0.1624.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL" />
-    <Reference Include="Devart.Data.Oracle, Version=9.2.200.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL" />
-    <Reference Include="Devart.Data.Oracle.Entity.EF6, Version=9.2.200.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL" />
+    <Reference Include="Breeze.ContextProvider, Version=1.6.0.0, Culture=neutral, PublicKeyToken=f6085f1a45e2ac59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Breeze.Server.ContextProvider.1.6.0\lib\Breeze.ContextProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="Breeze.ContextProvider.EF6, Version=1.6.0.0, Culture=neutral, PublicKeyToken=f6085f1a45e2ac59, processorArchitecture=MSIL">
+      <HintPath>..\packages\Breeze.Server.ContextProvider.EF6.1.6.0\lib\Breeze.ContextProvider.EF6.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,26 +58,109 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interface\iBreezeValidator.cs" />
+    <Compile Include="Interface\iRepositoryData.cs" />
+    <Compile Include="Interface\iUnitOfWorkData.cs" />
+    <Compile Include="Model\FacetGroup.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\FacetValue.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\FamilieLaissModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FamilieLaissModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\FamilieLaissModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\FamilieLaissModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>FamilieLaissModel.edml</DependentUpon>
+      <DependentUpon>FamilieLaissModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MediaGroup.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MediaItem.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MediaItemFacet.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sp_Facet_Group_Insert_Result.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sp_Facet_Value_Insert_Result.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sp_Media_Group_Insert_Result.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sp_Media_Item_Insert_Result.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sp_Upload_Picture_Insert_Result.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\sp_Upload_Video_Insert_Result.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\UploadPictureImageProperty.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\UploadPictureItem.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\UploadVideoItem.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\RepositoryData.cs" />
+    <Compile Include="Resources\Validation_Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Validation_Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="UnitOfWork\UnitOfWorkData.cs" />
+    <Compile Include="Validator\BreezeValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Model\FamilieLaissModel.Diagram1.view">
-      <DependentUpon>FamilieLaissModel.edml</DependentUpon>
-    </None>
-    <DevartEntityDeploy Include="Model\FamilieLaissModel.edml">
-      <Generator>DevartEfGenerator</Generator>
+    <EntityDeploy Include="Model\FamilieLaissModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>FamilieLaissModel.Designer.cs</LastGenOutput>
-    </DevartEntityDeploy>
-    <None Include="Model\FamilieLaissModel.edps">
-      <DependentUpon>FamilieLaissModel.edml</DependentUpon>
+    </EntityDeploy>
+    <None Include="Model\FamilieLaissModel.edmx.diagram">
+      <DependentUpon>FamilieLaissModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Validation_Resources.de.resx" />
+    <EmbeddedResource Include="Resources\Validation_Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Validation_Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Model\FamilieLaissModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>FamilieLaissModel.Context.cs</LastGenOutput>
+      <DependentUpon>FamilieLaissModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model\FamilieLaissModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>FamilieLaissModel.edmx</DependentUpon>
+      <LastGenOutput>FamilieLaissModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

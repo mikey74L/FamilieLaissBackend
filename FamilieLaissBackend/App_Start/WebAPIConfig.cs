@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json.Serialization;
+﻿using FamilieLaissBackend.Data.Interface;
+using FamilieLaissBackend.Data.UnitOfWork;
+using FamilieLaissBackend.Data.Validator;
+using Newtonsoft.Json.Serialization;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 using System.Linq;
@@ -16,8 +19,8 @@ public static class WebApiConfig
         container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();
 
         //Die benötigten Typen registrieren
-        //container.Register<iUnitOfWorkData, UnitOfWorkData>(Lifestyle.Scoped);
-        //container.Register<iBreezeValidator, BreezeValidator>(Lifestyle.Scoped);
+        container.Register<iUnitOfWorkData, UnitOfWorkData>(Lifestyle.Scoped);
+        container.Register<iBreezeValidator, BreezeValidator>(Lifestyle.Scoped);
         //container.Register<iMessageRepository, MessageRepository>(Lifestyle.Scoped);
 
         //Die Web-API-Controller registrieren

@@ -14,9 +14,6 @@
         {
             //Automatische Migrationen sind erlaubt
             AutomaticMigrationsEnabled = true;
-
-            //Der SQL-Generator wird auf Devart gesetzt
-            SetSqlGenerator("Devart.Data.Oracle", new Devart.Data.Oracle.Entity.Migrations.OracleEntityMigrationSqlGenerator());
         }
 
         protected override void Seed(FamilieLaissBackend.Context.FamilieLaissIdentityContext context)

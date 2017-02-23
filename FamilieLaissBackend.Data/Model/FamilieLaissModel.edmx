@@ -1,0 +1,1052 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FamilieLaissBackend.Data.Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Facet_Group">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="Type" Type="tinyint" Nullable="false" />
+          <Property Name="Name_German" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="Name_English" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="Can_Delete" Type="bit" Nullable="false" />
+          <Property Name="Facet_Value_Type" Type="int" Nullable="false" />
+          <Property Name="DDL_Create" Type="datetimeoffset" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Facet_Value">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="ID_Group" Type="bigint" Nullable="false" />
+          <Property Name="Name_German" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name_English" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DDL_Create" Type="datetimeoffset" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Media_Group">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="Type" Type="tinyint" Nullable="false" />
+          <Property Name="Name_German" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="Name_English" Type="nvarchar" MaxLength="70" Nullable="false" />
+          <Property Name="Description_German" Type="nvarchar" MaxLength="300" />
+          <Property Name="Description_English" Type="nvarchar" MaxLength="300" />
+          <Property Name="DDL_Create" Type="datetimeoffset" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Media_Item">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="Group_ID" Type="bigint" Nullable="false" />
+          <Property Name="Type" Type="tinyint" Nullable="false" />
+          <Property Name="Name_German" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Name_English" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Description_German" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Description_English" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Only_Family" Type="bit" Nullable="false" />
+          <Property Name="Create_Date" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="Upload_Picture_ID" Type="bigint" />
+          <Property Name="Upload_Video_ID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Media_Item_Facet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="Media_Item_ID" Type="bigint" Nullable="false" />
+          <Property Name="Facet_Value_ID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Upload_Picture_Image_Property">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="Rotate" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Upload_Picture_Item">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="Name_Original" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Upload_Date" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="Height_Original" Type="int" Nullable="false" />
+          <Property Name="Width_Original" Type="int" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Upload_Video_Item">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="Original_Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Status" Type="tinyint" Nullable="false" />
+          <Property Name="Upload_Date" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="Original_Height" Type="int" Nullable="false" />
+          <Property Name="Original_Width" Type="int" Nullable="false" />
+          <Property Name="Duration_Hour" Type="int" Nullable="false" />
+          <Property Name="Duration_Minute" Type="int" Nullable="false" />
+          <Property Name="Duration_Second" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Facet_Value_Facet_Group">
+          <End Role="Facet_Group" Type="Self.Facet_Group" Multiplicity="1" />
+          <End Role="Facet_Value" Type="Self.Facet_Value" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Facet_Group">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Facet_Value">
+              <PropertyRef Name="ID_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Media_Item_Facet_Facet_Value">
+          <End Role="Facet_Value" Type="Self.Facet_Value" Multiplicity="1" />
+          <End Role="Media_Item_Facet" Type="Self.Media_Item_Facet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Facet_Value">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Media_Item_Facet">
+              <PropertyRef Name="Facet_Value_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Media_Item_Facet_Media_Item">
+          <End Role="Media_Item" Type="Self.Media_Item" Multiplicity="1" />
+          <End Role="Media_Item_Facet" Type="Self.Media_Item_Facet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Media_Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Media_Item_Facet">
+              <PropertyRef Name="Media_Item_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Media_Item_Group">
+          <End Role="Media_Group" Type="Self.Media_Group" Multiplicity="1" />
+          <End Role="Media_Item" Type="Self.Media_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Media_Group">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Media_Item">
+              <PropertyRef Name="Group_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Media_Item_Upload_Picture">
+          <End Role="Upload_Picture_Item" Type="Self.Upload_Picture_Item" Multiplicity="0..1" />
+          <End Role="Media_Item" Type="Self.Media_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Upload_Picture_Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Media_Item">
+              <PropertyRef Name="Upload_Picture_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Media_Item_Upload_Video">
+          <End Role="Upload_Video_Item" Type="Self.Upload_Video_Item" Multiplicity="0..1" />
+          <End Role="Media_Item" Type="Self.Media_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Upload_Video_Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Media_Item">
+              <PropertyRef Name="Upload_Video_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Upload_Picture_Image_Property">
+          <End Role="Upload_Picture_Item" Type="Self.Upload_Picture_Item" Multiplicity="1" />
+          <End Role="Upload_Picture_Image_Property" Type="Self.Upload_Picture_Image_Property" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Upload_Picture_Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Upload_Picture_Image_Property">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_Facet_Group_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_Facet_Group_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_Type" Type="tinyint" Mode="In" />
+          <Parameter Name="p_Name_German" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Name_English" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_Facet_Group_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+          <Parameter Name="p_Name_German" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Name_English" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_Facet_Value_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_Facet_Value_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID_Group" Type="bigint" Mode="In" />
+          <Parameter Name="p_Name_German" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Name_English" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_Facet_Value_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+          <Parameter Name="p_Name_German" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Name_English" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_Media_Group_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_Media_Group_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_Typ" Type="tinyint" Mode="In" />
+          <Parameter Name="p_Name_German" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Name_English" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Description_German" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Description_English" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_Media_Group_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+          <Parameter Name="p_Name_German" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Name_English" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Description_German" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Description_English" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_Media_Item_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_Media_Item_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID_Group" Type="bigint" Mode="In" />
+          <Parameter Name="p_Typ" Type="int" Mode="In" />
+          <Parameter Name="p_Name_German" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Name_English" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Description_German" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Description_English" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Only_Family" Type="bit" Mode="In" />
+          <Parameter Name="p_Upload_Picture" Type="bigint" Mode="In" />
+          <Parameter Name="p_Upload_Video" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_Media_Item_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+          <Parameter Name="p_Name_German" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Name_English" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Description_German" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Description_English" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Only_Family" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="sp_MediaFacet_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_MediaFacet_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_Media_ID" Type="bigint" Mode="In" />
+          <Parameter Name="p_FacetValue" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_MediaFacet_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_Upload_Picture_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_Upload_Picture_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_Name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Height" Type="int" Mode="In" />
+          <Parameter Name="p_Width" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_Upload_Picture_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_Upload_Video_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_Upload_Video_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_Name" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_Upload_Video_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_UploadPictureImageProperty_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+        </Function>
+        <Function Name="sp_UploadPictureImageProperty_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+          <Parameter Name="p_Rotation" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_UploadPictureImageProperty_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
+          <Parameter Name="p_Rotation" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="FamilieLaissBackendDataModelStoreContainer">
+          <EntitySet Name="Facet_Group" EntityType="Self.Facet_Group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Facet_Value" EntityType="Self.Facet_Value" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Media_Group" EntityType="Self.Media_Group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Media_Item" EntityType="Self.Media_Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Media_Item_Facet" EntityType="Self.Media_Item_Facet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Upload_Picture_Image_Property" EntityType="Self.Upload_Picture_Image_Property" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Upload_Picture_Item" EntityType="Self.Upload_Picture_Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Upload_Video_Item" EntityType="Self.Upload_Video_Item" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Facet_Value_Facet_Group" Association="Self.FK_Facet_Value_Facet_Group">
+            <End Role="Facet_Group" EntitySet="Facet_Group" />
+            <End Role="Facet_Value" EntitySet="Facet_Value" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Media_Item_Facet_Facet_Value" Association="Self.FK_Media_Item_Facet_Facet_Value">
+            <End Role="Facet_Value" EntitySet="Facet_Value" />
+            <End Role="Media_Item_Facet" EntitySet="Media_Item_Facet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Media_Item_Facet_Media_Item" Association="Self.FK_Media_Item_Facet_Media_Item">
+            <End Role="Media_Item" EntitySet="Media_Item" />
+            <End Role="Media_Item_Facet" EntitySet="Media_Item_Facet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Media_Item_Group" Association="Self.FK_Media_Item_Group">
+            <End Role="Media_Group" EntitySet="Media_Group" />
+            <End Role="Media_Item" EntitySet="Media_Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Media_Item_Upload_Picture" Association="Self.FK_Media_Item_Upload_Picture">
+            <End Role="Upload_Picture_Item" EntitySet="Upload_Picture_Item" />
+            <End Role="Media_Item" EntitySet="Media_Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Media_Item_Upload_Video" Association="Self.FK_Media_Item_Upload_Video">
+            <End Role="Upload_Video_Item" EntitySet="Upload_Video_Item" />
+            <End Role="Media_Item" EntitySet="Media_Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Upload_Picture_Image_Property" Association="Self.FK_Upload_Picture_Image_Property">
+            <End Role="Upload_Picture_Item" EntitySet="Upload_Picture_Item" />
+            <End Role="Upload_Picture_Image_Property" EntitySet="Upload_Picture_Image_Property" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FamilieLaissBackend.Data.Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MediaGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="Type" Type="Byte" Nullable="false" />
+          <Property Name="NameGerman" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NameEnglish" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DescriptionGerman" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionEnglish" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="DDL_Create" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <NavigationProperty Name="MediaItems" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Group" FromRole="MediaGroup" ToRole="Media_Item" />
+        </EntityType>
+        <EntityContainer Name="FamilieLaissEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MediaGroups" EntityType="FamilieLaissBackend.Data.Model.MediaGroup" />
+          <FunctionImport Name="sp_Media_Group_Delete">
+          <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Media_Group_Insert" ReturnType="Collection(FamilieLaissBackend.Data.Model.sp_Media_Group_Insert_Result)">
+            <Parameter Name="p_Typ" Mode="In" Type="Byte" />
+            <Parameter Name="p_Name_German" Mode="In" Type="String" />
+            <Parameter Name="p_Name_English" Mode="In" Type="String" />
+            <Parameter Name="p_Description_German" Mode="In" Type="String" />
+            <Parameter Name="p_Description_English" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Media_Group_Update">
+            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+            <Parameter Name="p_Name_German" Mode="In" Type="String" />
+            <Parameter Name="p_Name_English" Mode="In" Type="String" />
+            <Parameter Name="p_Description_German" Mode="In" Type="String" />
+            <Parameter Name="p_Description_English" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="FacetGroups" EntityType="FamilieLaissBackend.Data.Model.FacetGroup" />
+          <FunctionImport Name="sp_Facet_Group_Delete">
+          <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Facet_Group_Insert" ReturnType="Collection(FamilieLaissBackend.Data.Model.sp_Facet_Group_Insert_Result)">
+            <Parameter Name="p_Type" Mode="In" Type="Byte" />
+            <Parameter Name="p_Name_German" Mode="In" Type="String" />
+            <Parameter Name="p_Name_English" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Facet_Group_Update">
+            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+            <Parameter Name="p_Name_German" Mode="In" Type="String" />
+            <Parameter Name="p_Name_English" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="FacetValues" EntityType="FamilieLaissBackend.Data.Model.FacetValue" />
+          <AssociationSet Name="FK_Facet_Value_Facet_Group" Association="FamilieLaissBackend.Data.Model.FK_Facet_Value_Facet_Group">
+            <End Role="Facet_Group" EntitySet="FacetGroups" />
+            <End Role="Facet_Value" EntitySet="FacetValues" />
+          </AssociationSet>
+          <EntitySet Name="MediaItems" EntityType="FamilieLaissBackend.Data.Model.MediaItem" />
+          <EntitySet Name="MediaItemFacets" EntityType="FamilieLaissBackend.Data.Model.MediaItemFacet" />
+          <EntitySet Name="UploadPictureImageProperties" EntityType="FamilieLaissBackend.Data.Model.UploadPictureImageProperty" />
+          <EntitySet Name="UploadPictureItems" EntityType="FamilieLaissBackend.Data.Model.UploadPictureItem" />
+          <EntitySet Name="UploadVideoItems" EntityType="FamilieLaissBackend.Data.Model.UploadVideoItem" />
+          <AssociationSet Name="FK_Media_Item_Facet_Facet_Value" Association="FamilieLaissBackend.Data.Model.FK_Media_Item_Facet_Facet_Value">
+            <End Role="FacetValue" EntitySet="FacetValues" />
+            <End Role="Media_Item_Facet" EntitySet="MediaItemFacets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Media_Item_Group" Association="FamilieLaissBackend.Data.Model.FK_Media_Item_Group">
+            <End Role="MediaGroup" EntitySet="MediaGroups" />
+            <End Role="Media_Item" EntitySet="MediaItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Media_Item_Facet_Media_Item" Association="FamilieLaissBackend.Data.Model.FK_Media_Item_Facet_Media_Item">
+            <End Role="Media_Item" EntitySet="MediaItems" />
+            <End Role="Media_Item_Facet" EntitySet="MediaItemFacets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Media_Item_Upload_Picture" Association="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Picture">
+            <End Role="Upload_Picture_Item" EntitySet="UploadPictureItems" />
+            <End Role="Media_Item" EntitySet="MediaItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Media_Item_Upload_Video" Association="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Video">
+            <End Role="Upload_Video_Item" EntitySet="UploadVideoItems" />
+            <End Role="Media_Item" EntitySet="MediaItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Upload_Picture_Image_Property" Association="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Image_Property">
+            <End Role="Upload_Picture_Item" EntitySet="UploadPictureItems" />
+            <End Role="Upload_Picture_Image_Property" EntitySet="UploadPictureImageProperties" />
+          </AssociationSet>
+          <FunctionImport Name="sp_Facet_Value_Delete">
+            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Facet_Value_Insert" ReturnType="Collection(FamilieLaissBackend.Data.Model.sp_Facet_Value_Insert_Result)">
+            <Parameter Name="p_ID_Group" Mode="In" Type="Int64" />
+            <Parameter Name="p_Name_German" Mode="In" Type="String" />
+            <Parameter Name="p_Name_English" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Facet_Value_Update">
+            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+            <Parameter Name="p_Name_German" Mode="In" Type="String" />
+            <Parameter Name="p_Name_English" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Media_Item_Delete">
+            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Media_Item_Insert" ReturnType="Collection(FamilieLaissBackend.Data.Model.sp_Media_Item_Insert_Result)">
+            <Parameter Name="p_ID_Group" Mode="In" Type="Int64" />
+            <Parameter Name="p_Typ" Mode="In" Type="Int32" />
+            <Parameter Name="p_Name_German" Mode="In" Type="String" />
+            <Parameter Name="p_Name_English" Mode="In" Type="String" />
+            <Parameter Name="p_Description_German" Mode="In" Type="String" />
+            <Parameter Name="p_Description_English" Mode="In" Type="String" />
+            <Parameter Name="p_Only_Family" Mode="In" Type="Boolean" />
+            <Parameter Name="p_Upload_Picture" Mode="In" Type="Int64" />
+            <Parameter Name="p_Upload_Video" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Media_Item_Update">
+            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+            <Parameter Name="p_Name_German" Mode="In" Type="String" />
+            <Parameter Name="p_Name_English" Mode="In" Type="String" />
+            <Parameter Name="p_Description_German" Mode="In" Type="String" />
+            <Parameter Name="p_Description_English" Mode="In" Type="String" />
+            <Parameter Name="p_Only_Family" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_MediaFacet_Delete">
+            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_MediaFacet_Insert" ReturnType="Collection(Int64)">
+            <Parameter Name="p_Media_ID" Mode="In" Type="Int64" />
+            <Parameter Name="p_FacetValue" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_MediaFacet_Update">
+            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Upload_Picture_Delete">
+            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Upload_Picture_Insert" ReturnType="Collection(FamilieLaissBackend.Data.Model.sp_Upload_Picture_Insert_Result)">
+            <Parameter Name="p_Name" Mode="In" Type="String" />
+            <Parameter Name="p_Height" Mode="In" Type="Int32" />
+            <Parameter Name="p_Width" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Upload_Picture_Update" ReturnType="Collection(Int32)">
+            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Upload_Video_Delete">
+            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Upload_Video_Insert" ReturnType="Collection(FamilieLaissBackend.Data.Model.sp_Upload_Video_Insert_Result)">
+            <Parameter Name="p_Name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Upload_Video_Update" ReturnType="Collection(Int32)">
+            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UploadPictureImageProperty_Delete">
+            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UploadPictureImageProperty_Insert">
+            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+            <Parameter Name="p_Rotation" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UploadPictureImageProperty_Update">
+            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+            <Parameter Name="p_Rotation" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_Media_Group_Insert_Result">
+          <Property Type="Int64" Name="ID_Out" Nullable="true" />
+          <Property Type="DateTimeOffset" Name="Create_Date_Out" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="FacetGroup">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="Type" Type="Byte" Nullable="false" />
+          <Property Name="NameGerman" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="NameEnglish" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="CanDelete" Type="Boolean" Nullable="false" />
+          <Property Name="FacetValueType" Type="Int32" Nullable="false" />
+          <Property Name="DDL_Create" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Values" Relationship="FamilieLaissBackend.Data.Model.FK_Facet_Value_Facet_Group" FromRole="Facet_Group" ToRole="Facet_Value" />
+        </EntityType>
+        <ComplexType Name="sp_Facet_Group_Insert_Result">
+          <Property Type="Int64" Name="ID_Out" Nullable="true" />
+          <Property Type="Int32" Name="Can_Delete_Out" Nullable="false" />
+          <Property Type="Int32" Name="Facet_Value_Type_Out" Nullable="false" />
+          <Property Type="DateTimeOffset" Name="Create_Date_Out" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="FacetValue">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID_Group" Type="Int64" Nullable="false" />
+          <Property Name="NameGerman" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NameEnglish" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DDL_Create" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Group" Relationship="FamilieLaissBackend.Data.Model.FK_Facet_Value_Facet_Group" FromRole="Facet_Value" ToRole="Facet_Group" />
+          <NavigationProperty Name="MediaItemFacets" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Facet_Facet_Value" FromRole="FacetValue" ToRole="Media_Item_Facet" />
+        </EntityType>
+        <Association Name="FK_Facet_Value_Facet_Group">
+          <End Type="FamilieLaissBackend.Data.Model.FacetGroup" Role="Facet_Group" Multiplicity="1" />
+          <End Type="FamilieLaissBackend.Data.Model.FacetValue" Role="Facet_Value" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Facet_Group">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Facet_Value">
+              <PropertyRef Name="ID_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MediaItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID_Group" Type="Int64" Nullable="false" />
+          <Property Name="Type" Type="Byte" Nullable="false" />
+          <Property Name="NameGerman" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NameEnglish" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionGerman" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="DescriptionEnglish" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="OnlyFamily" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <Property Name="ID_UploadPicture" Type="Int64" />
+          <Property Name="ID_UploadVideo" Type="Int64" />
+          <NavigationProperty Name="MediaGroup" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Group" FromRole="Media_Item" ToRole="MediaGroup" />
+          <NavigationProperty Name="MediaItemFacets" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Facet_Media_Item" FromRole="Media_Item" ToRole="Media_Item_Facet" />
+          <NavigationProperty Name="UploadPictures" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Picture" FromRole="Media_Item" ToRole="Upload_Picture_Item" />
+          <NavigationProperty Name="UploadVideoItems" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Video" FromRole="Media_Item" ToRole="Upload_Video_Item" />
+        </EntityType>
+        <EntityType Name="MediaItemFacet">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="ID_MediaItem" Type="Int64" Nullable="false" />
+          <Property Name="ID_FacetValue" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="FacetValue" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Facet_Facet_Value" FromRole="Media_Item_Facet" ToRole="FacetValue" />
+          <NavigationProperty Name="MediaItem" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Facet_Media_Item" FromRole="Media_Item_Facet" ToRole="Media_Item" />
+        </EntityType>
+        <EntityType Name="UploadPictureImageProperty">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="Rotate" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="UploadPicture" Relationship="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Image_Property" FromRole="Upload_Picture_Image_Property" ToRole="Upload_Picture_Item" />
+        </EntityType>
+        <EntityType Name="UploadPictureItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="NameOriginal" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="UploadDate" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <Property Name="HeightOriginal" Type="Int32" Nullable="false" />
+          <Property Name="WidthOriginal" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="MediaItem" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Picture" FromRole="Upload_Picture_Item" ToRole="Media_Item" />
+          <NavigationProperty Name="ImageProperty" Relationship="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Image_Property" FromRole="Upload_Picture_Item" ToRole="Upload_Picture_Image_Property" />
+        </EntityType>
+        <EntityType Name="UploadVideoItem">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="OriginalName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="UploadDate" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <Property Name="OriginalHeight" Type="Int32" Nullable="false" />
+          <Property Name="OriginalWidth" Type="Int32" Nullable="false" />
+          <Property Name="DurationHour" Type="Int32" Nullable="false" />
+          <Property Name="DurationMinute" Type="Int32" Nullable="false" />
+          <Property Name="DurationSecond" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MediaItem" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Video" FromRole="Upload_Video_Item" ToRole="Media_Item" />
+        </EntityType>
+        <Association Name="FK_Media_Item_Facet_Facet_Value">
+          <End Type="FamilieLaissBackend.Data.Model.FacetValue" Role="FacetValue" Multiplicity="1" />
+          <End Type="FamilieLaissBackend.Data.Model.MediaItemFacet" Role="Media_Item_Facet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FacetValue">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Media_Item_Facet">
+              <PropertyRef Name="ID_FacetValue" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Media_Item_Group">
+          <End Type="FamilieLaissBackend.Data.Model.MediaGroup" Role="MediaGroup" Multiplicity="1" />
+          <End Type="FamilieLaissBackend.Data.Model.MediaItem" Role="Media_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MediaGroup">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Media_Item">
+              <PropertyRef Name="ID_Group" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Media_Item_Facet_Media_Item">
+          <End Type="FamilieLaissBackend.Data.Model.MediaItem" Role="Media_Item" Multiplicity="1" />
+          <End Type="FamilieLaissBackend.Data.Model.MediaItemFacet" Role="Media_Item_Facet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Media_Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Media_Item_Facet">
+              <PropertyRef Name="ID_MediaItem" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Media_Item_Upload_Picture">
+          <End Type="FamilieLaissBackend.Data.Model.UploadPictureItem" Role="Upload_Picture_Item" Multiplicity="0..1" />
+          <End Type="FamilieLaissBackend.Data.Model.MediaItem" Role="Media_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Upload_Picture_Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Media_Item">
+              <PropertyRef Name="ID_UploadPicture" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Media_Item_Upload_Video">
+          <End Type="FamilieLaissBackend.Data.Model.UploadVideoItem" Role="Upload_Video_Item" Multiplicity="0..1" />
+          <End Type="FamilieLaissBackend.Data.Model.MediaItem" Role="Media_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Upload_Video_Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Media_Item">
+              <PropertyRef Name="ID_UploadVideo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Upload_Picture_Image_Property">
+          <End Type="FamilieLaissBackend.Data.Model.UploadPictureItem" Role="Upload_Picture_Item" Multiplicity="1" />
+          <End Type="FamilieLaissBackend.Data.Model.UploadPictureImageProperty" Role="Upload_Picture_Image_Property" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Upload_Picture_Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Upload_Picture_Image_Property">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="sp_Facet_Value_Insert_Result">
+          <Property Type="Int64" Name="ID_Out" Nullable="true" />
+          <Property Type="DateTimeOffset" Name="Create_Date_Out" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_Media_Item_Insert_Result">
+          <Property Type="Int64" Name="ID_Out" Nullable="true" />
+          <Property Type="DateTimeOffset" Name="Create_Date_Out" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_Upload_Picture_Insert_Result">
+          <Property Type="Int64" Name="ID_Out" Nullable="true" />
+          <Property Type="DateTimeOffset" Name="Upload_Date_Out" Nullable="true" />
+          <Property Type="Int32" Name="Status_Out" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_Upload_Video_Insert_Result">
+          <Property Type="Int64" Name="ID_Out" Nullable="true" />
+          <Property Type="DateTimeOffset" Name="Upload_Date_Out" Nullable="true" />
+          <Property Type="Int32" Name="Status_Out" Nullable="false" />
+          <Property Type="Int32" Name="Width_Out" Nullable="false" />
+          <Property Type="Int32" Name="Height_Out" Nullable="false" />
+          <Property Type="Int32" Name="Hour_Out" Nullable="false" />
+          <Property Type="Int32" Name="Minute_Out" Nullable="false" />
+          <Property Type="Int32" Name="Second_Out" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FamilieLaissBackendDataModelStoreContainer" CdmEntityContainer="FamilieLaissEntities">
+          <EntitySetMapping Name="MediaGroups">
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.MediaGroup">
+              <MappingFragment StoreEntitySet="Media_Group">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="NameGerman" ColumnName="Name_German" />
+                <ScalarProperty Name="NameEnglish" ColumnName="Name_English" />
+                <ScalarProperty Name="DescriptionGerman" ColumnName="Description_German" />
+                <ScalarProperty Name="DescriptionEnglish" ColumnName="Description_English" />
+                <ScalarProperty Name="DDL_Create" ColumnName="DDL_Create" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.MediaGroup">
+              <ModificationFunctionMapping>
+                <DeleteFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Media_Group_Delete" >
+                  <ScalarProperty Name="ID" ParameterName="p_ID" />
+                </DeleteFunction>
+                <UpdateFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Media_Group_Update" >
+                  <ScalarProperty Name="DescriptionEnglish" ParameterName="p_Description_English" Version="Current" />
+                  <ScalarProperty Name="DescriptionGerman" ParameterName="p_Description_German" Version="Current" />
+                  <ScalarProperty Name="NameEnglish" ParameterName="p_Name_English" Version="Current" />
+                  <ScalarProperty Name="NameGerman" ParameterName="p_Name_German" Version="Current" />
+                  <ScalarProperty Name="ID" ParameterName="p_ID" Version="Current" />
+                </UpdateFunction>
+                <InsertFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Media_Group_Insert" >
+                  <ScalarProperty Name="DescriptionEnglish" ParameterName="p_Description_English" />
+                  <ScalarProperty Name="DescriptionGerman" ParameterName="p_Description_German" />
+                  <ScalarProperty Name="NameEnglish" ParameterName="p_Name_English" />
+                  <ScalarProperty Name="NameGerman" ParameterName="p_Name_German" />
+                  <ScalarProperty Name="Type" ParameterName="p_Typ" />
+                  <ResultBinding Name="ID" ColumnName="ID_Out" />
+                  <ResultBinding Name="DDL_Create" ColumnName="Create_Date_Out" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Media_Group_Delete" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Media_Group_Delete" />
+          <FunctionImportMapping FunctionImportName="sp_Media_Group_Insert" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Media_Group_Insert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FamilieLaissBackend.Data.Model.sp_Media_Group_Insert_Result">
+                <ScalarProperty Name="ID_Out" ColumnName="ID_Out" />
+                <ScalarProperty Name="Create_Date_Out" ColumnName="Create_Date_Out" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Media_Group_Update" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Media_Group_Update" />
+          <EntitySetMapping Name="FacetGroups">
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.FacetGroup">
+              <MappingFragment StoreEntitySet="Facet_Group">
+                <ScalarProperty Name="DDL_Create" ColumnName="DDL_Create" />
+                <ScalarProperty Name="FacetValueType" ColumnName="Facet_Value_Type" />
+                <ScalarProperty Name="CanDelete" ColumnName="Can_Delete" />
+                <ScalarProperty Name="NameEnglish" ColumnName="Name_English" />
+                <ScalarProperty Name="NameGerman" ColumnName="Name_German" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.FacetGroup">
+              <ModificationFunctionMapping>
+                <DeleteFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Facet_Group_Delete" >
+                  <ScalarProperty Name="ID" ParameterName="p_ID" />
+                </DeleteFunction>
+                <UpdateFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Facet_Group_Update" >
+                  <ScalarProperty Name="NameEnglish" ParameterName="p_Name_English" Version="Current" />
+                  <ScalarProperty Name="NameGerman" ParameterName="p_Name_German" Version="Current" />
+                  <ScalarProperty Name="ID" ParameterName="p_ID" Version="Current" />
+                </UpdateFunction>
+                <InsertFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Facet_Group_Insert" >
+                  <ScalarProperty Name="NameEnglish" ParameterName="p_Name_English" />
+                  <ScalarProperty Name="NameGerman" ParameterName="p_Name_German" />
+                  <ScalarProperty Name="Type" ParameterName="p_Type" />
+                  <ResultBinding Name="ID" ColumnName="ID_Out" />
+                  <ResultBinding Name="CanDelete" ColumnName="Can_Delete_Out" />
+                  <ResultBinding Name="FacetValueType" ColumnName="Facet_Value_Type_Out" />
+                  <ResultBinding Name="DDL_Create" ColumnName="Create_Date_Out" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Facet_Group_Delete" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Facet_Group_Delete" />
+          <FunctionImportMapping FunctionImportName="sp_Facet_Group_Insert" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Facet_Group_Insert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FamilieLaissBackend.Data.Model.sp_Facet_Group_Insert_Result">
+                <ScalarProperty Name="ID_Out" ColumnName="ID_Out" />
+                <ScalarProperty Name="Can_Delete_Out" ColumnName="Can_Delete_Out" />
+                <ScalarProperty Name="Facet_Value_Type_Out" ColumnName="Facet_Value_Type_Out" />
+                <ScalarProperty Name="Create_Date_Out" ColumnName="Create_Date_Out" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Facet_Group_Update" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Facet_Group_Update" />
+          <EntitySetMapping Name="FacetValues">
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.FacetValue">
+              <MappingFragment StoreEntitySet="Facet_Value">
+                <ScalarProperty Name="DDL_Create" ColumnName="DDL_Create" />
+                <ScalarProperty Name="NameEnglish" ColumnName="Name_English" />
+                <ScalarProperty Name="NameGerman" ColumnName="Name_German" />
+                <ScalarProperty Name="ID_Group" ColumnName="ID_Group" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.FacetValue">
+              <ModificationFunctionMapping>
+                <DeleteFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Facet_Value_Delete" >
+                  <ScalarProperty Name="ID" ParameterName="p_ID" />
+                </DeleteFunction>
+                <UpdateFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Facet_Value_Update" >
+                  <ScalarProperty Name="NameEnglish" ParameterName="p_Name_English" Version="Current" />
+                  <ScalarProperty Name="NameGerman" ParameterName="p_Name_German" Version="Current" />
+                  <ScalarProperty Name="ID" ParameterName="p_ID" Version="Current" />
+                </UpdateFunction>
+                <InsertFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Facet_Value_Insert" >
+                  <ScalarProperty Name="NameEnglish" ParameterName="p_Name_English" />
+                  <ScalarProperty Name="NameGerman" ParameterName="p_Name_German" />
+                  <ScalarProperty Name="ID_Group" ParameterName="p_ID_Group" />
+                  <ResultBinding Name="ID" ColumnName="ID_Out" />
+                  <ResultBinding Name="DDL_Create" ColumnName="Create_Date_Out" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MediaItems">
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.MediaItem">
+              <MappingFragment StoreEntitySet="Media_Item">
+                <ScalarProperty Name="ID_UploadVideo" ColumnName="Upload_Video_ID" />
+                <ScalarProperty Name="ID_UploadPicture" ColumnName="Upload_Picture_ID" />
+                <ScalarProperty Name="CreateDate" ColumnName="Create_Date" />
+                <ScalarProperty Name="OnlyFamily" ColumnName="Only_Family" />
+                <ScalarProperty Name="DescriptionEnglish" ColumnName="Description_English" />
+                <ScalarProperty Name="DescriptionGerman" ColumnName="Description_German" />
+                <ScalarProperty Name="NameEnglish" ColumnName="Name_English" />
+                <ScalarProperty Name="NameGerman" ColumnName="Name_German" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ID_Group" ColumnName="Group_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.MediaItem">
+              <ModificationFunctionMapping>
+                <DeleteFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Media_Item_Delete" >
+                  <ScalarProperty Name="ID" ParameterName="p_ID" />
+                </DeleteFunction>
+                <UpdateFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Media_Item_Update" >
+                  <ScalarProperty Name="OnlyFamily" ParameterName="p_Only_Family" Version="Current" />
+                  <ScalarProperty Name="DescriptionEnglish" ParameterName="p_Description_English" Version="Current" />
+                  <ScalarProperty Name="DescriptionGerman" ParameterName="p_Description_German" Version="Current" />
+                  <ScalarProperty Name="NameEnglish" ParameterName="p_Name_English" Version="Current" />
+                  <ScalarProperty Name="NameGerman" ParameterName="p_Name_German" Version="Current" />
+                  <ScalarProperty Name="ID" ParameterName="p_ID" Version="Current" />
+                </UpdateFunction>
+                <InsertFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Media_Item_Insert" >
+                  <ScalarProperty Name="ID_UploadVideo" ParameterName="p_Upload_Video" />
+                  <ScalarProperty Name="ID_UploadPicture" ParameterName="p_Upload_Picture" />
+                  <ScalarProperty Name="OnlyFamily" ParameterName="p_Only_Family" />
+                  <ScalarProperty Name="DescriptionEnglish" ParameterName="p_Description_English" />
+                  <ScalarProperty Name="DescriptionGerman" ParameterName="p_Description_German" />
+                  <ScalarProperty Name="NameEnglish" ParameterName="p_Name_English" />
+                  <ScalarProperty Name="NameGerman" ParameterName="p_Name_German" />
+                  <ScalarProperty Name="Type" ParameterName="p_Typ" />
+                  <ScalarProperty Name="ID_Group" ParameterName="p_ID_Group" />
+                  <ResultBinding Name="ID" ColumnName="ID_Out" />
+                  <ResultBinding Name="CreateDate" ColumnName="Create_Date_Out" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MediaItemFacets">
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.MediaItemFacet">
+              <MappingFragment StoreEntitySet="Media_Item_Facet">
+                <ScalarProperty Name="ID_FacetValue" ColumnName="Facet_Value_ID" />
+                <ScalarProperty Name="ID_MediaItem" ColumnName="Media_Item_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.MediaItemFacet">
+              <ModificationFunctionMapping>
+                <DeleteFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_MediaFacet_Delete" >
+                  <ScalarProperty Name="ID" ParameterName="p_ID" />
+                </DeleteFunction>
+                <UpdateFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_MediaFacet_Update" >
+                  <ScalarProperty Name="ID" ParameterName="p_ID" Version="Current" />
+                </UpdateFunction>
+                <InsertFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_MediaFacet_Insert" >
+                  <ScalarProperty Name="ID_FacetValue" ParameterName="p_FacetValue" />
+                  <ScalarProperty Name="ID_MediaItem" ParameterName="p_Media_ID" />
+                  <ResultBinding Name="ID" ColumnName="ID_OUT" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UploadPictureImageProperties">
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.UploadPictureImageProperty">
+              <MappingFragment StoreEntitySet="Upload_Picture_Image_Property">
+                <ScalarProperty Name="Rotate" ColumnName="Rotate" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.UploadPictureImageProperty">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_UploadPictureImageProperty_Insert" >
+                  <ScalarProperty Name="Rotate" ParameterName="p_Rotation" />
+                  <ScalarProperty Name="ID" ParameterName="p_ID" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_UploadPictureImageProperty_Update" >
+                  <ScalarProperty Name="Rotate" ParameterName="p_Rotation" Version="Current" />
+                  <ScalarProperty Name="ID" ParameterName="p_ID" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_UploadPictureImageProperty_Delete" >
+                  <ScalarProperty Name="ID" ParameterName="p_ID" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UploadPictureItems">
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.UploadPictureItem">
+              <MappingFragment StoreEntitySet="Upload_Picture_Item">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="WidthOriginal" ColumnName="Width_Original" />
+                <ScalarProperty Name="HeightOriginal" ColumnName="Height_Original" />
+                <ScalarProperty Name="UploadDate" ColumnName="Upload_Date" />
+                <ScalarProperty Name="NameOriginal" ColumnName="Name_Original" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.UploadPictureItem">
+              <ModificationFunctionMapping>
+                <DeleteFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Upload_Picture_Delete" >
+                  <ScalarProperty Name="ID" ParameterName="p_ID" />
+                </DeleteFunction>
+                <UpdateFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Upload_Picture_Update" >
+                  <ScalarProperty Name="ID" ParameterName="p_ID" Version="Current" />
+                </UpdateFunction>
+                <InsertFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Upload_Picture_Insert" >
+                  <ScalarProperty Name="WidthOriginal" ParameterName="p_Width" />
+                  <ScalarProperty Name="HeightOriginal" ParameterName="p_Height" />
+                  <ScalarProperty Name="NameOriginal" ParameterName="p_Name" />
+                  <ResultBinding Name="ID" ColumnName="ID_Out" />
+                  <ResultBinding Name="UploadDate" ColumnName="Upload_Date_Out" />
+                  <ResultBinding Name="Status" ColumnName="Status_Out" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UploadVideoItems">
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.UploadVideoItem">
+              <MappingFragment StoreEntitySet="Upload_Video_Item">
+                <ScalarProperty Name="DurationSecond" ColumnName="Duration_Second" />
+                <ScalarProperty Name="DurationMinute" ColumnName="Duration_Minute" />
+                <ScalarProperty Name="DurationHour" ColumnName="Duration_Hour" />
+                <ScalarProperty Name="OriginalWidth" ColumnName="Original_Width" />
+                <ScalarProperty Name="OriginalHeight" ColumnName="Original_Height" />
+                <ScalarProperty Name="UploadDate" ColumnName="Upload_Date" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="OriginalName" ColumnName="Original_Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.UploadVideoItem">
+              <ModificationFunctionMapping>
+                <DeleteFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Upload_Video_Delete" >
+                  <ScalarProperty Name="ID" ParameterName="p_ID" />
+                </DeleteFunction>
+                <UpdateFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Upload_Video_Update" >
+                  <ScalarProperty Name="ID" ParameterName="p_ID" Version="Current" />
+                </UpdateFunction>
+                <InsertFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Upload_Video_Insert" >
+                  <ScalarProperty Name="OriginalName" ParameterName="p_Name" />
+                  <ResultBinding Name="ID" ColumnName="ID_Out" />
+                  <ResultBinding Name="UploadDate" ColumnName="Upload_Date_Out" />
+                  <ResultBinding Name="Status" ColumnName="Status_Out" />
+                </InsertFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Facet_Value_Delete" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Facet_Value_Delete" />
+          <FunctionImportMapping FunctionImportName="sp_Facet_Value_Insert" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Facet_Value_Insert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FamilieLaissBackend.Data.Model.sp_Facet_Value_Insert_Result">
+                <ScalarProperty Name="ID_Out" ColumnName="ID_Out" />
+                <ScalarProperty Name="Create_Date_Out" ColumnName="Create_Date_Out" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Facet_Value_Update" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Facet_Value_Update" />
+          <FunctionImportMapping FunctionImportName="sp_Media_Item_Delete" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Media_Item_Delete" />
+          <FunctionImportMapping FunctionImportName="sp_Media_Item_Insert" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Media_Item_Insert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FamilieLaissBackend.Data.Model.sp_Media_Item_Insert_Result">
+                <ScalarProperty Name="ID_Out" ColumnName="ID_Out" />
+                <ScalarProperty Name="Create_Date_Out" ColumnName="Create_Date_Out" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Media_Item_Update" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Media_Item_Update" />
+          <FunctionImportMapping FunctionImportName="sp_MediaFacet_Delete" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_MediaFacet_Delete" />
+          <FunctionImportMapping FunctionImportName="sp_MediaFacet_Insert" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_MediaFacet_Insert" />
+          <FunctionImportMapping FunctionImportName="sp_MediaFacet_Update" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_MediaFacet_Update" />
+          <FunctionImportMapping FunctionImportName="sp_Upload_Picture_Delete" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Upload_Picture_Delete" />
+          <FunctionImportMapping FunctionImportName="sp_Upload_Picture_Insert" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Upload_Picture_Insert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FamilieLaissBackend.Data.Model.sp_Upload_Picture_Insert_Result">
+                <ScalarProperty Name="ID_Out" ColumnName="ID_Out" />
+                <ScalarProperty Name="Upload_Date_Out" ColumnName="Upload_Date_Out" />
+                <ScalarProperty Name="Status_Out" ColumnName="Status_Out" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Upload_Picture_Update" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Upload_Picture_Update" />
+          <FunctionImportMapping FunctionImportName="sp_Upload_Video_Delete" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Upload_Video_Delete" />
+          <FunctionImportMapping FunctionImportName="sp_Upload_Video_Insert" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Upload_Video_Insert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FamilieLaissBackend.Data.Model.sp_Upload_Video_Insert_Result">
+                <ScalarProperty Name="ID_Out" ColumnName="ID_Out" />
+                <ScalarProperty Name="Upload_Date_Out" ColumnName="Upload_Date_Out" />
+                <ScalarProperty Name="Status_Out" ColumnName="Status_Out" />
+                <ScalarProperty Name="Width_Out" ColumnName="Width_Out" />
+                <ScalarProperty Name="Height_Out" ColumnName="Height_Out" />
+                <ScalarProperty Name="Hour_Out" ColumnName="Hour_Out" />
+                <ScalarProperty Name="Minute_Out" ColumnName="Minute_Out" />
+                <ScalarProperty Name="Second_Out" ColumnName="Second_Out" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Upload_Video_Update" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Upload_Video_Update" />
+          <FunctionImportMapping FunctionImportName="sp_UploadPictureImageProperty_Delete" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_UploadPictureImageProperty_Delete" />
+          <FunctionImportMapping FunctionImportName="sp_UploadPictureImageProperty_Insert" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_UploadPictureImageProperty_Insert" />
+          <FunctionImportMapping FunctionImportName="sp_UploadPictureImageProperty_Update" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_UploadPictureImageProperty_Update" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
