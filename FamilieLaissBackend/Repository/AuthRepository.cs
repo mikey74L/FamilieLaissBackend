@@ -1,5 +1,4 @@
-﻿using Devart.Data.Oracle;
-using FamilieLaissBackend.Context;
+﻿using FamilieLaissBackend.Context;
 using FamilieLaissBackend.Manager;
 using FamilieLaissBackend.Model;
 using Microsoft.AspNet.Identity;
@@ -18,15 +17,11 @@ namespace FamilieLaissBackend.Repository
         #region Private Members
         private FamilieLaissIdentityContext _ctx;
         private UserManager<IdentityUserExtended> _userManager;
-        private OracleMonitor _Monitor = new OracleMonitor();
         #endregion
 
         #region C'tor
         public AuthRepository()
         {
-            //Der DB-Monitor von Devart ist aktiv
-            _Monitor.IsActive = true;
-
             //Ermitteln des Identity-DB-Kontext aus dem aktuellen OWIN-Kontext
             _ctx = HttpContext.Current.GetOwinContext().Get<FamilieLaissIdentityContext>();
 

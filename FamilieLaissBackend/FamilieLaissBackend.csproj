@@ -56,9 +56,6 @@
     <Reference Include="Breeze.WebApi2, Version=1.6.0.0, Culture=neutral, PublicKeyToken=f6085f1a45e2ac59, processorArchitecture=MSIL">
       <HintPath>..\packages\Breeze.Server.WebApi2.1.6.0\lib\Breeze.WebApi2.dll</HintPath>
     </Reference>
-    <Reference Include="Devart.Data, Version=5.0.1624.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL" />
-    <Reference Include="Devart.Data.Oracle, Version=9.2.200.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL" />
-    <Reference Include="Devart.Data.Oracle.Entity.EF6, Version=9.2.200.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.7\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
     </Reference>
@@ -241,6 +238,7 @@
     <Compile Include="App_Start\OAuthConfig.cs" />
     <Compile Include="App_Start\WebAPIConfig.cs" />
     <Compile Include="Context\FamilieLaissIdentityContext.cs" />
+    <Compile Include="Controllers\FamilieLaissController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -283,7 +281,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
