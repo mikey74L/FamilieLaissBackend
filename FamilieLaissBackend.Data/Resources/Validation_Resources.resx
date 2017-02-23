@@ -118,18 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Facet_Group_Duplicated_Value_English" xml:space="preserve">
-    <value />
+    <value>The name (english) already exists</value>
   </data>
   <data name="Facet_Group_Duplicated_Value_German" xml:space="preserve">
-    <value />
+    <value>The name (german) already exists</value>
   </data>
   <data name="Facet_Value_Duplicated_Value_English" xml:space="preserve">
-    <value />
+    <value>The name (english) already exists</value>
   </data>
   <data name="Facet_Value_Duplicated_Value_German" xml:space="preserve">
-    <value />
+    <value>The name (german) already exists</value>
   </data>
-  <data name="Media_Group_Duplicated_Value_Name" xml:space="preserve">
-    <value />
+  <data name="Media_Group_Duplicated_Value_English" xml:space="preserve">
+    <value>The name (english) already exists</value>
+  </data>
+  <data name="Media_Group_Duplicated_Value_German" xml:space="preserve">
+    <value>The name (german) already exists</value>
   </data>
 </root>

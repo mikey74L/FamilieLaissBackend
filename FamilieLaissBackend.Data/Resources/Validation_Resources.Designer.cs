@@ -61,7 +61,7 @@ namespace FamilieLaissBackend.Data.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die The name (english) already exists ähnelt.
         /// </summary>
         public static string Facet_Group_Duplicated_Value_English {
             get {
@@ -70,7 +70,7 @@ namespace FamilieLaissBackend.Data.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die The name (german) already exists ähnelt.
         /// </summary>
         public static string Facet_Group_Duplicated_Value_German {
             get {
@@ -79,7 +79,7 @@ namespace FamilieLaissBackend.Data.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die The name (english) already exists ähnelt.
         /// </summary>
         public static string Facet_Value_Duplicated_Value_English {
             get {
@@ -88,7 +88,7 @@ namespace FamilieLaissBackend.Data.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die The name (german) already exists ähnelt.
         /// </summary>
         public static string Facet_Value_Duplicated_Value_German {
             get {
@@ -97,11 +97,20 @@ namespace FamilieLaissBackend.Data.Resources {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die The name (english) already exists ähnelt.
         /// </summary>
-        public static string Media_Group_Duplicated_Value_Name {
+        public static string Media_Group_Duplicated_Value_English {
             get {
-                return ResourceManager.GetString("Media_Group_Duplicated_Value_Name", resourceCulture);
+                return ResourceManager.GetString("Media_Group_Duplicated_Value_English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The name (german) already exists ähnelt.
+        /// </summary>
+        public static string Media_Group_Duplicated_Value_German {
+            get {
+                return ResourceManager.GetString("Media_Group_Duplicated_Value_German", resourceCulture);
             }
         }
     }
