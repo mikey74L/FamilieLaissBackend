@@ -81,7 +81,7 @@ namespace FamilieLaissBackend.Data.Validator
                         }
                         if (Count > 0) errors.Add(new EFEntityError(facetGroup, "DuplicateGermanName", Validation_Resources.Facet_Group_Duplicated_Value_German, "NameGerman"));
 
-                        //Überprüfen bo der englische Name schon existiert
+                        //Überprüfen ob der englische Name schon existiert
                         Count = 0;
                         if (facetGroupConverted.EntityState == EntityState.Added)
                         {
@@ -110,7 +110,7 @@ namespace FamilieLaissBackend.Data.Validator
                         //Setzen von Standardwerten für die Facet-Groups
                         if (facetGroupConverted.EntityState == EntityState.Added)
                         {
-                            entityFacetGroup.FacetValueType = 2;
+                            entityFacetGroup.FacetValueType = 1;
                             entityFacetGroup.CanDelete = true;
                         }
                     }
@@ -212,7 +212,7 @@ namespace FamilieLaissBackend.Data.Validator
                         //Setzen der Standardwerte für die Media-Group
                         if (mediaGroupConverted.EntityState == EntityState.Added)
                         {
-                            entityMediaGroup.DDL_Create = DateTime.Now;
+                            entityMediaGroup.DDL_Create = DateTimeOffset.Now;
                         }
                     }
                 }

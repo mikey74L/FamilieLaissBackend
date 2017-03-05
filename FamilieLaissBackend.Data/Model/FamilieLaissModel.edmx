@@ -14,7 +14,7 @@
           <Property Name="Name_German" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="Name_English" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="Can_Delete" Type="bit" Nullable="false" />
-          <Property Name="Facet_Value_Type" Type="int" Nullable="false" />
+          <Property Name="Facet_Value_Type" Type="tinyint" Nullable="false" />
           <Property Name="DDL_Create" Type="datetimeoffset" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="Facet_Value">
@@ -186,6 +186,8 @@
           <Parameter Name="p_Type" Type="tinyint" Mode="In" />
           <Parameter Name="p_Name_German" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="p_Name_English" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="p_Can_Delete" Type="bit" Mode="In" />
+          <Parameter Name="p_Facet_Value_Type" Type="tinyint" Mode="In" />
         </Function>
         <Function Name="sp_Facet_Group_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="p_ID" Type="bigint" Mode="In" />
@@ -367,6 +369,8 @@
             <Parameter Name="p_Type" Mode="In" Type="Byte" />
             <Parameter Name="p_Name_German" Mode="In" Type="String" />
             <Parameter Name="p_Name_English" Mode="In" Type="String" />
+            <Parameter Name="p_Can_Delete" Mode="In" Type="Boolean" />
+            <Parameter Name="p_Facet_Value_Type" Mode="In" Type="Byte" />
           </FunctionImport>
           <FunctionImport Name="sp_Facet_Group_Update">
             <Parameter Name="p_ID" Mode="In" Type="Int64" />
@@ -408,7 +412,7 @@
             <End Role="Upload_Picture_Image_Property" EntitySet="UploadPictureImageProperties" />
           </AssociationSet>
           <FunctionImport Name="sp_Facet_Value_Delete">
-            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          <Parameter Name="p_ID" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="sp_Facet_Value_Insert" ReturnType="Collection(FamilieLaissBackend.Data.Model.sp_Facet_Value_Insert_Result)">
             <Parameter Name="p_ID_Group" Mode="In" Type="Int64" />
@@ -421,7 +425,7 @@
             <Parameter Name="p_Name_English" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Media_Item_Delete">
-            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          <Parameter Name="p_ID" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="sp_Media_Item_Insert" ReturnType="Collection(FamilieLaissBackend.Data.Model.sp_Media_Item_Insert_Result)">
             <Parameter Name="p_ID_Group" Mode="In" Type="Int64" />
@@ -443,17 +447,17 @@
             <Parameter Name="p_Only_Family" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="sp_MediaFacet_Delete">
-            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          <Parameter Name="p_ID" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="sp_MediaFacet_Insert" ReturnType="Collection(Int64)">
             <Parameter Name="p_Media_ID" Mode="In" Type="Int64" />
             <Parameter Name="p_FacetValue" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="sp_MediaFacet_Update">
-            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          <Parameter Name="p_ID" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="sp_Upload_Picture_Delete">
-            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          <Parameter Name="p_ID" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="sp_Upload_Picture_Insert" ReturnType="Collection(FamilieLaissBackend.Data.Model.sp_Upload_Picture_Insert_Result)">
             <Parameter Name="p_Name" Mode="In" Type="String" />
@@ -461,19 +465,19 @@
             <Parameter Name="p_Width" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_Upload_Picture_Update" ReturnType="Collection(Int32)">
-            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          <Parameter Name="p_ID" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="sp_Upload_Video_Delete">
-            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          <Parameter Name="p_ID" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="sp_Upload_Video_Insert" ReturnType="Collection(FamilieLaissBackend.Data.Model.sp_Upload_Video_Insert_Result)">
-            <Parameter Name="p_Name" Mode="In" Type="String" />
+          <Parameter Name="p_Name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Upload_Video_Update" ReturnType="Collection(Int32)">
-            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          <Parameter Name="p_ID" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="sp_UploadPictureImageProperty_Delete">
-            <Parameter Name="p_ID" Mode="In" Type="Int64" />
+          <Parameter Name="p_ID" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="sp_UploadPictureImageProperty_Insert">
             <Parameter Name="p_ID" Mode="In" Type="Int64" />
@@ -497,7 +501,7 @@
           <Property Name="NameGerman" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="NameEnglish" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="CanDelete" Type="Boolean" Nullable="false" />
-          <Property Name="FacetValueType" Type="Int32" Nullable="false" />
+          <Property Name="FacetValueType" Type="Byte" Nullable="false" />
           <Property Name="DDL_Create" Type="DateTimeOffset" Nullable="false" Precision="7" />
           <NavigationProperty Name="Values" Relationship="FamilieLaissBackend.Data.Model.FK_Facet_Value_Facet_Group" FromRole="Facet_Group" ToRole="Facet_Value" />
         </EntityType>
@@ -767,12 +771,12 @@
                   <ScalarProperty Name="ID" ParameterName="p_ID" Version="Current" />
                 </UpdateFunction>
                 <InsertFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Facet_Group_Insert" >
+                  <ScalarProperty Name="FacetValueType" ParameterName="p_Facet_Value_Type" />
+                  <ScalarProperty Name="CanDelete" ParameterName="p_Can_Delete" />
                   <ScalarProperty Name="NameEnglish" ParameterName="p_Name_English" />
                   <ScalarProperty Name="NameGerman" ParameterName="p_Name_German" />
                   <ScalarProperty Name="Type" ParameterName="p_Type" />
                   <ResultBinding Name="ID" ColumnName="ID_Out" />
-                  <ResultBinding Name="CanDelete" ColumnName="Can_Delete_Out" />
-                  <ResultBinding Name="FacetValueType" ColumnName="Facet_Value_Type_Out" />
                   <ResultBinding Name="DDL_Create" ColumnName="Create_Date_Out" />
                 </InsertFunction>
               </ModificationFunctionMapping>

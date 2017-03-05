@@ -104,7 +104,7 @@ namespace FamilieLaissBackend.Data.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Facet_Group_Delete", p_IDParameter);
         }
     
-        public virtual ObjectResult<sp_Facet_Group_Insert_Result> sp_Facet_Group_Insert(Nullable<byte> p_Type, string p_Name_German, string p_Name_English)
+        public virtual ObjectResult<sp_Facet_Group_Insert_Result> sp_Facet_Group_Insert(Nullable<byte> p_Type, string p_Name_German, string p_Name_English, Nullable<bool> p_Can_Delete, Nullable<byte> p_Facet_Value_Type)
         {
             var p_TypeParameter = p_Type.HasValue ?
                 new ObjectParameter("p_Type", p_Type) :
@@ -118,7 +118,15 @@ namespace FamilieLaissBackend.Data.Model
                 new ObjectParameter("p_Name_English", p_Name_English) :
                 new ObjectParameter("p_Name_English", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Facet_Group_Insert_Result>("sp_Facet_Group_Insert", p_TypeParameter, p_Name_GermanParameter, p_Name_EnglishParameter);
+            var p_Can_DeleteParameter = p_Can_Delete.HasValue ?
+                new ObjectParameter("p_Can_Delete", p_Can_Delete) :
+                new ObjectParameter("p_Can_Delete", typeof(bool));
+    
+            var p_Facet_Value_TypeParameter = p_Facet_Value_Type.HasValue ?
+                new ObjectParameter("p_Facet_Value_Type", p_Facet_Value_Type) :
+                new ObjectParameter("p_Facet_Value_Type", typeof(byte));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Facet_Group_Insert_Result>("sp_Facet_Group_Insert", p_TypeParameter, p_Name_GermanParameter, p_Name_EnglishParameter, p_Can_DeleteParameter, p_Facet_Value_TypeParameter);
         }
     
         public virtual int sp_Facet_Group_Update(Nullable<long> p_ID, string p_Name_German, string p_Name_English)

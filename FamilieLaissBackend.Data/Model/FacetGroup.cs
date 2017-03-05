@@ -25,7 +25,7 @@ namespace FamilieLaissBackend.Data.Model
         public string NameGerman { get; set; }
         public string NameEnglish { get; set; }
         public bool CanDelete { get; set; }
-        public int FacetValueType { get; set; }
+        public byte FacetValueType { get; set; }
         public System.DateTimeOffset DDL_Create { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
