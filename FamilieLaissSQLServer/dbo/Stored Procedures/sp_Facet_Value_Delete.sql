@@ -23,14 +23,14 @@ BEGIN
 
     -- Löschen aller Assignments über einen Cursor
 	OPEN v_Cursor_Assignments;
-	FETCH NEXT INTO @v_ID_Assignment;
+	FETCH NEXT FROM v_Cursor_Assignments INTO @v_ID_Assignment;
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
 	    -- Löschen des Datensatzes
 		exec sp_MediaFacet_Delete @v_ID_Assignment;
 
 	    -- Nächsten Datensatz aus dem Cursor ermitteln
-  	    FETCH NEXT INTO @v_ID_Assignment;
+  	    FETCH NEXT FROM v_Cursor_Assignments INTO @v_ID_Assignment;
 	END
 	CLOSE v_Cursor_Assignments;
 

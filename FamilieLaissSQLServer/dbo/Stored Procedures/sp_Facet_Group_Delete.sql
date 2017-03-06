@@ -23,14 +23,14 @@ BEGIN
 
     -- Löschen aller Kategoriewerte über einen Cursor
 	OPEN v_Cursor_Values;
-	FETCH NEXT INTO @v_ID_Value;
+	FETCH NEXT FROM v_Cursor_Values INTO @v_ID_Value;
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
 	    -- Löschen des Datensatzes
 		exec sp_Facet_Value_Delete @v_ID_Value;
 
 	    -- Nächsten Datensatz aus dem Cursor ermitteln
- 	    FETCH NEXT INTO @v_ID_Value;
+ 	    FETCH NEXT FROM v_Cursor_Values INTO @v_ID_Value;
 	END
 	CLOSE v_Cursor_Values;
 

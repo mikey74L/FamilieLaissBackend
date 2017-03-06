@@ -23,14 +23,14 @@ BEGIN
 
     -- Löschen aller Kategoriewerte über einen Cursor
 	OPEN v_Cursor_Media_Items;
-	FETCH NEXT INTO @v_ID_Item;
+	FETCH NEXT FROM v_Cursor_Media_Items INTO @v_ID_Item;
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
 	    -- Löschen des Datensatzes
 		exec sp_Media_Item_Delete @v_ID_Item;
 
 	    -- Nächsten Datensatz aus dem Cursor ermitteln
-  	    FETCH NEXT INTO @v_ID_Item;
+    	FETCH NEXT FROM v_Cursor_Media_Items INTO @v_ID_Item;
 	END
 	CLOSE v_Cursor_Media_Items;
 
