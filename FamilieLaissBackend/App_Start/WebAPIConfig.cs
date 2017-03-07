@@ -1,6 +1,8 @@
 ﻿using FamilieLaissBackend.Data.Interface;
 using FamilieLaissBackend.Data.UnitOfWork;
 using FamilieLaissBackend.Data.Validator;
+using FamilieLaissBackend.Interface;
+using FamilieLaissBackend.Repository;
 using Newtonsoft.Json.Serialization;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
@@ -21,6 +23,7 @@ public static class WebApiConfig
         //Die benötigten Typen registrieren
         container.Register<iUnitOfWorkData, UnitOfWorkData>(Lifestyle.Scoped);
         container.Register<iBreezeValidator, BreezeValidator>(Lifestyle.Scoped);
+        container.Register<iStorageOperations, StorageRepository>(Lifestyle.Scoped);
         //container.Register<iMessageRepository, MessageRepository>(Lifestyle.Scoped);
 
         //Die Web-API-Controller registrieren
