@@ -260,6 +260,7 @@
           <Parameter Name="p_ID" Type="bigint" Mode="In" />
         </Function>
         <Function Name="sp_Upload_Picture_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_ID" Type="bigint" Mode="In" />
           <Parameter Name="p_Name" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="p_Height" Type="int" Mode="In" />
           <Parameter Name="p_Width" Type="int" Mode="In" />
@@ -460,6 +461,7 @@
           <Parameter Name="p_ID" Mode="In" Type="Int64" />
           </FunctionImport>
           <FunctionImport Name="sp_Upload_Picture_Insert" ReturnType="Collection(FamilieLaissBackend.Data.Model.sp_Upload_Picture_Insert_Result)">
+            <Parameter Name="p_ID" Mode="In" Type="Int64" />
             <Parameter Name="p_Name" Mode="In" Type="String" />
             <Parameter Name="p_Height" Mode="In" Type="Int32" />
             <Parameter Name="p_Width" Mode="In" Type="Int32" />
@@ -936,10 +938,10 @@
                   <ScalarProperty Name="ID" ParameterName="p_ID" Version="Current" />
                 </UpdateFunction>
                 <InsertFunction FunctionName="FamilieLaissBackend.Data.Model.Store.sp_Upload_Picture_Insert" >
+                  <ScalarProperty Name="ID" ParameterName="p_ID" />
                   <ScalarProperty Name="WidthOriginal" ParameterName="p_Width" />
                   <ScalarProperty Name="HeightOriginal" ParameterName="p_Height" />
                   <ScalarProperty Name="NameOriginal" ParameterName="p_Name" />
-                  <ResultBinding Name="ID" ColumnName="ID_Out" />
                   <ResultBinding Name="UploadDate" ColumnName="Upload_Date_Out" />
                   <ResultBinding Name="Status" ColumnName="Status_Out" />
                 </InsertFunction>

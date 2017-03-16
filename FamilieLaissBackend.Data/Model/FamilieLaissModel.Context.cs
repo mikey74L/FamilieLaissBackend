@@ -308,8 +308,12 @@ namespace FamilieLaissBackend.Data.Model
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Upload_Picture_Delete", p_IDParameter);
         }
     
-        public virtual ObjectResult<sp_Upload_Picture_Insert_Result> sp_Upload_Picture_Insert(string p_Name, Nullable<int> p_Height, Nullable<int> p_Width)
+        public virtual ObjectResult<sp_Upload_Picture_Insert_Result> sp_Upload_Picture_Insert(Nullable<long> p_ID, string p_Name, Nullable<int> p_Height, Nullable<int> p_Width)
         {
+            var p_IDParameter = p_ID.HasValue ?
+                new ObjectParameter("p_ID", p_ID) :
+                new ObjectParameter("p_ID", typeof(long));
+    
             var p_NameParameter = p_Name != null ?
                 new ObjectParameter("p_Name", p_Name) :
                 new ObjectParameter("p_Name", typeof(string));
@@ -322,7 +326,7 @@ namespace FamilieLaissBackend.Data.Model
                 new ObjectParameter("p_Width", p_Width) :
                 new ObjectParameter("p_Width", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Upload_Picture_Insert_Result>("sp_Upload_Picture_Insert", p_NameParameter, p_HeightParameter, p_WidthParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Upload_Picture_Insert_Result>("sp_Upload_Picture_Insert", p_IDParameter, p_NameParameter, p_HeightParameter, p_WidthParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> sp_Upload_Picture_Update(Nullable<long> p_ID)

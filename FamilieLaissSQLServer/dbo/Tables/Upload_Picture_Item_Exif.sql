@@ -1,0 +1,26 @@
+﻿CREATE TABLE [dbo].[Upload_Picture_Item_Exif] (
+    [ID]                 BIGINT             NOT NULL,
+    [Make]               NVARCHAR (300)     NULL,
+    [Model]              NVARCHAR (300)     NULL,
+    [Resolution_X]       FLOAT (53)         NULL,
+    [Resolution_Y]       FLOAT (53)         NULL,
+    [Resolution_Unit]    NVARCHAR (50)      NULL,
+    [Orientation]        SMALLINT           NULL,
+    [DDL_Recorded]       DATETIMEOFFSET (7) NULL,
+    [Exposure_Time]      FLOAT (53)         NULL,
+    [Exposure_Programm]  SMALLINT           NULL,
+    [Exposure_Mode]      SMALLINT           NULL,
+    [F_Number]           FLOAT (53)         NULL,
+    [ISO_Sensitivity]    INT                NULL,
+    [Shutter_Speed]      FLOAT (53)         NULL,
+    [Metering_Mode]      SMALLINT           NULL,
+    [Flash_Mode]         INT                NULL,
+    [Focal_Length]       FLOAT (53)         NULL,
+    [Sensing_Mode]       SMALLINT           NULL,
+    [White_Balance_Mode] SMALLINT           NULL,
+    [Sharpness]          SMALLINT           NULL,
+    [GPS_Location]       [sys].[geography]  NULL,
+    PRIMARY KEY CLUSTERED ([ID] ASC),
+    CONSTRAINT [FK_Upload_Picture_Item_Exif_UploadPicture] FOREIGN KEY ([ID]) REFERENCES [dbo].[Upload_Picture_Item] ([ID])
+);
+

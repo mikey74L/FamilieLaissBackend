@@ -102,5 +102,8 @@
     <Build Include="dbo\Sequences\SEQ_Media_Group.sql" />
     <Build Include="dbo\Sequences\SEQ_Facet_Value.sql" />
     <Build Include="dbo\Sequences\SEQ_Facet_Group.sql" />
+    <Build Include="dbo\Tables\Upload_Picture_Item_Exif.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Delete_Exif_Data.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Add_Exif_Data.sql" />
   </ItemGroup>
 </Project>
