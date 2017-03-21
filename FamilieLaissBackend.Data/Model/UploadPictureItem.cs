@@ -17,7 +17,7 @@ namespace FamilieLaissBackend.Data.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UploadPictureItem()
         {
-            this.MediaItem = new HashSet<MediaItem>();
+            this.MediaItems = new HashSet<MediaItem>();
         }
     
         public long ID { get; set; }
@@ -28,7 +28,7 @@ namespace FamilieLaissBackend.Data.Model
         public byte Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MediaItem> MediaItem { get; set; }
+        public virtual ICollection<MediaItem> MediaItems { get; set; }
         public virtual UploadPictureImageProperty ImageProperty { get; set; }
     }
 }

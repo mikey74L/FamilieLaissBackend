@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FamilieLaissAzureOperations.Interface;
 
 namespace FamilieLaissBackend.Data.Validator
 {
@@ -15,12 +16,17 @@ namespace FamilieLaissBackend.Data.Validator
     {
         #region Private Members
         private FamilieLaissEntities _DatabaseContext;
+        private iAzureStorageOperations _StorageOperations;
         #endregion
 
         #region C'tor
-        public BreezeValidator()
+        public BreezeValidator(iAzureStorageOperations storageOperations)
         {
+            //Erstellen eines neuen Datenbankcontext
             _DatabaseContext = new FamilieLaissEntities();
+
+            //Übernehmen der Storage-Operations
+            _StorageOperations = storageOperations;
         }
         #endregion
 
@@ -226,6 +232,36 @@ namespace FamilieLaissBackend.Data.Validator
 
             //Funktionsergebnis
             return saveMap;
+        }
+        #endregion
+
+        #region Breeze Methods for Post Save Operations
+        public void AfterSaveEntities(Dictionary<Type, List<EntityInfo>> saveMap, List<KeyMapping> keyMappings)
+        {
+            //Deklarationen
+            List<EntityInfo> uploadPictureItemInfos;
+            EFEntityInfo uploadPictureItemConverted;
+            UploadPictureItem entityUploadPictureItem;
+
+            //Überprüfen ob Upload-Picture-Items enthalten waren
+            if (saveMap.TryGetValue(typeof(UploadPictureItem), out uploadPictureItemInfos))
+            {
+                foreach (var uploadPictureItem in uploadPictureItemInfos)
+                {
+                    uploadPictureItemConverted = (EFEntityInfo)uploadPictureItem;
+                    if (uploadPictureItemConverted.EntityState == EntityState.Deleted || uploadPictureItemConverted.EntityState == EntityState.Detached)
+                    {
+                        //Ermitteln der Entity
+                        entityUploadPictureItem = (UploadPictureItem)uploadPictureItemConverted.Entity;
+
+                        //Ermitteln der Extension
+                        string Extension = System.IO.Path.GetExtension(entityUploadPictureItem.NameOriginal);
+
+                        //Löschen des Upload-Pictures aus dem Azure Blob-Storage
+                        _StorageOperations.DeleteUploadPicture(entityUploadPictureItem.ID.ToString() + Extension).Wait();
+                    }
+                }
+            }
         }
         #endregion
     }

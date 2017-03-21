@@ -29,7 +29,8 @@ namespace FamilieLaissBackend.Data.UnitOfWork
             contextProvider = new EFContextProvider<FamilieLaissEntities>();
             contextProvider.BeforeSaveEntitiesDelegate = breezevalidator.BeforeSaveEntities;
             contextProvider.BeforeSaveEntityDelegate = breezevalidator.BeforeSaveEntity;
-
+            contextProvider.AfterSaveEntitiesDelegate = breezevalidator.AfterSaveEntities;
+          
             //Erstellen der Repositories
             MediaGroupRepository = new RepositoryData<MediaGroup>(contextProvider.Context);
             FacetGroupRepository = new RepositoryData<FacetGroup>(contextProvider.Context);

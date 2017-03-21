@@ -11,5 +11,6 @@ namespace FamilieLaissBackend.Data.Interface
     {
         bool BeforeSaveEntity(EntityInfo entityInfo);
         Dictionary<Type, List<EntityInfo>> BeforeSaveEntities(Dictionary<Type, List<EntityInfo>> saveMap);
+        void AfterSaveEntities(Dictionary<Type, List<EntityInfo>> saveMap, List<KeyMapping> keyMappings);
     }
 }

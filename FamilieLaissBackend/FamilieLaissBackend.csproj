@@ -264,7 +264,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Interface\iStorageOperations.cs" />
     <Compile Include="Manager\FamilieLaissUserManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\IdentityUserExtended.cs" />
@@ -278,7 +277,6 @@
     </Compile>
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Repository\AuthRepository.cs" />
-    <Compile Include="Repository\StorageRepository.cs" />
     <Compile Include="Resources\LoginError_Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -305,11 +303,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Interface\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FamilieLaissAzureOperations\FamilieLaissAzureOperations.csproj">
+      <Project>{e6818ce5-1529-4b17-8140-fa38f1de9be6}</Project>
+      <Name>FamilieLaissAzureOperations</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FamilieLaissBackend.Data\FamilieLaissBackend.Data.csproj">
       <Project>{28caad24-afa4-4d61-85b8-f2a86b631463}</Project>
       <Name>FamilieLaissBackend.Data</Name>

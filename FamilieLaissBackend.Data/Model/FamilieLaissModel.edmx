@@ -554,8 +554,8 @@
           <Property Name="ID_UploadVideo" Type="Int64" />
           <NavigationProperty Name="MediaGroup" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Group" FromRole="Media_Item" ToRole="MediaGroup" />
           <NavigationProperty Name="MediaItemFacets" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Facet_Media_Item" FromRole="Media_Item" ToRole="Media_Item_Facet" />
-          <NavigationProperty Name="UploadPictures" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Picture" FromRole="Media_Item" ToRole="Upload_Picture_Item" />
-          <NavigationProperty Name="UploadVideoItems" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Video" FromRole="Media_Item" ToRole="Upload_Video_Item" />
+          <NavigationProperty Name="UploadPicture" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Picture" FromRole="Media_Item" ToRole="Upload_Picture_Item" />
+          <NavigationProperty Name="UploadVideoItem" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Video" FromRole="Media_Item" ToRole="Upload_Video_Item" />
         </EntityType>
         <EntityType Name="MediaItemFacet">
           <Key>
@@ -585,7 +585,7 @@
           <Property Name="HeightOriginal" Type="Int32" Nullable="false" />
           <Property Name="WidthOriginal" Type="Int32" Nullable="false" />
           <Property Name="Status" Type="Byte" Nullable="false" />
-          <NavigationProperty Name="MediaItem" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Picture" FromRole="Upload_Picture_Item" ToRole="Media_Item" />
+          <NavigationProperty Name="MediaItems" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Picture" FromRole="Upload_Picture_Item" ToRole="Media_Item" />
           <NavigationProperty Name="ImageProperty" Relationship="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Image_Property" FromRole="Upload_Picture_Item" ToRole="Upload_Picture_Image_Property" />
         </EntityType>
         <EntityType Name="UploadVideoItem">
@@ -601,7 +601,7 @@
           <Property Name="DurationHour" Type="Int32" Nullable="false" />
           <Property Name="DurationMinute" Type="Int32" Nullable="false" />
           <Property Name="DurationSecond" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="MediaItem" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Video" FromRole="Upload_Video_Item" ToRole="Media_Item" />
+          <NavigationProperty Name="MediaItems" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Video" FromRole="Upload_Video_Item" ToRole="Media_Item" />
         </EntityType>
         <Association Name="FK_Media_Item_Facet_Facet_Value">
           <End Type="FamilieLaissBackend.Data.Model.FacetValue" Role="FacetValue" Multiplicity="1" />

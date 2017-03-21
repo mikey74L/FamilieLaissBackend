@@ -1,20 +1,20 @@
-﻿using FamilieLaissBackend.Interface;
+﻿using FamilieLaissAzureOperations.Interface;
+using FamilieLaissSharedTypes.Model;
 using Microsoft.Azure;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Queue;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
-using System.Web;
-using FamilieLaissSharedTypes.Model;
+using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
-using Microsoft.WindowsAzure.Storage.Queue;
 
-namespace FamilieLaissBackend.Repository
+namespace FamilieLaissAzureOperations.Repository
 {
-    public class StorageRepository : iStorageOperations
+    public class AzureStorageRepository : iAzureStorageOperations
     {
         #region Private Methods
         /// <summary>
@@ -55,7 +55,7 @@ namespace FamilieLaissBackend.Repository
 
             //Den Blob-Container instanziieren
             CloudBlobContainer container;
-                switch (uploadType)
+            switch (uploadType)
             {
                 case 1:
                     //Es handelt sich um ein Upload-Picture
@@ -70,7 +70,7 @@ namespace FamilieLaissBackend.Repository
                     container = blobClient.GetContainerReference("upload-picture");
                     break;
             }
-                
+
             //Ermitteln der SAS (Shared Access Signature) für den Blob-Container mit Hilfe der Hilfs-Methode
             return GetSaSForBlobContainer(container, SharedAccessBlobPermissions.Write, 12);
         }
@@ -144,6 +144,29 @@ namespace FamilieLaissBackend.Repository
 
             //Hinzufügen der Nachricht zur Warteschlange
             await queue.AddMessageAsync(message);
+        }
+
+        /// <summary>
+        /// Löscht ein Upload-Picture aus dem Azure-Blob-Storage
+        /// </summary>
+        /// <param name="filename">Der Dateiname des Upload-Picture das gelöscht werden soll</param>
+        public async Task DeleteUploadPicture(string filename)
+        {
+            //Den Storage-Account instanziieren
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
+                CloudConfigurationManager.GetSetting("StorageConnectionLibrary"));
+
+            //Den Blob-Client instanziieren
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+
+            //Den Container instanziieren
+            CloudBlobContainer container = blobClient.GetContainerReference("upload-picture");
+
+            //Den Blob ermitteln
+            ICloudBlob blob = await container.GetBlobReferenceFromServerAsync(filename);
+
+            //Den Blob löschen
+            await blob.DeleteAsync();
         }
         #endregion
     }

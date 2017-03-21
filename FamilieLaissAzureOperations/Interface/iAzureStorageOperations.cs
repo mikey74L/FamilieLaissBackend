@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FamilieLaissBackend.Interface
+namespace FamilieLaissAzureOperations.Interface
 {
-    public interface iStorageOperations
+    public interface iAzureStorageOperations
     {
         /// <summary>
         /// Die SAS-URL (Shared Access Signature URL) für den Blob-Container ermitteln
@@ -28,5 +28,11 @@ namespace FamilieLaissBackend.Interface
         /// </summary>
         /// <param name="uploadInfo">Enthält die benötigten Informationen für die Message</param>
         Task CreateNewMessageInUploadQueue(NewUploadPictureModel uploadInfo);
+
+        /// <summary>
+        /// Löscht ein Upload-Picture aus dem Azure-Blob-Storage
+        /// </summary>
+        /// <param name="filename">Der Dateiname des Upload-Picture das gelöscht werden soll</param>
+        Task DeleteUploadPicture(string filename);
     }
 }

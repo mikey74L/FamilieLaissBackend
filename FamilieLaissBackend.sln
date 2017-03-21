@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilieLaissWebJob", "Famil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilieLaissSharedTypes", "FamilieLaissSharedTypes\FamilieLaissSharedTypes.csproj", "{A4B1388A-5BD1-468A-BCF9-31A9EF4F7FA0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilieLaissAzureOperations", "FamilieLaissAzureOperations\FamilieLaissAzureOperations.csproj", "{E6818CE5-1529-4B17-8140-FA38F1DE9BE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{A4B1388A-5BD1-468A-BCF9-31A9EF4F7FA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4B1388A-5BD1-468A-BCF9-31A9EF4F7FA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4B1388A-5BD1-468A-BCF9-31A9EF4F7FA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6818CE5-1529-4B17-8140-FA38F1DE9BE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6818CE5-1529-4B17-8140-FA38F1DE9BE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6818CE5-1529-4B17-8140-FA38F1DE9BE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6818CE5-1529-4B17-8140-FA38F1DE9BE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

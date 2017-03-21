@@ -1,5 +1,4 @@
-﻿using FamilieLaissBackend.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -9,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Data.SqlClient;
 using FamilieLaissSharedTypes.Model;
+using FamilieLaissAzureOperations.Interface;
 
 namespace FamilieLaissBackend.Controllers
 {
@@ -16,11 +16,11 @@ namespace FamilieLaissBackend.Controllers
     public class StorageController : ApiController
     {
         #region Private Members
-        private iStorageOperations _StorageOperations;
+        private iAzureStorageOperations _StorageOperations;
         #endregion
 
         #region C'tor
-        public StorageController(iStorageOperations storageOperations)
+        public StorageController(iAzureStorageOperations storageOperations)
         {
             _StorageOperations = storageOperations;
         }

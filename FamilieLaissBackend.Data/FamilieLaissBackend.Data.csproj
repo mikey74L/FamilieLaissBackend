@@ -146,7 +146,12 @@
       <LastGenOutput>Validation_Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\FamilieLaissAzureOperations\FamilieLaissAzureOperations.csproj">
+      <Project>{e6818ce5-1529-4b17-8140-fa38f1de9be6}</Project>
+      <Name>FamilieLaissAzureOperations</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Model\FamilieLaissModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
