@@ -112,13 +112,6 @@ namespace FamilieLaissBackend.Data.Validator
                             }
                         }
                         if (Count > 0) errors.Add(new EFEntityError(facetGroup, "DuplicateEnglishName", Validation_Resources.Facet_Group_Duplicated_Value_English, "NameEnglish"));
-
-                        //Setzen von Standardwerten für die Facet-Groups
-                        if (facetGroupConverted.EntityState == EntityState.Added)
-                        {
-                            entityFacetGroup.FacetValueType = 1;
-                            entityFacetGroup.CanDelete = true;
-                        }
                     }
                 }
             }
