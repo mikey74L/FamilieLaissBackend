@@ -151,6 +151,10 @@
       <Project>{e6818ce5-1529-4b17-8140-fa38f1de9be6}</Project>
       <Name>FamilieLaissAzureOperations</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FamilieLaissSharedTypes\FamilieLaissSharedTypes.csproj">
+      <Project>{A4B1388A-5BD1-468A-BCF9-31A9EF4F7FA0}</Project>
+      <Name>FamilieLaissSharedTypes</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Model\FamilieLaissModel.Context.tt">

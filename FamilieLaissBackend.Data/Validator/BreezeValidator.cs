@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FamilieLaissAzureOperations.Interface;
+using FamilieLaissSharedTypes.Model;
 
 namespace FamilieLaissBackend.Data.Validator
 {
@@ -251,7 +252,7 @@ namespace FamilieLaissBackend.Data.Validator
                         string Extension = System.IO.Path.GetExtension(entityUploadPictureItem.NameOriginal);
 
                         //Löschen des Upload-Pictures aus dem Azure Blob-Storage
-                        _StorageOperations.DeleteUploadPicture(entityUploadPictureItem.ID.ToString() + Extension).Wait();
+                        _StorageOperations.CreateNewMessageInDeleteQueue(new DeleteUploadModel() { UploadType = FamilieLaissSharedTypes.Enum.enUploadType.Picture, ID = 1, BlobName = ""}).Wait();
                     }
                 }
             }

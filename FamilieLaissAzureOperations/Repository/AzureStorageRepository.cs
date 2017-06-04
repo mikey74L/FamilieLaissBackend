@@ -116,7 +116,7 @@ namespace FamilieLaissAzureOperations.Repository
         /// Erstellt eine neue Nachricht in der Upload-Queue welche vom WebJob verarbeitet wird
         /// </summary>
         /// <param name="uploadInfo">Enthält die benötigten Informationen für die Message</param>
-        public async Task CreateNewMessageInUploadQueue(NewUploadPictureModel uploadInfo)
+        public async Task CreateNewMessageInUploadQueue(NewUploadModel uploadInfo)
         {
             //Herstellen einer Verbindung zum Azure-Storage
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
@@ -147,26 +147,37 @@ namespace FamilieLaissAzureOperations.Repository
         }
 
         /// <summary>
-        /// Löscht ein Upload-Picture aus dem Azure-Blob-Storage
+        /// Erstellt eine neue Nachricht für das Löschen eines Upload-Picture
         /// </summary>
-        /// <param name="filename">Der Dateiname des Upload-Picture das gelöscht werden soll</param>
-        public async Task DeleteUploadPicture(string filename)
+        /// <param name="deleteInfo">Enthält die benötigten Informationen für die Message</param>
+        public async Task CreateNewMessageInDeleteQueue(DeleteUploadModel deleteInfo)
         {
-            //Den Storage-Account instanziieren
+            //Herstellen einer Verbindung zum Azure-Storage
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(
                 CloudConfigurationManager.GetSetting("StorageConnectionLibrary"));
 
-            //Den Blob-Client instanziieren
-            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            //Erstellen des Clients für die Warteschlange
+            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
 
-            //Den Container instanziieren
-            CloudBlobContainer container = blobClient.GetContainerReference("upload-picture");
+            //Erstellen des Zugriffobjektes für die Warteschlange
+            CloudQueue queue;
+            if (deleteInfo.UploadType == FamilieLaissSharedTypes.Enum.enUploadType.Picture)
+            {
+                queue = queueClient.GetQueueReference("delete-upload-picture");
+            }
+            else
+            {
+                queue = queueClient.GetQueueReference("delete-upload-video");
+            }
 
-            //Den Blob ermitteln
-            ICloudBlob blob = await container.GetBlobReferenceFromServerAsync(filename);
+            //Erstellen der Warteschlange falls diese noch nicht existiert
+            await queue.CreateIfNotExistsAsync();
 
-            //Den Blob löschen
-            await blob.DeleteAsync();
+            //Erstellen einer neuen Nachricht
+            CloudQueueMessage message = new CloudQueueMessage(Newtonsoft.Json.JsonConvert.SerializeObject(deleteInfo));
+
+            //Hinzufügen der Nachricht zur Warteschlange
+            await queue.AddMessageAsync(message);
         }
         #endregion
     }

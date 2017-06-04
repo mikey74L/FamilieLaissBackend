@@ -27,12 +27,12 @@ namespace FamilieLaissAzureOperations.Interface
         /// Erstellt eine neue Nachricht in der Upload-Queue welche vom WebJob verarbeitet wird
         /// </summary>
         /// <param name="uploadInfo">Enthält die benötigten Informationen für die Message</param>
-        Task CreateNewMessageInUploadQueue(NewUploadPictureModel uploadInfo);
+        Task CreateNewMessageInUploadQueue(NewUploadModel uploadInfo);
 
         /// <summary>
-        /// Löscht ein Upload-Picture aus dem Azure-Blob-Storage
+        /// Erstellt eine neue Nachricht für das Löschen eines Upload-Items welche vom WebJob verarbeitet wird
         /// </summary>
-        /// <param name="filename">Der Dateiname des Upload-Picture das gelöscht werden soll</param>
-        Task DeleteUploadPicture(string filename);
+        /// <param name="deleteInfo">Enthält die benötigten Informationen für die Message</param>
+        Task CreateNewMessageInDeleteQueue(DeleteUploadModel deleteInfo);
     }
 }

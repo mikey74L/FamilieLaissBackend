@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace FamilieLaissSharedTypes.Model
 {
-    public class NewUploadPictureModel
+    public class DeleteUploadModel
     {
         public enUploadType UploadType { get; set; }
         public long ID { get; set; }
         public string BlobName { get; set; }
-        public string OriginalName { get; set; }
     }
 }

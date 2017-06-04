@@ -13,60 +13,13 @@ using MetadataExtractor;
 using System.Data.SqlClient;
 using System.Data;
 using Microsoft.Azure;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace FamilieLaissWebJob
 {
     public class Functions
     {
-        //Wird aufgerufen wenn eine neue Nachricht für ein Upload-Picture eingestellt wird
-        public static void NewUploadPicture([QueueTrigger("upload-picture")] NewUploadPictureModel newMessage,
-                                            [Blob("upload-picture/{BlobName}", FileAccess.Read)] Stream uploadPicture)
-        {
-            //Log schreiben
-            Console.WriteLine("New upload picture with following parameter uploaded");
-            Console.WriteLine("ID: " + newMessage.ID.ToString());
-            Console.WriteLine("Original-Name: " + newMessage.OriginalName);
-            Console.WriteLine("Blob-Name: " + newMessage.BlobName);
-
-            //Ermitteln der Breite und Höhe des Bildes
-            Console.WriteLine("Extracting picture size from blob");
-            Rectangle PictureSize = GetWidthAndHeightForImage(uploadPicture);
-            Console.WriteLine("Picture size (width / height): " + PictureSize.Width + " / " + PictureSize.Height);
-
-            //Die Position des Streams wieder auf 0 setzen, da es sonst zu Problemen
-            //mit weiteren Operationen gibt die mit dem Stream arbeiten
-            uploadPicture.Position = 0;
-
-            //Erstellen des Datenbankeintrags
-            Console.WriteLine("Save upload picture in database");
-            SaveUploadPictureInDatabase(newMessage, PictureSize);
-            Console.WriteLine("Upload picture successfully saved in database");
-
-            //Ermitteln der Exif-Daten für das Bild
-            Console.WriteLine("Read EXIF-Info from blob");
-            UploadPictureExifInfo ExifInfo = GetExifInfoForImage(uploadPicture);
-
-            //Speichern der Exif-Informationen in der Datenbank
-            Console.WriteLine("Write EXIF-Info to database");
-            SaveExifInfoInDatabase(newMessage.ID, ExifInfo);
-            Console.WriteLine("Upload picture job successfully done");
-        }
-
-        //Ermittelt die Höhe und die Breite eines Bildes für einen Azure-Stream (Blob)
-        private static Rectangle GetWidthAndHeightForImage(Stream pictureStream)
-        {
-            //Das Bitmap aus dem Stream erzeugen
-            Bitmap bmp = new Bitmap(pictureStream);
-
-            //Ermitteln der Höhe und Breite des Bildes
-            Rectangle RetVal = new Rectangle();
-            RetVal.Height = bmp.Height;
-            RetVal.Width = bmp.Width;
-
-            //Funktionsergebnis
-            return RetVal;
-        }
-
+        #region Helper
         //Ermittelt die Exif-Informationen aus dem Bild für einen Azure-Stream (Blob)
         private static UploadPictureExifInfo GetExifInfoForImage(Stream pictureStream)
         {
@@ -108,7 +61,7 @@ namespace FamilieLaissWebJob
             {
                 info.Resolution_X = null;
             }
-            
+
             //Auslesen des Tags für "Resolution Y"
             try
             {
@@ -118,7 +71,7 @@ namespace FamilieLaissWebJob
             {
                 info.Resolution_Y = null;
             }
-            
+
             //Auslesen des Tags für "Resolution Unit"
             try
             {
@@ -261,7 +214,7 @@ namespace FamilieLaissWebJob
             {
                 info.White_Balance_Mode = null;
             }
-        
+
             //Auslesen des Tags für "Sharpness"
             try
             {
@@ -291,9 +244,26 @@ namespace FamilieLaissWebJob
             //Funktionsergebnis zurückliefern
             return info;
         }
+    
+        //Ermittelt die Höhe und die Breite eines Bildes für einen Azure-Stream (Blob)
+        private static Rectangle GetWidthAndHeightForImage(Stream pictureStream)
+        {
+            //Das Bitmap aus dem Stream erzeugen
+            Bitmap bmp = new Bitmap(pictureStream);
 
+            //Ermitteln der Höhe und Breite des Bildes
+            Rectangle RetVal = new Rectangle();
+            RetVal.Height = bmp.Height;
+            RetVal.Width = bmp.Width;
+
+            //Funktionsergebnis
+            return RetVal;
+        }
+        #endregion
+
+        #region Database Operations
         //Erstellt einen neuen Eintrag für ein Upload-Picture in der Datenbank
-        private static void SaveUploadPictureInDatabase(NewUploadPictureModel messageInfo, Rectangle pictureSize)
+        private static void SaveUploadPictureInDatabase(NewUploadModel messageInfo, Rectangle pictureSize)
         {
             //Erstellen und initialisieren des neuen Objektes
             UploadPictureItem NewItem = new UploadPictureItem();
@@ -529,5 +499,53 @@ namespace FamilieLaissWebJob
                 }
             }
         }
+        #endregion
+
+        #region Message-Queue Picture
+        //Wird aufgerufen wenn eine neue Nachricht für ein Upload-Picture eingestellt wird
+        public static void NewUploadPicture([QueueTrigger("upload-picture")] NewUploadModel newMessage,
+                                            [Blob("upload-picture/{BlobName}", FileAccess.Read)] Stream uploadPicture)
+        {
+            //Log schreiben
+            Console.WriteLine("New upload picture with following parameter uploaded");
+            Console.WriteLine("ID: " + newMessage.ID.ToString());
+            Console.WriteLine("Original-Name: " + newMessage.OriginalName);
+            Console.WriteLine("Blob-Name: " + newMessage.BlobName);
+
+            //Ermitteln der Breite und Höhe des Bildes
+            Console.WriteLine("Extracting picture size from blob");
+            Rectangle PictureSize = GetWidthAndHeightForImage(uploadPicture);
+            Console.WriteLine("Picture size (width / height): " + PictureSize.Width + " / " + PictureSize.Height);
+
+            //Die Position des Streams wieder auf 0 setzen, da es sonst zu Problemen
+            //mit weiteren Operationen gibt die mit dem Stream arbeiten
+            uploadPicture.Position = 0;
+
+            //Erstellen des Datenbankeintrags
+            Console.WriteLine("Save upload picture in database");
+            SaveUploadPictureInDatabase(newMessage, PictureSize);
+            Console.WriteLine("Upload picture successfully saved in database");
+
+            //Ermitteln der Exif-Daten für das Bild
+            Console.WriteLine("Read EXIF-Info from blob");
+            UploadPictureExifInfo ExifInfo = GetExifInfoForImage(uploadPicture);
+
+            //Speichern der Exif-Informationen in der Datenbank
+            Console.WriteLine("Write EXIF-Info to database");
+            SaveExifInfoInDatabase(newMessage.ID, ExifInfo);
+            Console.WriteLine("Upload picture job successfully done");
+        }
+
+        //Wird aufgerufen wenn eine neue Nachricht für das Löschen eines Upload-Pictures eingestellt wird
+        public static void DeleteUploadPicture([QueueTrigger("delete-upload-picture")] DeleteUploadModel deleteMessage, IBinder binder)
+        {
+            //Referenz auf das Blob herstellen
+            var blobAttr = new BlobAttribute("upload-picture/" + deleteMessage.BlobName, FileAccess.ReadWrite);
+            var blockBlob = binder.Bind<CloudBlockBlob>(blobAttr);
+
+            //Blob aus dem Storage löschen
+            blockBlob.DeleteIfExists();
+        }
+        #endregion
     }
 }

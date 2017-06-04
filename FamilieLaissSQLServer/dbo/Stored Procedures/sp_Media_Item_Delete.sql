@@ -25,19 +25,22 @@ BEGIN
 
     -- Löschen aller Assignments über einen Cursor
 	OPEN v_Cursor_Assignments;
-	FETCH NEXT INTO @v_ID_Assignment;
+	FETCH NEXT FROM v_Cursor_Assignments INTO @v_ID_Assignment;
 	WHILE @@FETCH_STATUS = 0
 	BEGIN
 	    -- Löschen des Datensatzes
 		exec sp_MediaFacet_Delete @v_ID_Assignment;
 
 	    -- Nächsten Datensatz aus dem Cursor ermitteln
-  	    FETCH NEXT INTO @v_ID_Assignment;
+  	    FETCH NEXT FROM v_Cursor_Assignments INTO @v_ID_Assignment;
 	END
 	CLOSE v_Cursor_Assignments;
 
 	-- Ermitteln der IDs für das Upload-Picture bzw. das Upload_Video
 	SELECT @v_Upload_Picture_ID = Upload_Picture_ID, @v_Upload_Video_ID = Upload_Video_ID FROM Media_Item WHERE ID = @p_ID; 
+
+    -- Löschen des Medien-Elements aus der Datenbank
+    DELETE FROM Media_Item WHERE ID = @p_ID;
 
     -- Löschen des Upload-Pictures
 	IF @v_Upload_Picture_ID IS NOT NULL
@@ -50,7 +53,4 @@ BEGIN
 	BEGIN
 	    exec sp_Upload_Video_Delete @v_Upload_Video_ID;
 	END
-
-    -- Löschen des Medien-Elements aus der Datenbank
-    DELETE FROM Media_Item WHERE ID = @p_ID;
 END

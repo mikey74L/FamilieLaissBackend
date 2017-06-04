@@ -72,7 +72,7 @@ namespace FamilieLaissBackend.Controllers
         #region Create Azure Queue Entry
         [HttpPost]
         [Route("WriteToUploadQueue")]
-        public async Task<IHttpActionResult> WriteToUploadQueue(NewUploadPictureModel uploadInfo)
+        public async Task<IHttpActionResult> WriteToUploadQueue(NewUploadModel uploadInfo)
         {
             try
             {

@@ -41,7 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enum\enUploadType.cs" />
-    <Compile Include="Model\NewUploadPictureModel.cs" />
+    <Compile Include="Model\DeleteUploadModel.cs" />
+    <Compile Include="Model\NewUploadModel.cs" />
     <Compile Include="Model\UploadPictureExifInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
