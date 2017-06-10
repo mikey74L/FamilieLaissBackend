@@ -547,7 +547,7 @@
           <NavigationProperty Name="MediaGroup" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Group" FromRole="Media_Item" ToRole="MediaGroup" />
           <NavigationProperty Name="MediaItemFacets" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Facet_Media_Item" FromRole="Media_Item" ToRole="Media_Item_Facet" />
           <NavigationProperty Name="UploadPicture" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Picture" FromRole="Media_Item" ToRole="Upload_Picture_Item" />
-          <NavigationProperty Name="UploadVideoItem" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Video" FromRole="Media_Item" ToRole="Upload_Video_Item" />
+          <NavigationProperty Name="UploadVideo" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Video" FromRole="Media_Item" ToRole="Upload_Video_Item" />
         </EntityType>
         <EntityType Name="MediaItemFacet">
           <Key>

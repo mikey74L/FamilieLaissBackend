@@ -36,6 +36,6 @@ namespace FamilieLaissBackend.Data.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MediaItemFacet> MediaItemFacets { get; set; }
         public virtual UploadPictureItem UploadPicture { get; set; }
-        public virtual UploadVideoItem UploadVideoItem { get; set; }
+        public virtual UploadVideoItem UploadVideo { get; set; }
     }
 }
