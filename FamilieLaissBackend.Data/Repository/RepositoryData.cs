@@ -88,5 +88,14 @@ namespace FamilieLaissBackend.Data.Repository
         {
             Context.CreateObjectSet<TEntity>().Attach(entity);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public virtual Task<int> SaveChanges()
+        {
+            return Context.SaveChangesAsync();
+        }
     }
 }

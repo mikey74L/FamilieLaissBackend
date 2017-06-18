@@ -105,5 +105,10 @@
     <Build Include="dbo\Tables\Upload_Picture_Item_Exif.sql" />
     <Build Include="dbo\Stored Procedures\sp_Delete_Exif_Data.sql" />
     <Build Include="dbo\Stored Procedures\sp_Add_Exif_Data.sql" />
+    <Build Include="dbo\Tables\Blog.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Blog_Update.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Blog_Insert.sql" />
+    <Build Include="dbo\Stored Procedures\sp_Blog_Delete.sql" />
+    <Build Include="dbo\Sequences\SEQ_Blog.sql" />
   </ItemGroup>
 </Project>

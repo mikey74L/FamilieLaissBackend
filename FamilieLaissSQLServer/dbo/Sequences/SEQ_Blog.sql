@@ -1,0 +1,6 @@
+﻿CREATE SEQUENCE [dbo].[SEQ_Blog]
+    AS BIGINT
+    START WITH 1
+    INCREMENT BY 1
+    CACHE 10;
+

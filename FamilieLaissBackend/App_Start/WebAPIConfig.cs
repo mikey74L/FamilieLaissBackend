@@ -1,8 +1,14 @@
-﻿using FamilieLaissAzureOperations.Interface;
+﻿using AutoMapper;
+using FamilieLaissAzureOperations.Interface;
 using FamilieLaissAzureOperations.Repository;
 using FamilieLaissBackend.Data.Interface;
+using FamilieLaissBackend.Data.Model;
 using FamilieLaissBackend.Data.UnitOfWork;
-using FamilieLaissBackend.Data.Validator;
+using FamilieLaissBackend.Model.FacetGroup;
+using FamilieLaissBackend.Model.FacetValue;
+using FamilieLaissBackend.Model.MediaGroup;
+using FamilieLaissBackend.Model.MediaItem;
+using FamilieLaissBackend.Model.MediaItemFacet;
 using FamilieLaissBackend.Repository;
 using Newtonsoft.Json.Serialization;
 using SimpleInjector;
@@ -23,7 +29,6 @@ public static class WebApiConfig
 
         //Die benötigten Typen registrieren
         container.Register<iUnitOfWorkData, UnitOfWorkData>(Lifestyle.Scoped);
-        container.Register<iBreezeValidator, BreezeValidator>(Lifestyle.Scoped);
         container.Register<iAzureStorageOperations, AzureStorageRepository>(Lifestyle.Scoped);
         //container.Register<iMessageRepository, MessageRepository>(Lifestyle.Scoped);
 
@@ -37,6 +42,16 @@ public static class WebApiConfig
         System.Web.Http.GlobalConfiguration.Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
         config.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
 
+        //Die Automapper Mappings definieren
+        Mapper.Initialize(cfg =>
+        {
+            cfg.CreateMap<FacetGroup, FacetGroupDTO>();
+            cfg.CreateMap<FacetValue, FacetValueDTO>();
+            cfg.CreateMap<MediaGroup, MediaGroupDTO>();
+            cfg.CreateMap<MediaItem, MediaItemDTO>();
+            cfg.CreateMap<MediaItemFacet, MediaItemFacetDTO>();
+        });
+
         // Web API routes
         config.MapHttpAttributeRoutes();
 
@@ -46,7 +61,16 @@ public static class WebApiConfig
             defaults: new { id = RouteParameter.Optional }
         );
 
-        var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
-        jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+        //OData - Query Extensions zu jedem IQueryable hinzufügen 
+        System.Web.Http.OData.Extensions.HttpConfigurationExtensions.AddODataQueryFilter(config);
+
+        //Folgendes einkommentieren wenn CamelCase bei JSON verlangt wird ist dann aber global
+        //Es kann auch das Attribut [JsonProperty(PropertyName="myFoo")] verwendet werden
+        //var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
+        //jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+
+        //Hiermit wird zirkuläre Referenzen ignoriert und nicht aufgelöst wenn es sich bei einem Child-Objekt um das selbe Objekt
+        //handelt was ausgegeben werden soll
+        config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
     }
 }

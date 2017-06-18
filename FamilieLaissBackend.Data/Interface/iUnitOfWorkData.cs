@@ -1,10 +1,4 @@
-﻿using Breeze.ContextProvider;
-using FamilieLaissBackend.Data.Model;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using FamilieLaissBackend.Data.Model;
 using System.Threading.Tasks;
 
 namespace FamilieLaissBackend.Data.Interface
@@ -23,10 +17,7 @@ namespace FamilieLaissBackend.Data.Interface
         //iDataRepository<Video_Convert_Status> VideoConvertStatusRepository { get; }
         //iDataRepository<Message> MessageRepository { get; }
 
-        //Metadaten für Breeze ermitteln
-        string Metadata();
-
-        //Die Änderungen an den Entities mit Breeze speichern
-        SaveResult Commit(JObject changeSet);
+        //Die Änderungen in der Datenbank speichern
+        Task<int> SaveChanges();
     }
 }

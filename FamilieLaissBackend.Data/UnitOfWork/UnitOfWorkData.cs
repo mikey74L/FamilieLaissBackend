@@ -1,14 +1,6 @@
-﻿using Breeze.ContextProvider;
-using Breeze.ContextProvider.EF6;
-using FamilieLaissBackend.Data.Interface;
+﻿using FamilieLaissBackend.Data.Interface;
 using FamilieLaissBackend.Data.Model;
 using FamilieLaissBackend.Data.Repository;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core.Objects;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FamilieLaissBackend.Data.UnitOfWork
@@ -16,30 +8,27 @@ namespace FamilieLaissBackend.Data.UnitOfWork
     public class UnitOfWorkData: iUnitOfWorkData
     {
         #region Private Members
-        private EFContextProvider<FamilieLaissEntities> contextProvider;
+        private FamilieLaissEntities _Context;
         #endregion
 
         #region C'tor
         /// <summary>
         /// ctor
         /// </summary>
-        public UnitOfWorkData(iBreezeValidator breezevalidator)
+        public UnitOfWorkData()
         {
-            //Erstellen des Context-Providers für Breeze
-            contextProvider = new EFContextProvider<FamilieLaissEntities>();
-            contextProvider.BeforeSaveEntitiesDelegate = breezevalidator.BeforeSaveEntities;
-            contextProvider.BeforeSaveEntityDelegate = breezevalidator.BeforeSaveEntity;
-            contextProvider.AfterSaveEntitiesDelegate = breezevalidator.AfterSaveEntities;
-          
+            //Erstellen des DB-Context
+            _Context = new FamilieLaissEntities();
+
             //Erstellen der Repositories
-            MediaGroupRepository = new RepositoryData<MediaGroup>(contextProvider.Context);
-            FacetGroupRepository = new RepositoryData<FacetGroup>(contextProvider.Context);
-            FacetValueRepository = new RepositoryData<FacetValue>(contextProvider.Context);
-            MediaItemRepository = new RepositoryData<MediaItem>(contextProvider.Context);
-            MediaItemFacetRepository = new RepositoryData<MediaItemFacet>(contextProvider.Context);
-            UploadPictureItemRepository = new RepositoryData<UploadPictureItem>(contextProvider.Context);
-            UploadPictureImagePropertyRepository = new RepositoryData<UploadPictureImageProperty>(contextProvider.Context);
-            UploadVideoItemRepository = new RepositoryData<UploadVideoItem>(contextProvider.Context);
+            MediaGroupRepository = new RepositoryData<MediaGroup>(_Context);
+            FacetGroupRepository = new RepositoryData<FacetGroup>(_Context);
+            FacetValueRepository = new RepositoryData<FacetValue>(_Context);
+            MediaItemRepository = new RepositoryData<MediaItem>(_Context);
+            MediaItemFacetRepository = new RepositoryData<MediaItemFacet>(_Context);
+            UploadPictureItemRepository = new RepositoryData<UploadPictureItem>(_Context);
+            UploadPictureImagePropertyRepository = new RepositoryData<UploadPictureImageProperty>(_Context);
+            UploadVideoItemRepository = new RepositoryData<UploadVideoItem>(_Context);
             //VideoConvertStatusRepository = new Repository<Video_Convert_Status>(contextProvider.Context);
             //MessageRepository = new Repository<Message>(contextProvider.Context);
         }
@@ -58,24 +47,14 @@ namespace FamilieLaissBackend.Data.UnitOfWork
         //public iRepositoryData<Message> MessageRepository { get; private set; }
         #endregion
 
-        #region Breeze Methoden
+        #region EF-Handler
         /// <summary>
-        /// Get breeze Metadata
+        /// Save changes to database
         /// </summary>
-        /// <returns>String containing Breeze metadata</returns>
-        public string Metadata()
-        {
-            return contextProvider.Metadata();
-        }
-
-        /// <summary>
-        /// Save a changeset using Breeze
-        /// </summary>
-        /// <param name="changeSet"></param>
         /// <returns></returns>
-        public SaveResult Commit(JObject changeSet)
+        public Task<int> SaveChanges()
         {
-            return contextProvider.SaveChanges(changeSet);
+            return _Context.SaveChangesAsync();
         }
         #endregion
     }
