@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace FamilieLaissBackend.Controllers
@@ -38,22 +39,46 @@ namespace FamilieLaissBackend.Controllers
         }
 
         [HttpPost]
-        public async void Post([FromBody]string value)
+        //Entspricht einem Insert
+        public async Task<FacetValue> Post([FromBody]FacetValueInsertDTO insertDTO)
         {
+            //Neue Entity erzeugen und mappen
+            FacetValue InsertEntity = AutoMapper.Mapper.Map<FacetValue>(insertDTO);
+
+            //Hinzufügen der neuen Entity zum Store
+            _UnitOfWork.FacetValueRepository.Add(InsertEntity);
+
             //Speichern der Änderungen
             await _UnitOfWork.SaveChanges();
+
+            //Zurückmelden der neuen Entity damit der Client die ID erhält
+            return InsertEntity;
         }
 
         [HttpPut]
-        public async void Put(int id, [FromBody]string value)
+        //Entspricht einem Update
+        public async Task Put(int id, [FromBody]FacetValueUpdateDTO updateDTO)
         {
+            //Ermitteln der Entity
+            FacetValue UpdateEntity = _UnitOfWork.FacetValueRepository.All().Single(x => x.ID == id);
+
+            //Übernehmen der Properties mit Automapper
+            AutoMapper.Mapper.Map<FacetValueUpdateDTO, FacetValue>(updateDTO, UpdateEntity);
+
             //Speichern der Änderungen
             await _UnitOfWork.SaveChanges();
         }
 
         [HttpDelete]
-        public async void Delete(int id)
+        //Entspricht einem Delete
+        public async Task Delete(int id)
         {
+            //Ermitteln der Entity
+            FacetValue DeleteEntity = _UnitOfWork.FacetValueRepository.All().Single(x => x.ID == id);
+
+            //Löschen des Items
+            _UnitOfWork.FacetValueRepository.Delete(DeleteEntity);
+
             //Speichern der Änderungen
             await _UnitOfWork.SaveChanges();
         }

@@ -347,19 +347,23 @@
     <Compile Include="Controllers\FacetValueController.cs" />
     <Compile Include="Controllers\MediaGroupController.cs" />
     <Compile Include="Controllers\StorageController.cs" />
+    <Compile Include="Controllers\ValidationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Manager\FamilieLaissUserManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\FacetGroup\FacetGroupDTO.cs" />
-    <Compile Include="Model\FacetValue\FacetValueDTO.cs" />
+    <Compile Include="Model\FacetGroup\FacetGroupUpdateDTO.cs" />
+    <Compile Include="Model\FacetGroup\FacetGroupInsertDTO.cs" />
+    <Compile Include="Model\FacetValue\FacetValueInsertDTO.cs" />
+    <Compile Include="Model\FacetValue\FacetValueUpdateDTO.cs" />
     <Compile Include="Model\IdentityUserExtended.cs" />
     <Compile Include="Model\MediaGroup\MediaGroupDTO.cs" />
     <Compile Include="Model\MediaItemFacet\MediaItemFacetDTO.cs" />
     <Compile Include="Model\MediaItem\MediaItemDTO.cs" />
     <Compile Include="Model\NewPasswordModel.cs" />
     <Compile Include="Model\RegisterUserModel.cs" />
+    <Compile Include="Model\Validation\CheckValueDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

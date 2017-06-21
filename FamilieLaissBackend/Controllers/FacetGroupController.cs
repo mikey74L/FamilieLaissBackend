@@ -9,6 +9,8 @@ using System.Web.Http;
 using AutoMapper.QueryableExtensions;
 using AutoMapper;
 using FamilieLaissBackend.Data.Model;
+using System.Threading.Tasks;
+using FamilieLaissBackend.Model.Validation;
 
 namespace FamilieLaissBackend.Controllers
 {
@@ -25,7 +27,7 @@ namespace FamilieLaissBackend.Controllers
         }
         #endregion
 
-        #region API Methods
+        #region REST-API Methods
         [HttpGet]
         public IQueryable<FacetGroup> Get()
         {
@@ -39,28 +41,52 @@ namespace FamilieLaissBackend.Controllers
         }
 
         [HttpPost]
-        public async void Post([FromBody]string value)
+        //Entspricht einem Insert
+        public async Task<FacetGroup> Post([FromBody]FacetGroupInsertDTO insertDTO)
         {
+            //Neue Entity erzeugen und mappen
+            FacetGroup InsertEntity = AutoMapper.Mapper.Map<FacetGroup>(insertDTO);
+
+            //Hinzufügen der neuen Entity zum Store
+            _UnitOfWork.FacetGroupRepository.Add(InsertEntity);
+
             //Speichern der Änderungen
             await _UnitOfWork.SaveChanges();
+
+            //Zurückmelden der neuen Entity damit der Client die ID erhält
+            return InsertEntity;
         }
 
         [HttpPut]
-        public async void Put(int id, [FromBody]string value)
+        //Entspricht einem Update
+        public async Task Put(int id, [FromBody]FacetGroupUpdateDTO updateDTO)
         {
+            //Ermitteln der Entity
+            FacetGroup UpdateEntity = _UnitOfWork.FacetGroupRepository.All().Single(x => x.ID == id);
+
+            //Übernehmen der Properties mit Automapper
+            AutoMapper.Mapper.Map<FacetGroupUpdateDTO, FacetGroup>(updateDTO, UpdateEntity);
+
             //Speichern der Änderungen
             await _UnitOfWork.SaveChanges();
         }
 
         [HttpDelete]
-        public async void Delete(int id)
+        //Entspricht einem Delete
+        public async Task Delete(int id)
         {
+            //Ermitteln der Entity
+            FacetGroup DeleteEntity = _UnitOfWork.FacetGroupRepository.All().Single(x => x.ID == id);
+
             //Löschen des Items
-            _UnitOfWork.FacetGroupRepository.Delete(null);
+            _UnitOfWork.FacetGroupRepository.Delete(DeleteEntity);
 
             //Speichern der Änderungen
             await _UnitOfWork.SaveChanges();
         }
+        #endregion
+
+        #region API Methods for Checking Values
         #endregion
     }
 }

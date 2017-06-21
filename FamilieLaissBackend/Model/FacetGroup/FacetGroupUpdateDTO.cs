@@ -6,13 +6,9 @@ using System.Web;
 
 namespace FamilieLaissBackend.Model.FacetGroup
 {
-    public class FacetGroupDTO
+    public class FacetGroupUpdateDTO
     {
-        public long ID { get; set; }
-        public byte Type { get; set; }
         public string NameGerman { get; set; }
         public string NameEnglish { get; set; }
-
-        //public List<FacetValueDTO> Values { get; set; }
     }
 }

@@ -45,11 +45,10 @@ public static class WebApiConfig
         //Die Automapper Mappings definieren
         Mapper.Initialize(cfg =>
         {
-            cfg.CreateMap<FacetGroup, FacetGroupDTO>();
-            cfg.CreateMap<FacetValue, FacetValueDTO>();
-            cfg.CreateMap<MediaGroup, MediaGroupDTO>();
-            cfg.CreateMap<MediaItem, MediaItemDTO>();
-            cfg.CreateMap<MediaItemFacet, MediaItemFacetDTO>();
+            cfg.CreateMap<FacetGroupUpdateDTO, FacetGroup>();
+            cfg.CreateMap<FacetGroupInsertDTO, FacetGroup>();
+            cfg.CreateMap<FacetValueUpdateDTO, FacetValue>();
+            cfg.CreateMap<FacetValueInsertDTO, FacetValue>();
         });
 
         // Web API routes
