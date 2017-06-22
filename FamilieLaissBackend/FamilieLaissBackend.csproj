@@ -358,7 +358,8 @@
     <Compile Include="Model\FacetValue\FacetValueInsertDTO.cs" />
     <Compile Include="Model\FacetValue\FacetValueUpdateDTO.cs" />
     <Compile Include="Model\IdentityUserExtended.cs" />
-    <Compile Include="Model\MediaGroup\MediaGroupDTO.cs" />
+    <Compile Include="Model\MediaGroup\MediaGroupInsertDTO.cs" />
+    <Compile Include="Model\MediaGroup\MediaGroupUpdateDTO.cs" />
     <Compile Include="Model\MediaItemFacet\MediaItemFacetDTO.cs" />
     <Compile Include="Model\MediaItem\MediaItemDTO.cs" />
     <Compile Include="Model\NewPasswordModel.cs" />

@@ -85,8 +85,5 @@ namespace FamilieLaissBackend.Controllers
             await _UnitOfWork.SaveChanges();
         }
         #endregion
-
-        #region API Methods for Checking Values
-        #endregion
     }
 }

@@ -49,6 +49,8 @@ public static class WebApiConfig
             cfg.CreateMap<FacetGroupInsertDTO, FacetGroup>();
             cfg.CreateMap<FacetValueUpdateDTO, FacetValue>();
             cfg.CreateMap<FacetValueInsertDTO, FacetValue>();
+            cfg.CreateMap<MediaGroupInsertDTO, MediaGroup>();
+            cfg.CreateMap<MediaGroupUpdateDTO, MediaGroup>();
         });
 
         // Web API routes
