@@ -26,6 +26,7 @@ namespace FamilieLaissBackend.Controllers
         }
         #endregion
 
+        #region REST-API Methods
         [HttpGet]
         public IQueryable<FacetValue> Get()
         {
@@ -82,5 +83,6 @@ namespace FamilieLaissBackend.Controllers
             //Speichern der Änderungen
             await _UnitOfWork.SaveChanges();
         }
+        #endregion
     }
 }
