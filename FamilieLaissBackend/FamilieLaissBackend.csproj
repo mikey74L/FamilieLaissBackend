@@ -347,6 +347,7 @@
     <Compile Include="Controllers\FacetValueController.cs" />
     <Compile Include="Controllers\MediaGroupController.cs" />
     <Compile Include="Controllers\StorageController.cs" />
+    <Compile Include="Controllers\UploadPictureItemController.cs" />
     <Compile Include="Controllers\ValidationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -364,6 +365,8 @@
     <Compile Include="Model\MediaItem\MediaItemDTO.cs" />
     <Compile Include="Model\NewPasswordModel.cs" />
     <Compile Include="Model\RegisterUserModel.cs" />
+    <Compile Include="Model\UploadPictureItem\UploadPictureItemInsertDTO.cs" />
+    <Compile Include="Model\UploadPictureItem\UploadPictureItemUpdateDTO.cs" />
     <Compile Include="Model\Validation\CheckValueDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
