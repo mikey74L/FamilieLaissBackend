@@ -43,10 +43,10 @@ namespace FamilieLaissBackend.Controllers
                 {
                     //Both
                     case 0:
-                        Anzahl = _UnitOfWork.FacetGroupRepository.All().Count(x => x.NameGerman == valueObject.Value && (x.Type == 1 || x.Type == 2));
+                        Anzahl = _UnitOfWork.FacetGroupRepository.All().Count(x => x.NameGerman == valueObject.Value);
                         break;
                     default:
-                        Anzahl = _UnitOfWork.FacetGroupRepository.All().Count(x => x.NameGerman == valueObject.Value && x.Type == valueObject.AdditionalType);
+                        Anzahl = _UnitOfWork.FacetGroupRepository.All().Count(x => x.NameGerman == valueObject.Value && (x.Type == valueObject.AdditionalType || x.Type == 0));
                         break;
                 }
             }
@@ -57,10 +57,10 @@ namespace FamilieLaissBackend.Controllers
                 {
                     //Both
                     case 0:
-                        Anzahl = _UnitOfWork.FacetGroupRepository.All().Count(x => x.NameGerman == valueObject.Value && x.ID != valueObject.ID && (x.Type == 1 || x.Type == 2));
+                        Anzahl = _UnitOfWork.FacetGroupRepository.All().Count(x => x.NameGerman == valueObject.Value && x.ID != valueObject.ID);
                         break;
                     default:
-                        Anzahl = _UnitOfWork.FacetGroupRepository.All().Count(x => x.NameGerman == valueObject.Value && x.ID != valueObject.ID && x.Type == valueObject.AdditionalType);
+                        Anzahl = _UnitOfWork.FacetGroupRepository.All().Count(x => x.NameGerman == valueObject.Value && x.ID != valueObject.ID && (x.Type == valueObject.AdditionalType || x.Type == 0));
                         break;
                 }
             }
@@ -95,10 +95,10 @@ namespace FamilieLaissBackend.Controllers
                 {
                     //Both
                     case 0:
-                        Anzahl = _UnitOfWork.FacetGroupRepository.All().Count(x => x.NameEnglish == valueObject.Value && (x.Type == 1 || x.Type == 2));
+                        Anzahl = _UnitOfWork.FacetGroupRepository.All().Count(x => x.NameEnglish == valueObject.Value);
                         break;
                     default:
-                        Anzahl = _UnitOfWork.FacetGroupRepository.All().Count(x => x.NameEnglish == valueObject.Value && x.Type == valueObject.AdditionalType);
+                        Anzahl = _UnitOfWork.FacetGroupRepository.All().Count(x => x.NameEnglish == valueObject.Value && (x.Type == valueObject.AdditionalType || x.Type == 0));
                         break;
                 }
             }
@@ -109,10 +109,10 @@ namespace FamilieLaissBackend.Controllers
                 {
                     //Both
                     case 0:
-                        Anzahl = _UnitOfWork.FacetGroupRepository.All().Count(x => x.NameEnglish == valueObject.Value && x.ID != valueObject.ID && (x.Type == 1 || x.Type == 2));
+                        Anzahl = _UnitOfWork.FacetGroupRepository.All().Count(x => x.NameEnglish == valueObject.Value && x.ID != valueObject.ID);
                         break;
                     default:
-                        Anzahl = _UnitOfWork.FacetGroupRepository.All().Count(x => x.NameEnglish == valueObject.Value && x.ID != valueObject.ID && x.Type == valueObject.AdditionalType);
+                        Anzahl = _UnitOfWork.FacetGroupRepository.All().Count(x => x.NameEnglish == valueObject.Value && x.ID != valueObject.ID && (x.Type == valueObject.AdditionalType || x.Type == 0));
                         break;
                 }
             }
