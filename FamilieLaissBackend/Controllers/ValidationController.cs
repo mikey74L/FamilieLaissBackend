@@ -268,5 +268,75 @@ namespace FamilieLaissBackend.Controllers
             }
         }
         #endregion
+
+        #region Validation for Media-Items
+        /// <summary>
+        /// Überprüft ob der deutsche Name für ein Medien-Element schon existiert
+        /// </summary>
+        /// <param name="valueObject">Das Object mit den zu überprüfenden Werten</param>
+        /// <returns>Task wird zurückgeliefert</returns>
+        [HttpPost]
+        [Route("CheckMediaItemNameGerman")]
+        public IHttpActionResult CheckMediaItemNameGerman([FromBody]CheckValueDTO valueObject)
+        {
+            //Deklaration
+            int Anzahl = 0;
+
+            if (valueObject.ID == -1)
+            {
+                //Es muss für eine neue Entität überprüft werden
+                Anzahl = _UnitOfWork.MediaItemRepository.All().Count(x => x.NameGerman == valueObject.Value && x.ID_Group == valueObject.AdditionalType);
+            }
+            else
+            {
+                //Es muss für eine bestehende Entität überprüft werden
+                Anzahl = _UnitOfWork.MediaItemRepository.All().Count(x => x.NameGerman == valueObject.Value && x.ID != valueObject.ID && x.ID_Group == valueObject.AdditionalType);
+            }
+
+            //Wenn die Anzahl 0 ist, ist alles ok
+            if (Anzahl == 0)
+            {
+                return Ok(true);
+            }
+            else
+            {
+                return Ok(false);
+            }
+        }
+
+        /// <summary>
+        /// Überprüft ob der englische Name für ein Medien-Element schon existiert
+        /// </summary>
+        /// <param name="valueObject">Das Object mit den zu überprüfenden Werten</param>
+        /// <returns>Task wird zurückgeliefert</returns>
+        [HttpPost]
+        [Route("CheckMediaItemNameEnglish")]
+        public IHttpActionResult CheckMediaItemNameEnglish([FromBody]CheckValueDTO valueObject)
+        {
+            //Deklaration
+            int Anzahl = 0;
+
+            if (valueObject.ID == -1)
+            {
+                //Es muss für eine neue Entität überprüft werden
+                Anzahl = _UnitOfWork.MediaItemRepository.All().Count(x => x.NameEnglish == valueObject.Value && x.ID_Group == valueObject.AdditionalType);
+            }
+            else
+            {
+                //Es muss für eine bestehende Entität überprüft werden
+                Anzahl = _UnitOfWork.MediaItemRepository.All().Count(x => x.NameEnglish == valueObject.Value && x.ID != valueObject.ID && x.ID_Group == valueObject.AdditionalType);
+            }
+
+            //Wenn die Anzahl 0 ist, ist alles ok
+            if (Anzahl == 0)
+            {
+                return Ok(true);
+            }
+            else
+            {
+                return Ok(false);
+            }
+        }
+        #endregion
     }
 }
