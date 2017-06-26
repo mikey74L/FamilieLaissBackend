@@ -346,7 +346,10 @@
     <Compile Include="Controllers\FacetGroupController.cs" />
     <Compile Include="Controllers\FacetValueController.cs" />
     <Compile Include="Controllers\MediaGroupController.cs" />
+    <Compile Include="Controllers\MediaItemController.cs" />
+    <Compile Include="Controllers\MediaItemFacetController.cs" />
     <Compile Include="Controllers\StorageController.cs" />
+    <Compile Include="Controllers\UploadPictureImagePropertyController.cs" />
     <Compile Include="Controllers\UploadPictureItemController.cs" />
     <Compile Include="Controllers\ValidationController.cs" />
     <Compile Include="Global.asax.cs">
@@ -362,9 +365,12 @@
     <Compile Include="Model\MediaGroup\MediaGroupInsertDTO.cs" />
     <Compile Include="Model\MediaGroup\MediaGroupUpdateDTO.cs" />
     <Compile Include="Model\MediaItemFacet\MediaItemFacetDTO.cs" />
-    <Compile Include="Model\MediaItem\MediaItemDTO.cs" />
+    <Compile Include="Model\MediaItem\MediaItemInsertDTO.cs" />
+    <Compile Include="Model\MediaItem\MediaItemUpdateDTO.cs" />
     <Compile Include="Model\NewPasswordModel.cs" />
     <Compile Include="Model\RegisterUserModel.cs" />
+    <Compile Include="Model\UploadPictureImageProperty\UploadPictureImagePropertyInsertDTO.cs" />
+    <Compile Include="Model\UploadPictureImageProperty\UploadPictureImagePropertyUpdateDTO.cs" />
     <Compile Include="Model\UploadPictureItem\UploadPictureItemInsertDTO.cs" />
     <Compile Include="Model\UploadPictureItem\UploadPictureItemUpdateDTO.cs" />
     <Compile Include="Model\Validation\CheckValueDTO.cs" />

@@ -9,6 +9,7 @@ using FamilieLaissBackend.Model.FacetValue;
 using FamilieLaissBackend.Model.MediaGroup;
 using FamilieLaissBackend.Model.MediaItem;
 using FamilieLaissBackend.Model.MediaItemFacet;
+using FamilieLaissBackend.Model.UploadPictureImageProperty;
 using FamilieLaissBackend.Model.UploadPictureItem;
 using FamilieLaissBackend.Repository;
 using Newtonsoft.Json.Serialization;
@@ -52,8 +53,13 @@ public static class WebApiConfig
             cfg.CreateMap<FacetValueInsertDTO, FacetValue>();
             cfg.CreateMap<MediaGroupInsertDTO, MediaGroup>();
             cfg.CreateMap<MediaGroupUpdateDTO, MediaGroup>();
+            cfg.CreateMap<MediaItemInsertDTO, MediaItem>();
+            cfg.CreateMap<MediaItemUpdateDTO, MediaItem>();
+            cfg.CreateMap<MediaItemFacetInsertDTO, MediaItemFacet>();
             cfg.CreateMap<UploadPictureItemInsertDTO, UploadPictureItem>();
             cfg.CreateMap<UploadPictureItemUpdateDTO, UploadPictureItem>();
+            cfg.CreateMap<UploadPictureImagePropertyInsertDTO, UploadPictureImageProperty>();
+            cfg.CreateMap<UploadPictureImagePropertyUpdateDTO, UploadPictureImageProperty>();
         });
 
         // Web API routes

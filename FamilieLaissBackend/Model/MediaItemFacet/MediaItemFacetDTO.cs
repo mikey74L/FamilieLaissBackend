@@ -5,7 +5,9 @@ using System.Web;
 
 namespace FamilieLaissBackend.Model.MediaItemFacet
 {
-    public class MediaItemFacetDTO
+    public class MediaItemFacetInsertDTO
     {
+        public long ID_MediaItem { get; set; }
+        public long ID_FacetValue { get; set; }
     }
 }
