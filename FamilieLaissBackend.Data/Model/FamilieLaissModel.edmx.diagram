@@ -20,7 +20,7 @@
         <AssociationConnector Association="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Picture" />
         <AssociationConnector Association="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Video" />
         <AssociationConnector Association="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Image_Property" />
-        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.Upload_Picture_Item_Exif" Width="1.5" PointX="3" PointY="10.75" />
+        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.UploadPictureItemExif" Width="1.5" PointX="3" PointY="10.75" />
         <AssociationConnector Association="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Item_Exif_UploadPicture" />
       </Diagram>
     </edmx:Diagrams>

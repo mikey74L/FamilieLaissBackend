@@ -12,7 +12,7 @@ namespace FamilieLaissBackend.Data.Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Upload_Picture_Item_Exif
+    public partial class UploadPictureItemExif
     {
         public long ID { get; set; }
         public string Make { get; set; }

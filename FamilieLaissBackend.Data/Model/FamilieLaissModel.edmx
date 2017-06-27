@@ -526,10 +526,10 @@
             <Parameter Name="p_ID" Mode="In" Type="Int64" />
             <Parameter Name="p_Rotation" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="Upload_Picture_Item_Exif" EntityType="FamilieLaissBackend.Data.Model.Upload_Picture_Item_Exif" />
+          <EntitySet Name="UploadPictureItemExifs" EntityType="FamilieLaissBackend.Data.Model.UploadPictureItemExif" />
           <AssociationSet Name="FK_Upload_Picture_Item_Exif_UploadPicture" Association="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Item_Exif_UploadPicture">
             <End Role="UploadPictureItem" EntitySet="UploadPictureItems" />
-            <End Role="Upload_Picture_Item_Exif" EntitySet="Upload_Picture_Item_Exif" />
+            <End Role="Upload_Picture_Item_Exif" EntitySet="UploadPictureItemExifs" />
           </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_Media_Group_Insert_Result">
@@ -627,7 +627,7 @@
           <Property Name="Status" Type="Byte" Nullable="false" />
           <NavigationProperty Name="MediaItems" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Picture" FromRole="Upload_Picture_Item" ToRole="Media_Item" />
           <NavigationProperty Name="ImageProperty" Relationship="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Image_Property" FromRole="Upload_Picture_Item" ToRole="Upload_Picture_Image_Property" />
-          <NavigationProperty Name="Exif_Values" Relationship="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Item_Exif_UploadPicture" FromRole="UploadPictureItem" ToRole="Upload_Picture_Item_Exif" />
+          <NavigationProperty Name="Exif_Data" Relationship="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Item_Exif_UploadPicture" FromRole="UploadPictureItem" ToRole="Upload_Picture_Item_Exif" />
         </EntityType>
         <EntityType Name="UploadVideoItem">
           <Key>
@@ -739,7 +739,7 @@
           <Property Type="Int32" Name="Minute_Out" Nullable="false" />
           <Property Type="Int32" Name="Second_Out" Nullable="false" />
         </ComplexType>
-        <EntityType Name="Upload_Picture_Item_Exif">
+        <EntityType Name="UploadPictureItemExif">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
@@ -768,7 +768,7 @@
         </EntityType>
         <Association Name="FK_Upload_Picture_Item_Exif_UploadPicture">
           <End Type="FamilieLaissBackend.Data.Model.UploadPictureItem" Role="UploadPictureItem" Multiplicity="1" />
-          <End Type="FamilieLaissBackend.Data.Model.Upload_Picture_Item_Exif" Role="Upload_Picture_Item_Exif" Multiplicity="0..1" />
+          <End Type="FamilieLaissBackend.Data.Model.UploadPictureItemExif" Role="Upload_Picture_Item_Exif" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="UploadPictureItem">
               <PropertyRef Name="ID" />
@@ -1108,8 +1108,8 @@
           <FunctionImportMapping FunctionImportName="sp_UploadPictureImageProperty_Delete" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_UploadPictureImageProperty_Delete" />
           <FunctionImportMapping FunctionImportName="sp_UploadPictureImageProperty_Insert" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_UploadPictureImageProperty_Insert" />
           <FunctionImportMapping FunctionImportName="sp_UploadPictureImageProperty_Update" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_UploadPictureImageProperty_Update" />
-          <EntitySetMapping Name="Upload_Picture_Item_Exif">
-            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.Upload_Picture_Item_Exif">
+          <EntitySetMapping Name="UploadPictureItemExifs">
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.UploadPictureItemExif">
               <MappingFragment StoreEntitySet="Upload_Picture_Item_Exif">
                 <ScalarProperty Name="GPS_Location" ColumnName="GPS_Location" />
                 <ScalarProperty Name="Sharpness" ColumnName="Sharpness" />

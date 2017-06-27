@@ -35,7 +35,7 @@ namespace FamilieLaissBackend.Data.Model
         public virtual DbSet<UploadPictureImageProperty> UploadPictureImageProperties { get; set; }
         public virtual DbSet<UploadPictureItem> UploadPictureItems { get; set; }
         public virtual DbSet<UploadVideoItem> UploadVideoItems { get; set; }
-        public virtual DbSet<Upload_Picture_Item_Exif> Upload_Picture_Item_Exif { get; set; }
+        public virtual DbSet<UploadPictureItemExif> UploadPictureItemExifs { get; set; }
     
         public virtual int sp_Media_Group_Delete(Nullable<long> p_ID)
         {

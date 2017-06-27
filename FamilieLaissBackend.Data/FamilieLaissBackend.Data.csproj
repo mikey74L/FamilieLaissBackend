@@ -108,10 +108,10 @@
     <Compile Include="Model\UploadPictureItem.cs">
       <DependentUpon>FamilieLaissModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\UploadVideoItem.cs">
+    <Compile Include="Model\UploadPictureItemExif.cs">
       <DependentUpon>FamilieLaissModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\Upload_Picture_Item_Exif.cs">
+    <Compile Include="Model\UploadVideoItem.cs">
       <DependentUpon>FamilieLaissModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
