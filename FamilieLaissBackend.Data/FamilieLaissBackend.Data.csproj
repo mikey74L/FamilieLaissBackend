@@ -111,6 +111,9 @@
     <Compile Include="Model\UploadVideoItem.cs">
       <DependentUpon>FamilieLaissModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\Upload_Picture_Item_Exif.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\RepositoryData.cs" />
     <Compile Include="Resources\Validation_Resources.Designer.cs">

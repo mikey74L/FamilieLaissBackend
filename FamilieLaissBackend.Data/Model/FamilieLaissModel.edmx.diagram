@@ -5,21 +5,23 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="7977edfa1e4049e7b6f1e279fc97cf26" Name="Diagram1">
-        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.MediaGroup" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.FacetGroup" Width="1.5" PointX="0.75" PointY="12.625" />
-        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.FacetValue" Width="1.5" PointX="3" PointY="12.75" />
+        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.MediaGroup" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.FacetGroup" Width="1.5" PointX="0.75" PointY="17.5" />
+        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.FacetValue" Width="1.5" PointX="3" PointY="17.375" />
         <AssociationConnector Association="FamilieLaissBackend.Data.Model.FK_Facet_Value_Facet_Group" />
-        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.MediaItem" Width="1.5" PointX="3" PointY="3.875" />
-        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.MediaItemFacet" Width="1.5" PointX="5.25" PointY="4.875" />
-        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.UploadPictureImageProperty" Width="1.5" PointX="3" PointY="9.75" />
-        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.UploadPictureItem" Width="1.5" PointX="0.75" PointY="4.625" />
-        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.UploadVideoItem" Width="1.5" PointX="0.75" PointY="8" />
+        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.MediaItem" Width="1.5" PointX="3" PointY="3.625" />
+        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.MediaItemFacet" Width="1.5" PointX="5.25" PointY="4.625" />
+        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.UploadPictureImageProperty" Width="1.5" PointX="3" PointY="8.375" />
+        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.UploadPictureItem" Width="1.5" PointX="0.75" PointY="6.125" />
+        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.UploadVideoItem" Width="1.5" PointX="0.75" PointY="9.75" />
         <AssociationConnector Association="FamilieLaissBackend.Data.Model.FK_Media_Item_Facet_Facet_Value" />
         <AssociationConnector Association="FamilieLaissBackend.Data.Model.FK_Media_Item_Group" />
         <AssociationConnector Association="FamilieLaissBackend.Data.Model.FK_Media_Item_Facet_Media_Item" />
         <AssociationConnector Association="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Picture" />
         <AssociationConnector Association="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Video" />
         <AssociationConnector Association="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Image_Property" />
+        <EntityTypeShape EntityType="FamilieLaissBackend.Data.Model.Upload_Picture_Item_Exif" Width="1.5" PointX="3" PointY="10.75" />
+        <AssociationConnector Association="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Item_Exif_UploadPicture" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

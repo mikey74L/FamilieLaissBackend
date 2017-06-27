@@ -79,6 +79,32 @@
           <Property Name="Width_Original" Type="int" Nullable="false" />
           <Property Name="Status" Type="tinyint" Nullable="false" />
         </EntityType>
+        <EntityType Name="Upload_Picture_Item_Exif">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="Make" Type="nvarchar" MaxLength="300" />
+          <Property Name="Model" Type="nvarchar" MaxLength="300" />
+          <Property Name="Resolution_X" Type="float" />
+          <Property Name="Resolution_Y" Type="float" />
+          <Property Name="Resolution_Unit" Type="nvarchar" MaxLength="50" />
+          <Property Name="Orientation" Type="smallint" />
+          <Property Name="DDL_Recorded" Type="datetimeoffset" Precision="7" />
+          <Property Name="Exposure_Time" Type="float" />
+          <Property Name="Exposure_Programm" Type="smallint" />
+          <Property Name="Exposure_Mode" Type="smallint" />
+          <Property Name="F_Number" Type="float" />
+          <Property Name="ISO_Sensitivity" Type="int" />
+          <Property Name="Shutter_Speed" Type="float" />
+          <Property Name="Metering_Mode" Type="smallint" />
+          <Property Name="Flash_Mode" Type="int" />
+          <Property Name="Focal_Length" Type="float" />
+          <Property Name="Sensing_Mode" Type="smallint" />
+          <Property Name="White_Balance_Mode" Type="smallint" />
+          <Property Name="Sharpness" Type="smallint" />
+          <Property Name="GPS_Location" Type="geography" />
+        </EntityType>
         <EntityType Name="Upload_Video_Item">
           <Key>
             <PropertyRef Name="ID" />
@@ -173,6 +199,18 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="Upload_Picture_Image_Property">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Upload_Picture_Item_Exif_UploadPicture">
+          <End Role="Upload_Picture_Item" Type="Self.Upload_Picture_Item" Multiplicity="1" />
+          <End Role="Upload_Picture_Item_Exif" Type="Self.Upload_Picture_Item_Exif" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Upload_Picture_Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Upload_Picture_Item_Exif">
               <PropertyRef Name="ID" />
             </Dependent>
           </ReferentialConstraint>
@@ -292,6 +330,7 @@
           <EntitySet Name="Media_Item_Facet" EntityType="Self.Media_Item_Facet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Upload_Picture_Image_Property" EntityType="Self.Upload_Picture_Image_Property" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Upload_Picture_Item" EntityType="Self.Upload_Picture_Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Upload_Picture_Item_Exif" EntityType="Self.Upload_Picture_Item_Exif" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Upload_Video_Item" EntityType="Self.Upload_Video_Item" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Facet_Value_Facet_Group" Association="Self.FK_Facet_Value_Facet_Group">
             <End Role="Facet_Group" EntitySet="Facet_Group" />
@@ -320,6 +359,10 @@
           <AssociationSet Name="FK_Upload_Picture_Image_Property" Association="Self.FK_Upload_Picture_Image_Property">
             <End Role="Upload_Picture_Item" EntitySet="Upload_Picture_Item" />
             <End Role="Upload_Picture_Image_Property" EntitySet="Upload_Picture_Image_Property" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Upload_Picture_Item_Exif_UploadPicture" Association="Self.FK_Upload_Picture_Item_Exif_UploadPicture">
+            <End Role="Upload_Picture_Item" EntitySet="Upload_Picture_Item" />
+            <End Role="Upload_Picture_Item_Exif" EntitySet="Upload_Picture_Item_Exif" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -483,6 +526,11 @@
             <Parameter Name="p_ID" Mode="In" Type="Int64" />
             <Parameter Name="p_Rotation" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="Upload_Picture_Item_Exif" EntityType="FamilieLaissBackend.Data.Model.Upload_Picture_Item_Exif" />
+          <AssociationSet Name="FK_Upload_Picture_Item_Exif_UploadPicture" Association="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Item_Exif_UploadPicture">
+            <End Role="UploadPictureItem" EntitySet="UploadPictureItems" />
+            <End Role="Upload_Picture_Item_Exif" EntitySet="Upload_Picture_Item_Exif" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_Media_Group_Insert_Result">
           <Property Type="Int64" Name="ID_Out" Nullable="true" />
@@ -579,6 +627,7 @@
           <Property Name="Status" Type="Byte" Nullable="false" />
           <NavigationProperty Name="MediaItems" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Picture" FromRole="Upload_Picture_Item" ToRole="Media_Item" />
           <NavigationProperty Name="ImageProperty" Relationship="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Image_Property" FromRole="Upload_Picture_Item" ToRole="Upload_Picture_Image_Property" />
+          <NavigationProperty Name="Exif_Values" Relationship="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Item_Exif_UploadPicture" FromRole="UploadPictureItem" ToRole="Upload_Picture_Item_Exif" />
         </EntityType>
         <EntityType Name="UploadVideoItem">
           <Key>
@@ -690,6 +739,45 @@
           <Property Type="Int32" Name="Minute_Out" Nullable="false" />
           <Property Type="Int32" Name="Second_Out" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Upload_Picture_Item_Exif">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="Make" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Resolution_X" Type="Double" />
+          <Property Name="Resolution_Y" Type="Double" />
+          <Property Name="Resolution_Unit" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Orientation" Type="Int16" />
+          <Property Name="DDL_Recorded" Type="DateTimeOffset" Precision="7" />
+          <Property Name="Exposure_Time" Type="Double" />
+          <Property Name="Exposure_Programm" Type="Int16" />
+          <Property Name="Exposure_Mode" Type="Int16" />
+          <Property Name="F_Number" Type="Double" />
+          <Property Name="ISO_Sensitivity" Type="Int32" />
+          <Property Name="Shutter_Speed" Type="Double" />
+          <Property Name="Metering_Mode" Type="Int16" />
+          <Property Name="Flash_Mode" Type="Int32" />
+          <Property Name="Focal_Length" Type="Double" />
+          <Property Name="Sensing_Mode" Type="Int16" />
+          <Property Name="White_Balance_Mode" Type="Int16" />
+          <Property Name="Sharpness" Type="Int16" />
+          <Property Name="GPS_Location" Type="Geography" />
+          <NavigationProperty Name="UploadPicture" Relationship="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Item_Exif_UploadPicture" FromRole="Upload_Picture_Item_Exif" ToRole="UploadPictureItem" />
+        </EntityType>
+        <Association Name="FK_Upload_Picture_Item_Exif_UploadPicture">
+          <End Type="FamilieLaissBackend.Data.Model.UploadPictureItem" Role="UploadPictureItem" Multiplicity="1" />
+          <End Type="FamilieLaissBackend.Data.Model.Upload_Picture_Item_Exif" Role="Upload_Picture_Item_Exif" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UploadPictureItem">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Upload_Picture_Item_Exif">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1020,6 +1108,33 @@
           <FunctionImportMapping FunctionImportName="sp_UploadPictureImageProperty_Delete" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_UploadPictureImageProperty_Delete" />
           <FunctionImportMapping FunctionImportName="sp_UploadPictureImageProperty_Insert" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_UploadPictureImageProperty_Insert" />
           <FunctionImportMapping FunctionImportName="sp_UploadPictureImageProperty_Update" FunctionName="FamilieLaissBackend.Data.Model.Store.sp_UploadPictureImageProperty_Update" />
+          <EntitySetMapping Name="Upload_Picture_Item_Exif">
+            <EntityTypeMapping TypeName="FamilieLaissBackend.Data.Model.Upload_Picture_Item_Exif">
+              <MappingFragment StoreEntitySet="Upload_Picture_Item_Exif">
+                <ScalarProperty Name="GPS_Location" ColumnName="GPS_Location" />
+                <ScalarProperty Name="Sharpness" ColumnName="Sharpness" />
+                <ScalarProperty Name="White_Balance_Mode" ColumnName="White_Balance_Mode" />
+                <ScalarProperty Name="Sensing_Mode" ColumnName="Sensing_Mode" />
+                <ScalarProperty Name="Focal_Length" ColumnName="Focal_Length" />
+                <ScalarProperty Name="Flash_Mode" ColumnName="Flash_Mode" />
+                <ScalarProperty Name="Metering_Mode" ColumnName="Metering_Mode" />
+                <ScalarProperty Name="Shutter_Speed" ColumnName="Shutter_Speed" />
+                <ScalarProperty Name="ISO_Sensitivity" ColumnName="ISO_Sensitivity" />
+                <ScalarProperty Name="F_Number" ColumnName="F_Number" />
+                <ScalarProperty Name="Exposure_Mode" ColumnName="Exposure_Mode" />
+                <ScalarProperty Name="Exposure_Programm" ColumnName="Exposure_Programm" />
+                <ScalarProperty Name="Exposure_Time" ColumnName="Exposure_Time" />
+                <ScalarProperty Name="DDL_Recorded" ColumnName="DDL_Recorded" />
+                <ScalarProperty Name="Orientation" ColumnName="Orientation" />
+                <ScalarProperty Name="Resolution_Unit" ColumnName="Resolution_Unit" />
+                <ScalarProperty Name="Resolution_Y" ColumnName="Resolution_Y" />
+                <ScalarProperty Name="Resolution_X" ColumnName="Resolution_X" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Make" ColumnName="Make" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
