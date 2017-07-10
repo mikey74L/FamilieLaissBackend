@@ -1,5 +1,5 @@
 ﻿using FamilieLaissBackend.Context;
-using FamilieLaissBackend.Model;
+using FamilieLaissBackend.Model.Account;
 using FamilieLaissBackend.Service;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;

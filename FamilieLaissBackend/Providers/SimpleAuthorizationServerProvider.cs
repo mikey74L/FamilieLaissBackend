@@ -1,4 +1,4 @@
-﻿using FamilieLaissBackend.Model;
+﻿using FamilieLaissBackend.Model.Account;
 using FamilieLaissBackend.Repository;
 using FamilieLaissBackend.Resources;
 using Microsoft.AspNet.Identity;

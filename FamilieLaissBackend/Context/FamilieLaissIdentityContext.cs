@@ -1,5 +1,5 @@
 ﻿using FamilieLaissBackend.Migrations;
-using FamilieLaissBackend.Model;
+using FamilieLaissBackend.Model.Account;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;

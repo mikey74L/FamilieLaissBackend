@@ -4,6 +4,8 @@ using FamilieLaissAzureOperations.Repository;
 using FamilieLaissBackend.Data.Interface;
 using FamilieLaissBackend.Data.Model;
 using FamilieLaissBackend.Data.UnitOfWork;
+using FamilieLaissBackend.Interfaces;
+using FamilieLaissBackend.Model.Account;
 using FamilieLaissBackend.Model.FacetGroup;
 using FamilieLaissBackend.Model.FacetValue;
 using FamilieLaissBackend.Model.MediaGroup;
@@ -30,6 +32,7 @@ public static class WebApiConfig
         container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();
 
         //Die benötigten Typen registrieren
+        container.Register<IUserOperations, AuthRepository>(Lifestyle.Scoped);
         container.Register<iUnitOfWorkData, UnitOfWorkData>(Lifestyle.Scoped);
         container.Register<iAzureStorageOperations, AzureStorageRepository>(Lifestyle.Scoped);
         //container.Register<iMessageRepository, MessageRepository>(Lifestyle.Scoped);
@@ -47,6 +50,8 @@ public static class WebApiConfig
         //Die Automapper Mappings definieren
         Mapper.Initialize(cfg =>
         {
+            cfg.CreateMap<RegisterUserDTO, IdentityUserExtended>();
+            cfg.CreateMap<IdentityUserExtended, AccountNotificationModel>();
             cfg.CreateMap<FacetGroupUpdateDTO, FacetGroup>();
             cfg.CreateMap<FacetGroupInsertDTO, FacetGroup>();
             cfg.CreateMap<FacetValueUpdateDTO, FacetValue>();

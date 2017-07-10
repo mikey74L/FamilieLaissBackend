@@ -1,6 +1,7 @@
 ﻿using FamilieLaissBackend.Context;
+using FamilieLaissBackend.Interfaces;
 using FamilieLaissBackend.Manager;
-using FamilieLaissBackend.Model;
+using FamilieLaissBackend.Model.Account;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System;
@@ -12,7 +13,7 @@ using System.Web;
 
 namespace FamilieLaissBackend.Repository
 {
-    public class AuthRepository : IDisposable
+    public class AuthRepository : IDisposable, IUserOperations
     {
         #region Private Members
         private FamilieLaissIdentityContext _ctx;
@@ -32,28 +33,14 @@ namespace FamilieLaissBackend.Repository
 
         #region User-Operations
         //Registrieren eines Users
-        public async Task<IdentityResult> RegisterUser(RegisterUserModel userModel)
+        public async Task<IdentityResult> RegisterUser(RegisterUserDTO model)
         {
-            //Übernehmen der Properties aus dem Registrier-Model
-            IdentityUserExtended user = new IdentityUserExtended
-            {
-                Email = userModel.eMail,
-                Geschlecht = userModel.Gender,
-                Vorname = userModel.FirstName,
-                Familienname = userModel.FamilyName,
-                UserName = userModel.UserName,
-                Strasse = userModel.City,
-                PLZ = userModel.PLZ,
-                HNR = userModel.HNR,
-                Stadt = userModel.City,
-                Land = userModel.Country,
-                SecurityQuestion = userModel.SecurityQuestion,
-                SecurityAnswer = userModel.SecurityAnswer,
-                IsAllowed = false
-            };
+            //Übernehmen der Properties aus dem Registrier-Model mit Automapper
+            IdentityUserExtended user = AutoMapper.Mapper.Map<IdentityUserExtended>(model);
+            user.IsAllowed = false;
 
             //Erstellen des Users
-            IdentityResult result = await _userManager.CreateAsync(user, userModel.Password);
+            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
 
             //Funktionsergebnis
             return result;
@@ -318,7 +305,7 @@ namespace FamilieLaissBackend.Repository
         }
 
         //Setzt ein neues Passwort für den Benutzer
-        public async Task<IdentityResult> SetNewPassword(NewPasswordModel model)
+        public async Task<IdentityResult> SetNewPassword(NewPasswordDTO model)
         {
             //Deklaration
             List<string> Errors = new List<string>();
@@ -341,6 +328,16 @@ namespace FamilieLaissBackend.Repository
                 Errors.Add("User not found");
                 return IdentityResult.Failed(Errors.ToArray());
             }
+        }
+
+        IEnumerable<IdentityUserExtended> IUserOperations.GetAllUsers()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<IEnumerable<IdentityUserExtended>> IUserOperations.GetAllAdministrators()
+        {
+            throw new NotImplementedException();
         }
         #endregion
 

@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FamilieLaissBackend.Model
+namespace FamilieLaissBackend.Model.Account
 {
     public class IdentityUserExtended : IdentityUser
     {
