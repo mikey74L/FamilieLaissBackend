@@ -115,7 +115,7 @@ namespace FamilieLaissBackend.Controllers
 
                 //Zusammenstellen des Notification-Models
                 logger.Info("Setting Notification-Model with following data:");
-                AccountNotificationModel notificationUser = new AccountNotificationModel(model.Gender, model.Country, model.SecurityQuestion)
+                AccountNotificationModel notificationUser = new AccountNotificationModel(model.Country, model.SecurityQuestion)
                 {
                     UserID = currentUser.Id,
                     VerificationToken = mailToken,
@@ -188,7 +188,7 @@ namespace FamilieLaissBackend.Controllers
 
                     //Zusammenstellen des Notification-Models
                     logger.Info("Setting Notification-Model with following data:");
-                    AccountNotificationModel notifyModel = new AccountNotificationModel(currentUser.Geschlecht, currentUser.Stadt, currentUser.SecurityQuestion);
+                    AccountNotificationModel notifyModel = new AccountNotificationModel(currentUser.Stadt, currentUser.SecurityQuestion);
                     AutoMapper.Mapper.Map<IdentityUserExtended, AccountNotificationModel>(currentUser, notifyModel);
                     logger.Info("UserID          : {0}", notifyModel.UserID);
                     logger.Info("Name            : {0}", notifyModel.UserName);
@@ -267,7 +267,7 @@ namespace FamilieLaissBackend.Controllers
                         try
                         {
                             //Zusammenstellen des Notification-Models
-                            AccountNotificationModel notifyModel = new AccountNotificationModel(user.Geschlecht, user.Land, user.SecurityQuestion)
+                            AccountNotificationModel notifyModel = new AccountNotificationModel(user.Land, user.SecurityQuestion)
                             {
                                 VerificationToken = ResetToken
                             };
@@ -373,7 +373,7 @@ namespace FamilieLaissBackend.Controllers
 
                 //Zusammenstellen des Notification-Models
                 logger.Info("Setting Notification-Model with following data:");
-                AccountNotificationModel notifyModel = new AccountNotificationModel(currentUser.Geschlecht, currentUser.Land, currentUser.SecurityQuestion);
+                AccountNotificationModel notifyModel = new AccountNotificationModel(currentUser.Land, currentUser.SecurityQuestion);
                 AutoMapper.Mapper.Map<IdentityUserExtended, AccountNotificationModel>(currentUser, notifyModel);
                 logger.Info("UserID          : {0}", notifyModel.UserID);
                 logger.Info("Name            : {0}", notifyModel.UserName);
@@ -440,7 +440,7 @@ namespace FamilieLaissBackend.Controllers
 
                 //Zusammenstellen des Notification-Models
                 logger.Info("Setting Notification-Model with following data:");
-                AccountNotificationModel notifyModel = new AccountNotificationModel(currentUser.Geschlecht, currentUser.Land, currentUser.SecurityQuestion);
+                AccountNotificationModel notifyModel = new AccountNotificationModel(currentUser.Land, currentUser.SecurityQuestion);
                 AutoMapper.Mapper.Map<IdentityUserExtended, AccountNotificationModel>(currentUser, notifyModel);
                 logger.Info("UserID          : {0}", notifyModel.UserID);
                 logger.Info("Name            : {0}", notifyModel.UserName);

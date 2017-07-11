@@ -423,6 +423,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LoginError_Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Mail_Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Mail_Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\PasswordResetToken_Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -462,7 +467,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Interface\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -493,6 +497,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Content Include="Properties\webjobs-list.json" />
+    <Content Include="Views\Mailer\AdminConfirmAccount.cshtml" />
+    <Content Include="Views\Mailer\LockAccount.cshtml" />
+    <Content Include="Views\Mailer\NewAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AdminConfirmAccount_Resources.de.resx" />
@@ -519,6 +526,11 @@
     <EmbeddedResource Include="Resources\LoginError_Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LoginError_Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Mail_Resources.de.resx" />
+    <EmbeddedResource Include="Resources\Mail_Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Mail_Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\PasswordResetToken_Resources.de.resx" />
     <EmbeddedResource Include="Resources\PasswordResetToken_Resources.resx">

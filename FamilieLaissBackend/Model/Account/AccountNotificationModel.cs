@@ -8,15 +8,13 @@ namespace FamilieLaissBackend.Model.Account
     public class AccountNotificationModel
     {
         #region Private Members
-        private int _Geschlecht;
         private int _SecurityQuestion;
         private string _Land;
         #endregion
 
         #region C'tor
-        public AccountNotificationModel(int geschlecht, string land, int securityQuestion)
+        public AccountNotificationModel(string land, int securityQuestion)
         {
-            _Geschlecht = geschlecht;
             _Land = land;
             _SecurityQuestion = securityQuestion;
         }
@@ -29,20 +27,7 @@ namespace FamilieLaissBackend.Model.Account
         public string UserName { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public string Geschlecht
-        {
-            get
-            {
-                if (_Geschlecht == 1)
-                {
-                    return FamilieLaissBackend.Resources.Gender_Resources.Men;
-                }
-                else
-                {
-                    return FamilieLaissBackend.Resources.Gender_Resources.Women;
-                }
-            }
-        }
+        public byte Geschlecht { get; set; }
         public string Vorname { get; set; }
         public string Familienname { get; set; }
         public string Strasse { get; set; }

@@ -1,0 +1,50 @@
+﻿@model FamilieLaissBackend.Model.Account.AccountNotificationModel
+
+@{
+    Layout = "OneColumn_Layout.cshtml";
+
+    string Anrede_Prefix = "";
+
+    if (Model.Geschlecht == 1)
+    {
+        Anrede_Prefix = FamilieLaissBackend.Resources.Mail_Resources.Anrede_Prefix_Men;
+    }
+    else
+    {
+        Anrede_Prefix = FamilieLaissBackend.Resources.Mail_Resources.Anrede_Prefix_Women;
+    }
+}
+
+<repeater>
+    <layout label="Text only">
+        <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+                <tr>
+                    <td class="w580" width="580">
+                        <p align="left" class="article-title"><singleline label="Title">@FamilieLaissBackend.Resources.UnlockAccountMail_Resources.Header_Lock</singleline></p>
+                        <div align="left" class="article-content">
+                            <multiline label="Description">
+                                <p>
+                                    @Anrede_Prefix <b>@Model.Vorname @Model.Familienname</b>,
+                                </p>
+                                <p>
+                                    @FamilieLaissBackend.Resources.UnlockAccountMail_Resources.Account_Locked<br />
+                                    <br />
+                                    @FamilieLaissBackend.Resources.UnlockAccountMail_Resources.Information_Locked<br />
+                                    <br />
+                                    <br />
+                                    @FamilieLaissBackend.Resources.Mail_Resources.Not_Reply
+                                </p>
+                            </multiline>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w580" width="580" height="10"></td>
+                </tr>
+            </tbody>
+        </table>
+    </layout>
+</repeater>
+
+

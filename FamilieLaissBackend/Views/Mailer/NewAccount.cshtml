@@ -1,0 +1,62 @@
+﻿@model FamilieLaissBackend.Model.Account.AccountNotificationModel
+
+@{
+    Layout = "OneColumn_Layout.cshtml";
+
+    string Anrede_Prefix = "";
+
+    if (Model.Geschlecht == 1)
+    {
+        Anrede_Prefix = FamilieLaissBackend.Resources.Mail_Resources.Anrede_Prefix_Men;
+    }
+    else
+    {
+        Anrede_Prefix = FamilieLaissBackend.Resources.Mail_Resources.Anrede_Prefix_Women;
+    }
+}
+
+<repeater>
+    <layout label="Text only">
+        <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+                <tr>
+                    <td class="w580" width="580">
+                        <p align="left" class="article-title"><singleline label="Title">@FamilieLaissBackend.Resources.ConfirmationMail_Resources.Header</singleline></p>
+                        <div align="left" class="article-content">
+                            <multiline label="Description">
+                                <p>
+                                    @Anrede_Prefix <b>@Model.Vorname @Model.Familienname</b>,
+                                </p>
+                                <p>
+                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Registration_Successful<br />
+                                    <br />
+                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Benutzername <b>@Model.UserName</b><br />
+                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Vorname <b>@Model.Vorname</b><br />
+                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Familienname <b>@Model.Familienname</b><br />
+                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Strasse <b>@Model.Strasse</b><br />
+                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Hausnummer <b>@Model.HNR</b><br />
+                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Postleitzahl <b>@Model.PLZ</b><br />
+                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Stadt <b>@Model.Stadt</b><br />
+                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Land <b>@Model.Land</b><br />
+                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.eMail <b>@Model.Email</b><br />
+                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Sicherheitsfrage <b>@Model.SecurityQuestion</b><br />
+                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Sicherheitsantwort <b>@Model.SecurityAnswer</b><br />
+                                    <br />
+                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Information<br />
+                                    <br />
+                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Click_1 <a href="@Model.URL"> @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Click_2 </a>@FamilieLaissBackend.Resources.ConfirmationMail_Resources.Click_3
+                                    <br />
+                                    <br />
+                                    @FamilieLaissBackend.Resources.Mail_Resources.Not_Reply
+                                </p>
+                            </multiline>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w580" width="580" height="10"></td>
+                </tr>
+            </tbody>
+        </table>
+    </layout>
+</repeater>
