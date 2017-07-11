@@ -367,8 +367,14 @@
     <Compile Include="Manager\FamilieLaissUserManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Account\AccountNotificationModel.cs" />
+    <Compile Include="Model\Account\AllowAccountDTO.cs" />
+    <Compile Include="Model\Account\ConfirmAccountDTO.cs" />
+    <Compile Include="Model\Account\DeleteAccountDTO.cs" />
+    <Compile Include="Model\Account\ForgotPasswordDTO.cs" />
+    <Compile Include="Model\Account\LockAccountDTO.cs" />
     <Compile Include="Model\Account\NewPasswordDTO.cs" />
     <Compile Include="Model\Account\RegisterUserDTO.cs" />
+    <Compile Include="Model\Account\UserInfoDTO.cs" />
     <Compile Include="Model\FacetGroup\FacetGroupUpdateDTO.cs" />
     <Compile Include="Model\FacetGroup\FacetGroupInsertDTO.cs" />
     <Compile Include="Model\FacetValue\FacetValueInsertDTO.cs" />
@@ -392,6 +398,11 @@
     </Compile>
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Repository\AuthRepository.cs" />
+    <Compile Include="Resources\AdminConfirmAccount_Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AdminConfirmAccount_Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ConfirmationMail_Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -412,10 +423,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LoginError_Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\PasswordResetToken_Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PasswordResetToken_Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\SecurityQuestion_Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SecurityQuestion_Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\UnlockAccountMail_Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UnlockAccountMail_Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Service\EmailService.cs" />
     <Compile Include="Startup.cs" />
@@ -474,6 +495,11 @@
     <Content Include="Properties\webjobs-list.json" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\AdminConfirmAccount_Resources.de.resx" />
+    <EmbeddedResource Include="Resources\AdminConfirmAccount_Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AdminConfirmAccount_Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\ConfirmationMail_Resources.de.resx" />
     <EmbeddedResource Include="Resources\ConfirmationMail_Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -494,10 +520,20 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LoginError_Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PasswordResetToken_Resources.de.resx" />
+    <EmbeddedResource Include="Resources\PasswordResetToken_Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>PasswordResetToken_Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\SecurityQuestion_Resources.de.resx" />
     <EmbeddedResource Include="Resources\SecurityQuestion_Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SecurityQuestion_Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\UnlockAccountMail_Resources.de.resx" />
+    <EmbeddedResource Include="Resources\UnlockAccountMail_Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>UnlockAccountMail_Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
