@@ -24,12 +24,8 @@
                 new IdentityRole() { Name = "Admin" },
                 new IdentityRole() { Name = "FamilyUser" });
 
-            //Den Password-Hasher initialisieren und das Passwort für den Admin Hashen
-            var passwordHash = new PasswordHasher();
-            string password = passwordHash.HashPassword("Sicalis_74");
-
-            //Hinzufügen des Admin-User
-            if (!context.Users.Any(u => u.UserName == "Admin"))
+            //Hinzufügen des 1. Admin-User
+            if (!context.Users.Any(u => u.UserName == "mlaiss"))
             {
 
                 IdentityUserExtended AdminUser = new IdentityUserExtended
@@ -38,10 +34,10 @@
                     Geschlecht = 1,
                     Familienname = "Laiß",
                     Vorname = "Michael",
-                    UserName = "Admin",
+                    UserName = "mlaiss",
                     Strasse = "Goldmühlestraße",
                     Stadt = "Sindelfingen",
-                    Land = "Deutschland",
+                    Land = "DE",
                     HNR = "6",
                     IsAllowed = true,
                     PLZ = "71065",
@@ -52,7 +48,37 @@
                 var store = new UserStore<IdentityUserExtended>(context);
                 var manager = new UserManager<IdentityUserExtended>(store);
 
-                manager.Create(AdminUser, "Sicalis_74");
+                manager.Create(AdminUser, "Admin_Password_mlaiss");
+                manager.AddToRole(AdminUser.Id, "User");
+                manager.AddToRole(AdminUser.Id, "FamilyUser");
+                manager.AddToRole(AdminUser.Id, "Admin");
+            }
+
+            //Hinzufügen des 2. Admin-User
+            if (!context.Users.Any(u => u.UserName == "klaiss"))
+            {
+
+                IdentityUserExtended AdminUser = new IdentityUserExtended
+                {
+                    Email = "klaudija@klaudija-s.de",
+                    Geschlecht = 2,
+                    Familienname = "Laiß",
+                    Vorname = "Klaudija",
+                    UserName = "klaiss",
+                    Strasse = "Goldmühlestraße",
+                    Stadt = "Sindelfingen",
+                    Land = "DE",
+                    HNR = "6",
+                    IsAllowed = true,
+                    PLZ = "71065",
+                    SecurityAnswer = "Ohne Bedeutung",
+                    SecurityQuestion = 1
+                };
+
+                var store = new UserStore<IdentityUserExtended>(context);
+                var manager = new UserManager<IdentityUserExtended>(store);
+
+                manager.Create(AdminUser, "Admin_Password_klaiss");
                 manager.AddToRole(AdminUser.Id, "User");
                 manager.AddToRole(AdminUser.Id, "FamilyUser");
                 manager.AddToRole(AdminUser.Id, "Admin");
