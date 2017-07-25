@@ -53,7 +53,14 @@ namespace FamilieLaissBackend.Manager
             manager.DefaultAccountLockoutTimeSpan = new TimeSpan(0, 10, 0);
 
             //Den eMail-Service konfigurieren
-            manager.EmailService = new EmailService();
+            if (!HttpContext.Current.IsDebuggingEnabled && !HttpContext.Current.Request.IsLocal)
+            {
+                manager.EmailService = new EMailSendGridUserManager();
+            }
+            else
+            {
+                manager.EmailService = new EMailMailtrapUserManager();
+            }
 
             //Bestimmen des Protection-Provider. Dieser wird für die Generierung von Tokens für EMail-Bestätigung
             //oder Passwort zurücksetzen benötigt

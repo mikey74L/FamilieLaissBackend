@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -19,12 +20,12 @@ namespace FamilieLaissBackend.Service
             {
                 Host = "smtp.mailtrap.io",
                 Port = 2525,
-                Credentials = new NetworkCredential("70bc453f6c49e5", "5713a3631788ce"),
+                Credentials = new NetworkCredential(ConfigurationManager.AppSettings["MailtrapUser"], ConfigurationManager.AppSettings["MailtrapPwd"]),
                 EnableSsl = true,
             };
 
             //Sender-Adresse festlegen
-            MailAddress fromAdress = new MailAddress(System.Configuration.ConfigurationManager.AppSettings["MailSenderAdress"], System.Configuration.ConfigurationManager.AppSettings["MailSenderName"]);
+            MailAddress fromAdress = new MailAddress(ConfigurationManager.AppSettings["MailSenderAdress"], ConfigurationManager.AppSettings["MailSenderName"]);
 
             //Empfänger-Adresse festlegen
             MailAddress toAdress = new MailAddress(message.Destination);
