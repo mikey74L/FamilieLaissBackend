@@ -16,6 +16,7 @@ namespace FamilieLaissBackend.Providers
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
+        //Überprüft den Client über die Client-ID ob diese überhaupt erlaubt ist
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             //Deklarationen
@@ -96,6 +97,7 @@ namespace FamilieLaissBackend.Providers
             return;
         }
 
+        //Wird aufgerufen wenn ein Access-Token über eine normale Anmeldung mit Benutzername und Passwort ausgeführt wird
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             //Deklaration
@@ -104,7 +106,7 @@ namespace FamilieLaissBackend.Providers
             string userName = "";
             IList<string> Roles = null;
             ClaimsIdentity oAuthIdentity = null;
-
+            
             //Auslesen der Erlaubten CORS Zugriffe aus dem OWIN-Context
             //Dieser kommt ursprünglich aus der Datenbank in der Tabelle Clients
             //Und wird in der Methode ValidateClientAuthentication ausgelesen
@@ -184,6 +186,37 @@ namespace FamilieLaissBackend.Providers
 
             //Das Token erzeugen
             context.Validated(ticket);
+        }
+
+        //Wird aufgerufen wenn ein Access-Token über ein Refresh-Token angefordert wird
+        public override Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
+        {
+            //Ermitteln der ursprünglichen Client-ID aus dem Ticket mit der das allererste Access-Token generiert wurde (Anmeldung mit Benutzername / Passwort)
+            var originalClient = context.Ticket.Properties.Dictionary["as:client_id"];
+
+            //Ermitteln der ClientID aus dem aktuellen Request
+            var currentClient = context.ClientId;
+
+            //Nur wenn die aktuelle ClientID und die ursprüngliche ClientID gleich sind, dann ist es erlaubt weiterzumachen
+            //Ansonsten wird ein Fehler zurückgeworfen
+            if (originalClient != currentClient)
+            {
+                context.SetError("different_clientid", "Refresh token is issued to a different clientId.");
+
+                return Task.FromResult<object>(null);
+            }
+
+            //
+            var newIdentity = new ClaimsIdentity(context.Ticket.Identity);
+            newIdentity.AddClaim(new Claim("newClaim", "newValue"));
+
+            var newTicket = new AuthenticationTicket(newIdentity, context.Ticket.Properties);
+
+            //Das Token erzeugen
+            context.Validated(newTicket);
+
+            //Return-Value
+            return Task.FromResult<object>(null);
         }
 
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)

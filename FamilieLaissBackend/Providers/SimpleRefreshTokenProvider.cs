@@ -69,9 +69,32 @@ namespace FamilieLaissBackend.Providers
             throw new NotImplementedException();
         }
 
-        public Task ReceiveAsync(AuthenticationTokenReceiveContext context)
+        public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)
         {
-            throw new NotImplementedException();
+            //Ermitteln der Erlaubten CORS Zugriffe aus dem OWIN-Context
+            var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
+
+            //Setzen der Erlaubten CORS-Zugriffe
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
+
+            //Ermitteln des Hash für die ID des Refresh-Tokens
+            //Da diese in der Datenbank nur gehasht abgelegt sind
+            string hashedTokenId = GeneralHelper.GetHash(context.Token);
+
+            using (AuthRepository _repo = new AuthRepository())
+            {
+                //Suchen des passenden Refresh-Tokens in der Datenbank
+                var refreshToken = await _repo.FindRefreshToken(hashedTokenId);
+
+                if (refreshToken != null)
+                {
+                    //Get protectedTicket from refreshToken class
+                    context.DeserializeTicket(refreshToken.ProtectedTicket);
+
+                    //Entfernen des Refresh-Tokens aus der Datenbank
+                    var result = await _repo.RemoveRefreshToken(hashedTokenId);
+                }
+            }
         }
     }
 }
