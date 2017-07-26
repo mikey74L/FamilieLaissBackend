@@ -18,6 +18,9 @@ namespace FamilieLaissBackend.Context
         {
         }
 
+        public DbSet<ClientConfig> ClientConfigurations { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+
         public static FamilieLaissIdentityContext Create()
         {
             return new FamilieLaissIdentityContext();

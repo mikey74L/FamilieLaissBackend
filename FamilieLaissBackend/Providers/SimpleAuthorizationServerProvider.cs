@@ -1,4 +1,5 @@
-﻿using FamilieLaissBackend.Model.Account;
+﻿using FamilieLaissBackend.Helper;
+using FamilieLaissBackend.Model.Account;
 using FamilieLaissBackend.Repository;
 using FamilieLaissBackend.Resources;
 using Microsoft.AspNet.Identity;
@@ -17,8 +18,82 @@ namespace FamilieLaissBackend.Providers
     {
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-            //Jeder Client ist erlaubt
+            //Deklarationen
+            string clientId = string.Empty;
+            string clientSecret = string.Empty;
+            ClientConfig client = null;
+
+            //Ermitteln der Credentials für die ClientID und das Client-Secret aus dem aktuellen Request (Context).
+            //
+            //Diese können entweder im Header stehen (TryGetBasicCredentials), oder im Body stehen (TryGetFormCredentials)
+            //Im body müssen diese aber mit x-www-form-urlencoded abgelegt sein
+            if (!context.TryGetBasicCredentials(out clientId, out clientSecret))
+            {
+                context.TryGetFormCredentials(out clientId, out clientSecret);
+            }
+
+            //Wenn keine ClientID mitgesendet wurde dann wird ein Fehler zurückgeliefert.
+            //D.h. es dürfen nur bekannte Clients die auch eine ClientID mitliefern mit dem System arbeiten
+            if (context.ClientId == null)
+            {
+                context.SetError("clientId:missing", "ClientId should be sent.");
+
+                return;
+            }
+
+            //Ermitteln des Clients aus der Datenbank
+            using (AuthRepository _repo = new AuthRepository())
+            {
+                client = await _repo.FindClient(context.ClientId);
+            }
+
+            //Wenn aus der Datenbank kein passender Client ermittelt werden konnte, dann wird
+            //ein Fehler zurückgeliefert
+            if (client == null)
+            {
+                context.SetError("invalid_clientId", string.Format("Client with id '{0}' is not registered in the system.", context.ClientId));
+
+                return;
+            }
+
+            //Wenn es sich um einen nativen Client handelt, dann wird das Client-Secret
+            //auf Richtigkeit überprüft
+            if (client.ApplicationType == enApplicationTypes.NativeConfidential)
+            {
+                if (string.IsNullOrWhiteSpace(clientSecret))
+                {
+                    context.SetError("client_secret_missing", "Client secret should be sent.");
+
+                    return;
+                }
+                else
+                {
+                    if (client.Secret != GeneralHelper.GetHash(clientSecret))
+                    {
+                        context.SetError("client_secret_invalid", "Client secret is invalid.");
+
+                        return;
+                    }
+                }
+            }
+
+            //Wenn der Client als nicht aktiv in der Datenbank konfiguriert ist, dann gibt es eine Fehlermeldung
+            if (!client.Active)
+            {
+                context.SetError("client_inactive", "Client is inactive.");
+
+                return;
+            }
+
+            //Setzen der zulässigen IP-Ranges und der Lebensdauer der Refresh-Tokens im OWIN-Context
+            context.OwinContext.Set<string>("as:clientAllowedOrigin", client.AllowedOrigin);
+            context.OwinContext.Set<string>("as:clientRefreshTokenLifeTime", client.RefreshTokenLifeTime.ToString());
+
+            //Den Client als validated ermitteln
             context.Validated();
+
+            //Returning
+            return;
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
@@ -30,8 +105,15 @@ namespace FamilieLaissBackend.Providers
             IList<string> Roles = null;
             ClaimsIdentity oAuthIdentity = null;
 
+            //Auslesen der Erlaubten CORS Zugriffe aus dem OWIN-Context
+            //Dieser kommt ursprünglich aus der Datenbank in der Tabelle Clients
+            //Und wird in der Methode ValidateClientAuthentication ausgelesen
+            //Wenn kein Wert gefunden wurde, dann wird alles für CORS erlaubt
+            var allowedOrigin = context.OwinContext.Get<string>("as:clientAllowedOrigin");
+            if (allowedOrigin == null) allowedOrigin = "*";
+
             //CORS Zugriffe erlauben
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { allowedOrigin });
 
             //Mit dem Authorization-Repository überprüfen ob der User berechtigt ist
             using (AuthRepository _repo = new AuthRepository())
@@ -97,7 +179,7 @@ namespace FamilieLaissBackend.Providers
             }
 
             //Das Ticket mit den entsprechenden Properties erstellen
-            AuthenticationProperties properties = CreateProperties(userName, firstName, familyName, Roles.ToArray());
+            AuthenticationProperties properties = CreateProperties(userName, firstName, familyName, (context.ClientId == null) ? string.Empty : context.ClientId, Roles.ToArray());
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, properties);
 
             //Das Token erzeugen
@@ -114,13 +196,14 @@ namespace FamilieLaissBackend.Providers
             return Task.FromResult<object>(null);
         }
 
-        public static AuthenticationProperties CreateProperties(string userName, string firstName, string familyName, string[] roles)
+        public static AuthenticationProperties CreateProperties(string userName, string firstName, string familyName, string clientID, string[] roles)
         {
             IDictionary<string, string> data = new Dictionary<string, string>
             {
                 { "userName", userName },
                 { "firstName", firstName },
                 { "familyName", familyName },
+                { "as:client_id", clientID},
                 { "roles", String.Join("," , roles) }
             };
             return new AuthenticationProperties(data);

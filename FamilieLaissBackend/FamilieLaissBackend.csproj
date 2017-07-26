@@ -367,17 +367,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\GeneralHelper.cs" />
     <Compile Include="Helper\ViewRenderer.cs" />
     <Compile Include="Interfaces\IUserOperations.cs" />
     <Compile Include="Manager\FamilieLaissUserManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Account\AccountNotificationModel.cs" />
     <Compile Include="Model\Account\AllowAccountDTO.cs" />
+    <Compile Include="Model\Account\ClientConfig.cs" />
     <Compile Include="Model\Account\ConfirmAccountDTO.cs" />
     <Compile Include="Model\Account\DeleteAccountDTO.cs" />
+    <Compile Include="Model\Account\enApplicationTypes.cs" />
     <Compile Include="Model\Account\ForgotPasswordDTO.cs" />
     <Compile Include="Model\Account\LockAccountDTO.cs" />
     <Compile Include="Model\Account\NewPasswordDTO.cs" />
+    <Compile Include="Model\Account\RefreshToken.cs" />
     <Compile Include="Model\Account\RegisterUserDTO.cs" />
     <Compile Include="Model\Account\UserInfoDTO.cs" />
     <Compile Include="Model\FacetGroup\FacetGroupUpdateDTO.cs" />
@@ -402,6 +406,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
+    <Compile Include="Providers\SimpleRefreshTokenProvider.cs" />
     <Compile Include="Repository\AuthRepository.cs" />
     <Compile Include="Resources\AdminConfirmAccount_Resources.Designer.cs">
       <AutoGen>True</AutoGen>

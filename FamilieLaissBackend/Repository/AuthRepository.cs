@@ -341,6 +341,75 @@ namespace FamilieLaissBackend.Repository
         }
         #endregion
 
+        #region Client and Refresh Token
+        public async Task<ClientConfig> FindClient(string clientID)
+        {
+            //Ermitteln des Clients
+            var client = await _ctx.ClientConfigurations.FindAsync(clientID);
+
+            //Funktionsergebnis
+            return client;
+        }
+
+        public async Task<bool> AddRefreshToken(RefreshToken token)
+        {
+            //Überprüfen ob schon ein Refresh-Token für die ClientID und das Subject existiert 
+            var existingToken = _ctx.RefreshTokens.Where(r => r.Subject == token.Subject && r.ClientId == token.ClientId).SingleOrDefault();
+
+            //Wenn schon ein Refresh-Token existiert wird das bestehende gelöscht
+            if (existingToken != null)
+            {
+                var result = await RemoveRefreshToken(existingToken);
+            }
+
+            //Hinzufügen des neuen Refresh-Tokens in die Datenbank
+            _ctx.RefreshTokens.Add(token);
+
+            //Funktionsergebnis
+            return await _ctx.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> RemoveRefreshToken(string refreshTokenId)
+        {
+            //Ermitteln des Refresh-Tokens anhand der ID
+            var refreshToken = await _ctx.RefreshTokens.FindAsync(refreshTokenId);
+
+            //Wenn das Token gefunden wurde, dann entfernen aus der Datenbank
+            if (refreshToken != null)
+            {
+                _ctx.RefreshTokens.Remove(refreshToken);
+                return await _ctx.SaveChangesAsync() > 0;
+            }
+
+            //Funktionsergebnis wenn Token nicht gefunden wurde
+            return false;
+        }
+
+        public async Task<bool> RemoveRefreshToken(RefreshToken refreshToken)
+        {
+            //Entfernen des Refresh-Tokens
+            _ctx.RefreshTokens.Remove(refreshToken);
+
+            //Funktionsergebnis
+            return await _ctx.SaveChangesAsync() > 0;
+        }
+
+        public async Task<RefreshToken> FindRefreshToken(string refreshTokenId)
+        {
+            //Ermitteln des Refresh-Tokens anhand der ID
+            var refreshToken = await _ctx.RefreshTokens.FindAsync(refreshTokenId);
+
+            //Funktionsergebnis
+            return refreshToken;
+        }
+
+        public List<RefreshToken> GetAllRefreshTokens()
+        {
+            //Zurückliefern aller Refresh-Tokens aus der Datenbank
+            return _ctx.RefreshTokens.ToList();
+        }
+        #endregion
+
         #region Dispose
         public void Dispose()
         {
