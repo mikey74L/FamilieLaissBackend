@@ -13,8 +13,10 @@ namespace FamilieLaissAPI
 {
     public class Startup
     {
+        //Diese Methode wird beim Start der Anwendung aufgerufen
         public Startup(IHostingEnvironment env)
         {
+            //Neuen Configuration-Builder erzeugen und die Settings für die Applikationskonfiguration festlegen
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)  //Den Basis-Pfad der Web-Anwendung festlegen
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)  //Die Appsettings.json hinzufügen
@@ -25,7 +27,7 @@ namespace FamilieLaissAPI
 
         public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        //Mit dieser Methode wird der DI-Container konfiguriert
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvcCore()              //Die MVC Basis-Services hinzufügen
@@ -33,7 +35,7 @@ namespace FamilieLaissAPI
                 .AddJsonFormatters(options => options.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore); //Die JSON Formatter zu MVC hinzufügen
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        //Mit dieser Methode wird die Pipeline für ASP.NET konfiguriert
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));

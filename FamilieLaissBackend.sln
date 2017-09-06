@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilieLaissBackend", "FamilieLaissBackend\FamilieLaissBackend.csproj", "{B8C3FB49-68D0-4C84-801F-3A6735C3C16D}"
 EndProject
@@ -17,7 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilieLaissAzureOperations
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamilieLaissIdentity", "FamilieLaissIdentity\FamilieLaissIdentity.csproj", "{AC01A0E8-862C-41A3-8BFA-E5E2E99D8912}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilieLaissIdentity.Data", "FamilieLaissIdentity.Data\FamilieLaissIdentity.Data.csproj", "{244700A3-0B8F-4522-80E5-225C27FF2151}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamilieLaissIdentity.Data", "FamilieLaissIdentity.Data\FamilieLaissIdentity.Data.csproj", "{244700A3-0B8F-4522-80E5-225C27FF2151}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamilieLaissAPI", "FamilieLaissAPI\FamilieLaissAPI.csproj", "{C5393CA0-F3D7-42F3-9475-F9F9750BAF4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilieLaissAPI.Data", "FamilieLaissAPI.Data\FamilieLaissAPI.Data.csproj", "{D6BA24B1-EDAB-4F24-AB14-5ECD7BD9FDA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +63,14 @@ Global
 		{244700A3-0B8F-4522-80E5-225C27FF2151}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{244700A3-0B8F-4522-80E5-225C27FF2151}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{244700A3-0B8F-4522-80E5-225C27FF2151}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5393CA0-F3D7-42F3-9475-F9F9750BAF4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5393CA0-F3D7-42F3-9475-F9F9750BAF4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5393CA0-F3D7-42F3-9475-F9F9750BAF4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5393CA0-F3D7-42F3-9475-F9F9750BAF4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6BA24B1-EDAB-4F24-AB14-5ECD7BD9FDA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6BA24B1-EDAB-4F24-AB14-5ECD7BD9FDA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6BA24B1-EDAB-4F24-AB14-5ECD7BD9FDA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6BA24B1-EDAB-4F24-AB14-5ECD7BD9FDA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
