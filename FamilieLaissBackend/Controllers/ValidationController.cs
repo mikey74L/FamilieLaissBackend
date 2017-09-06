@@ -1,12 +1,6 @@
 ﻿using FamilieLaissBackend.Data.Interface;
-using FamilieLaissBackend.Interfaces;
-using FamilieLaissBackend.Model.Account;
 using FamilieLaissBackend.Model.Validation;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -17,88 +11,12 @@ namespace FamilieLaissBackend.Controllers
     {
         #region Private Members
         private iUnitOfWorkData _UnitOfWork;
-        private IUserOperations _UserRepo;
         #endregion
 
         #region C'tor
-        public ValidationController(iUnitOfWorkData unitOfWork, IUserOperations userOperations)
+        public ValidationController(iUnitOfWorkData unitOfWork)
         {
             _UnitOfWork = unitOfWork;
-            _UserRepo = userOperations;
-        }
-        #endregion
-
-        #region Validation for eMail of User
-        /// <summary>
-        /// Überprüft ob die eMail-Adresse für einen Benutzer schon verwendet wurde
-        /// </summary>
-        /// <param name="valueObject">Das Object mit den zu überprüfenden Werten</param>
-        /// <returns>Task wird zurückgeliefert</returns>
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("CheckMailAdress")]
-        public async Task<IHttpActionResult> CheckMailAdress([FromBody]CheckValueDTO valueObject)
-        {
-            //Deklaration
-            IdentityUserExtended result = null;
-
-            //Ermitteln des Users anhand der eMail-Adresse
-            try
-            {
-                result = await _UserRepo.FindUserByMail(valueObject.Value);
-            }
-            catch
-            {
-                //Wenn hier eine Exception auftritt dann gibt es ein Problem mit der Datenbank
-                return Ok(false);
-            }
-
-            //Result für Client ermitteln
-            if (result == null)
-            {
-                return Ok(true);
-            }
-            else
-            {
-                return Ok(false);
-            }
-        }
-        #endregion
-
-        #region Validation for UserName of User
-        /// <summary>
-        /// Überprüft ob der Benutzername für einen Benutzer schon verwendet wurde
-        /// </summary>
-        /// <param name="Value">Das Object mit den zu überprüfenden Werten</param>
-        /// <returns>Task wird zurückgeliefert</returns>
-        [AllowAnonymous]
-        [HttpPost]
-        [Route("CheckUserName")]
-        public async Task<IHttpActionResult> CheckUserName([FromBody]CheckValueDTO valueObject)
-        {
-            //Deklaration
-            IdentityUserExtended result = null;
-
-            //Ermitteln des Users anhand des UserName
-            try
-            {
-                result = await _UserRepo.FindUser(valueObject.Value);
-            }
-            catch
-            {
-                //Wenn hier eine Exception auftritt dann gibt es ein Problem mit der Datenbank
-                return Ok(false);
-            }
-
-            //Result für Client ermitteln
-            if (result == null)
-            {
-                return Ok(true);
-            }
-            else
-            {
-                return Ok(false);
-            }
         }
         #endregion
 

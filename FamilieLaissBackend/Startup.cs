@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.Owin;
 using Owin;
 using System.Web.Http;
-using FamilieLaissBackend.App_Start;
+using IdentityServer3.AccessTokenValidation;
 
 [assembly: OwinStartup(typeof(FamilieLaissBackend.Startup))]
 namespace FamilieLaissBackend
@@ -13,14 +13,23 @@ namespace FamilieLaissBackend
     {
         public void Configuration(IAppBuilder app)
         {
-            //Konfigurieren von OAuth für OWIN
-            OAuthConfig.ConfigureOAuth(app);
+            //Access-Tokens gegen den Identity-Server verifizieren
+            app.UseIdentityServerBearerTokenAuthentication(new IdentityServerBearerTokenAuthenticationOptions
+            {
+                Authority = "http://localhost:5000",
+                ValidationMode = ValidationMode.Both,
 
-            //OWIN mit der Web-API verdrahten. Dabei wird auch CORS für WEB-API freigeschalten
-            //Dabei gibt es bei CORS keine Beschränkung
+                RequiredScopes = new[] { "FamilieLaissAPI" }
+            });
+
+            //OWIN mit der Web-API verdrahten. 
             HttpConfiguration config = new HttpConfiguration();
             WebApiConfig.Register(config);
+
+            //CORS verwenden -- Muss im Produktivbetrieb noch auf die entsprechenden URLs eingeschränkt werden
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
+            //Web-API verwenden
             app.UseWebApi(config);
         }
     }

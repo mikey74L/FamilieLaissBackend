@@ -4,8 +4,6 @@ using FamilieLaissAzureOperations.Repository;
 using FamilieLaissBackend.Data.Interface;
 using FamilieLaissBackend.Data.Model;
 using FamilieLaissBackend.Data.UnitOfWork;
-using FamilieLaissBackend.Interfaces;
-using FamilieLaissBackend.Model.Account;
 using FamilieLaissBackend.Model.FacetGroup;
 using FamilieLaissBackend.Model.FacetValue;
 using FamilieLaissBackend.Model.MediaGroup;
@@ -13,12 +11,8 @@ using FamilieLaissBackend.Model.MediaItem;
 using FamilieLaissBackend.Model.MediaItemFacet;
 using FamilieLaissBackend.Model.UploadPictureImageProperty;
 using FamilieLaissBackend.Model.UploadPictureItem;
-using FamilieLaissBackend.Repository;
-using Newtonsoft.Json.Serialization;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
-using System.Linq;
-using System.Net.Http.Formatting;
 using System.Web.Http;
 
 public static class WebApiConfig
@@ -29,10 +23,9 @@ public static class WebApiConfig
         var container = new Container();
 
         //Den Scope auf WebAPI-Request setzen
-        container.Options.DefaultScopedLifestyle = new WebApiRequestLifestyle();
+        container.Options.DefaultScopedLifestyle = new SimpleInjector.Lifestyles.AsyncScopedLifestyle();
 
         //Die benötigten Typen registrieren
-        container.Register<IUserOperations, AuthRepository>(Lifestyle.Scoped);
         container.Register<iUnitOfWorkData, UnitOfWorkData>(Lifestyle.Scoped);
         container.Register<iAzureStorageOperations, AzureStorageRepository>(Lifestyle.Scoped);
         //container.Register<iMessageRepository, MessageRepository>(Lifestyle.Scoped);
@@ -50,8 +43,6 @@ public static class WebApiConfig
         //Die Automapper Mappings definieren
         Mapper.Initialize(cfg =>
         {
-            cfg.CreateMap<RegisterUserDTO, IdentityUserExtended>();
-            cfg.CreateMap<IdentityUserExtended, AccountNotificationModel>();
             cfg.CreateMap<FacetGroupUpdateDTO, FacetGroup>();
             cfg.CreateMap<FacetGroupInsertDTO, FacetGroup>();
             cfg.CreateMap<FacetValueUpdateDTO, FacetValue>();
@@ -72,7 +63,7 @@ public static class WebApiConfig
 
         config.Routes.MapHttpRoute(
             name: "DefaultApi",
-            routeTemplate: "api/{controller}/{id}",
+            routeTemplate: "FamilieLaissAPI/{controller}/{id}",
             defaults: new { id = RouteParameter.Optional }
         );
 
