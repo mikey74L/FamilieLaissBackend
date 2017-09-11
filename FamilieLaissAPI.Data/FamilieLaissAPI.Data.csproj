@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="DBContext\" />
+    <Folder Include="Factory\" />
+  </ItemGroup>
+
 </Project>
