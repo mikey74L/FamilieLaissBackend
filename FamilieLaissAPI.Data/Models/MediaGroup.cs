@@ -38,6 +38,6 @@ namespace FamilieLaissAPI.Data.Models
         [Required]
         public DateTimeOffset DDL_Create { get; set; }
 
-        public ICollection<MediaItem> MediaItems { get; set; }
+        public virtual ICollection<MediaItem> MediaItems { get; set; }
     }
 }

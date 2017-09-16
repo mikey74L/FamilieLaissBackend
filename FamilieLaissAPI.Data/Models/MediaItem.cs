@@ -43,12 +43,14 @@ namespace FamilieLaissAPI.Data.Models
         public DateTimeOffset DDL_Create { get; set; }
 
         public long MediaGroupId { get; set; }
-        public MediaGroup MediaGroup { get; set; }
+        public virtual MediaGroup MediaGroup { get; set; }
 
-        public ICollection<MediaItemFacet> MediaItemFacets { get; set; }
+        public virtual ICollection<MediaItemFacet> MediaItemFacets { get; set; }
 
-        public UploadPictureItem UploadPictureItem { get; set; }
+        public long UploadPictureItemId { get; set; }
+        public virtual UploadPictureItem UploadPictureItem { get; set; }
 
-        public UploadVideoItem UploadVideoItem { get; set; }
+        public long UploadVideoItemId { get; set; }
+        public virtual UploadVideoItem UploadVideoItem { get; set; }
     }
 }

@@ -27,8 +27,8 @@ namespace FamilieLaissAPI.Data.Models
         public DateTimeOffset DDL_Create { get; set; }
 
         public long FacetGroupId { get; set; }
-        public FacetGroup FacetGroup { get; set; }
+        public virtual FacetGroup FacetGroup { get; set; }
 
-        public ICollection<MediaItem> MediaItemFacets { get; set; }
+        public virtual ICollection<MediaItem> MediaItemFacets { get; set; }
     }
 }

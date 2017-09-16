@@ -13,9 +13,9 @@ namespace FamilieLaissAPI.Data.Models
         public long MediaItemFacetId { get; set; }
 
         public long MediaItemId { get; set; }
-        public MediaItem MediaItem { get; set; }
+        public virtual MediaItem MediaItem { get; set; }
 
         public long FacetValueId { get; set; }
-        public FacetValue FacetValue { get; set; }
+        public virtual FacetValue FacetValue { get; set; }
     }
 }

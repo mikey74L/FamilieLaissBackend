@@ -67,5 +67,8 @@ namespace FamilieLaissAPI.Data.Models
         public Int16 Sharpness { get; set; }
 
         public DbGeography GPS_Location { get; set; }
+
+        public long UploadPictureItemId { get; set; }
+        public virtual UploadPictureItem UploadPictureItem { get; set; }
     }
 }

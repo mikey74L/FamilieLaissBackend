@@ -33,5 +33,9 @@ namespace FamilieLaissAPI.Data.Models
 
         [Required]
         public enUploadStatus Status { get; set; }
+
+        public virtual ICollection<MediaItem> MediaItems { get; set; }
+
+        public virtual UploadPictureItemExif UploadPictureItemExif { get; set; }
     }
 }

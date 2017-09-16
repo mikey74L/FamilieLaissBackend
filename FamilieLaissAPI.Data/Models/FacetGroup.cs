@@ -30,6 +30,6 @@ namespace FamilieLaissAPI.Data.Models
         [Required]
         public DateTimeOffset DDL_Create { get; set; }
 
-        public ICollection<FacetValue> FacetValues { get; set; }
+        public virtual ICollection<FacetValue> FacetValues { get; set; }
     }
 }
