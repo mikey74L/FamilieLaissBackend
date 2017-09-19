@@ -51,10 +51,8 @@ namespace FamilieLaissAPI.Data.Models
 
         public virtual ICollection<MediaItemFacet> MediaItemFacets { get; set; }
 
-        public long UploadPictureItemId { get; set; }
         public virtual UploadPictureItem UploadPictureItem { get; set; }
 
-        public long UploadVideoItemId { get; set; }
         public virtual UploadVideoItem UploadVideoItem { get; set; }
     }
 }
