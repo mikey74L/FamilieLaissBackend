@@ -374,7 +374,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" />
-          <Property Name="Type" Type="Byte" Nullable="false" />
+          <Property Name="Type" Nullable="false" Type="FamilieLaissBackend.Data.Model.enMediaType" />
           <Property Name="NameGerman" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NameEnglish" Type="String" MaxLength="70" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DescriptionGerman" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
@@ -583,7 +583,7 @@
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" />
           <Property Name="ID_Group" Type="Int64" Nullable="false" />
-          <Property Name="Type" Type="Byte" Nullable="false" />
+          <Property Name="Type" Type="FamilieLaissBackend.Data.Model.enMediaType" Nullable="false" />
           <Property Name="NameGerman" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="NameEnglish" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="DescriptionGerman" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
@@ -624,7 +624,7 @@
           <Property Name="UploadDate" Type="DateTimeOffset" Nullable="false" Precision="7" />
           <Property Name="HeightOriginal" Type="Int32" Nullable="false" />
           <Property Name="WidthOriginal" Type="Int32" Nullable="false" />
-          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="Status" Type="FamilieLaissBackend.Data.Model.enUploadStatus" Nullable="false" />
           <NavigationProperty Name="MediaItems" Relationship="FamilieLaissBackend.Data.Model.FK_Media_Item_Upload_Picture" FromRole="Upload_Picture_Item" ToRole="Media_Item" />
           <NavigationProperty Name="ImageProperty" Relationship="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Image_Property" FromRole="Upload_Picture_Item" ToRole="Upload_Picture_Image_Property" />
           <NavigationProperty Name="Exif_Data" Relationship="FamilieLaissBackend.Data.Model.FK_Upload_Picture_Item_Exif_UploadPicture" FromRole="UploadPictureItem" ToRole="Upload_Picture_Item_Exif" />
@@ -635,7 +635,7 @@
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" />
           <Property Name="OriginalName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="Byte" Nullable="false" />
+          <Property Name="Status" Type="FamilieLaissBackend.Data.Model.enUploadStatus" Nullable="false" />
           <Property Name="UploadDate" Type="DateTimeOffset" Nullable="false" Precision="7" />
           <Property Name="OriginalHeight" Type="Int32" Nullable="false" />
           <Property Name="OriginalWidth" Type="Int32" Nullable="false" />
@@ -778,6 +778,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EnumType Name="enMediaType" UnderlyingType="Byte">
+          <Member Name="Picture" Value="1" />
+          <Member Name="Video" Value="2" />
+        </EnumType>
+        <EnumType Name="enUploadStatus" UnderlyingType="Byte">
+          <Member Name="Uploaded" Value="0" />
+          <Member Name="Assigned" Value="1" />
+        </EnumType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

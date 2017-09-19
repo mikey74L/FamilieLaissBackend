@@ -25,7 +25,7 @@ namespace FamilieLaissBackend.Data.Model
         public System.DateTimeOffset UploadDate { get; set; }
         public int HeightOriginal { get; set; }
         public int WidthOriginal { get; set; }
-        public byte Status { get; set; }
+        public enUploadStatus Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MediaItem> MediaItems { get; set; }

@@ -54,6 +54,12 @@
   <ItemGroup>
     <Compile Include="Interface\iRepositoryData.cs" />
     <Compile Include="Interface\iUnitOfWorkData.cs" />
+    <Compile Include="Model\enMediaType.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\enUploadStatus.cs">
+      <DependentUpon>FamilieLaissModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\FacetGroup.cs">
       <DependentUpon>FamilieLaissModel.tt</DependentUpon>
     </Compile>

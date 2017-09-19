@@ -22,7 +22,7 @@ namespace FamilieLaissBackend.Data.Model
     
         public long ID { get; set; }
         public string OriginalName { get; set; }
-        public byte Status { get; set; }
+        public enUploadStatus Status { get; set; }
         public System.DateTimeOffset UploadDate { get; set; }
         public int OriginalHeight { get; set; }
         public int OriginalWidth { get; set; }

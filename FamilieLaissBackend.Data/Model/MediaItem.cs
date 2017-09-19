@@ -22,7 +22,7 @@ namespace FamilieLaissBackend.Data.Model
     
         public long ID { get; set; }
         public long ID_Group { get; set; }
-        public byte Type { get; set; }
+        public enMediaType Type { get; set; }
         public string NameGerman { get; set; }
         public string NameEnglish { get; set; }
         public string DescriptionGerman { get; set; }
