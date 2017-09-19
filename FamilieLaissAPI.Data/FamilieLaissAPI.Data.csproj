@@ -55,6 +55,7 @@
     <Compile Include="Enums\enFacetType.cs" />
     <Compile Include="Enums\enMediaType.cs" />
     <Compile Include="Enums\enUploadStatus.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Blog.cs" />
     <Compile Include="Models\FacetGroup.cs" />
     <Compile Include="Models\FacetValue.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Models\MediaItemFacet.cs" />
     <Compile Include="Models\UploadPictureItem.cs" />
     <Compile Include="Models\UploadPictureItemExif.cs" />
+    <Compile Include="Models\UploadPictureItemProperty.cs" />
     <Compile Include="Models\UploadVideoItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

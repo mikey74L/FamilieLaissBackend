@@ -8,5 +8,7 @@ namespace FamilieLaissAPI.Data.Enums
 {
     public enum enUploadStatus
     {
+        Uploaded = 0,
+        Assigned = 1
     }
 }

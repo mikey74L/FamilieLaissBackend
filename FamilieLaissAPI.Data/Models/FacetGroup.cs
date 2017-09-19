@@ -15,16 +15,20 @@ namespace FamilieLaissAPI.Data.Models
         public long FacetGroupId { get; set; }
 
         [Required]
+        [Index("IDX_Facet_Group_Name_German", 1, IsUnique = true)]
+        [Index("IDX_Facet_Group_Name_English", 1, IsUnique = true)]
         public enFacetType FacetType { get; set; }
 
         [MaxLength(70)]
         [Required]
         [Column("Name_German")]
+        [Index("IDX_Facet_Group_Name_German", 2, IsUnique = true)]
         public string NameGerman { get; set; }
 
         [MaxLength(70)]
         [Required]
         [Column("Name_English")]
+        [Index("IDX_Facet_Group_Name_English", 2, IsUnique = true)]
         public string NameEnglish { get; set; }
 
         [Required]

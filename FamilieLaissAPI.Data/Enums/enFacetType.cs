@@ -8,6 +8,7 @@ namespace FamilieLaissAPI.Data.Enums
 {
     public enum enFacetType
     {
-
+        Picture = 1,
+        Video = 2
     }
 }

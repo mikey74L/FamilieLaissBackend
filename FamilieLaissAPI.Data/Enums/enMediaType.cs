@@ -8,5 +8,7 @@ namespace FamilieLaissAPI.Data.Enums
 {
     public enum enMediaType
     {
+        Picture = 1,
+        Video = 2
     }
 }

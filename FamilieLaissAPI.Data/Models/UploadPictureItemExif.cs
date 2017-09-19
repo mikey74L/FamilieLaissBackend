@@ -68,7 +68,6 @@ namespace FamilieLaissAPI.Data.Models
 
         public DbGeography GPS_Location { get; set; }
 
-        public long UploadPictureItemId { get; set; }
         public virtual UploadPictureItem UploadPictureItem { get; set; }
     }
 }

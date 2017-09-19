@@ -25,6 +25,7 @@ namespace FamilieLaissAPI.Data.Context
         public DbSet<UploadPictureItem> UploadPictureItems { get; set; }
         public DbSet<UploadVideoItem> UploadVideoItems { get; set; }
         public DbSet<UploadPictureItemExif> UploadPictureItemExifs { get; set; }
+        public DbSet<UploadPictureItemProperty> UploadPictureItemProperty { get; set; }
         public DbSet<MediaItemFacet> MediaItemFacets { get; set; }
 
         //Über die Fluent-API die Erstellung der Datenbank steuern. Der Rest wird über die
@@ -43,11 +44,52 @@ namespace FamilieLaissAPI.Data.Context
             modelBuilder.Entity<UploadPictureItem>().MapToStoredProcedures();
             modelBuilder.Entity<UploadVideoItem>().MapToStoredProcedures();
             modelBuilder.Entity<UploadPictureItemExif>().MapToStoredProcedures();
+            modelBuilder.Entity<UploadPictureItemProperty>().MapToStoredProcedures();
             modelBuilder.Entity<MediaItemFacet>().MapToStoredProcedures();
 
-            //Festlgen der Foreign-Keys Beziehungen
+            //Festlegen des Foreign-Keys für die Facet-Value / Facet-Group Beziehung
+            modelBuilder.Entity<FacetGroup>()
+                .HasMany<FacetValue>(x => x.FacetValues)
+                .WithRequired(s => s.FacetGroup)
+                .WillCascadeOnDelete();
 
-            //Deklarieren von zusätzlichen Indexen
+            //Festlegen des Foreign-Keys für die Media-Item / Media-Group Beziehung
+            modelBuilder.Entity<MediaGroup>()
+                .HasMany<MediaItem>(x => x.MediaItems)
+                .WithRequired(s => s.MediaGroup)
+                .WillCascadeOnDelete();
+
+            //Festlegen des Foreign-Keys für die Upload-Picture-Item / Media-Item Beziehung
+            modelBuilder.Entity<UploadPictureItem>()
+                .HasMany<MediaItem>(x => x.MediaItems)
+                .WithOptional(s => s.UploadPictureItem);
+
+            //Festlegen des Foreign-Keys für die Upload-Video-Item / Media-Item Beziehung
+            modelBuilder.Entity<UploadVideoItem>()
+                .HasMany<MediaItem>(x => x.MediaItems)
+                .WithOptional(s => s.UploadVideoItem);
+
+            //Festlegen des Foreign-Keys für die Media-Item-Facet / Media-Item Beziehung
+            modelBuilder.Entity<MediaItem>()
+                .HasMany<MediaItemFacet>(x => x.MediaItemFacets)
+                .WithRequired(s => s.MediaItem)
+                .WillCascadeOnDelete();
+
+            //Festlegen des Foreign-Keys für die Media-Item-Facet / Facet-Value Beziehung
+            modelBuilder.Entity<FacetValue>()
+                .HasMany<MediaItemFacet>(x => x.MediaItemFacets)
+                .WithRequired(s => s.FacetValue)
+                .WillCascadeOnDelete();
+
+            //Festlegen des Foreign-Keys für die Upload-Picture-Exif / Upload-Picture Beziehung
+            modelBuilder.Entity<UploadPictureItemExif>()
+                .HasRequired<UploadPictureItem>(x => x.UploadPictureItem)
+                .WithOptional(s => s.UploadPictureItemExif);
+
+            //Festlegen des Foreign-Keys für die Upload-Picture-Exif / Upload-Picture Beziehung
+            modelBuilder.Entity<UploadPictureItemProperty>()
+                .HasRequired<UploadPictureItem>(x => x.UploadPictureItem)
+                .WithOptional(s => s.UploadPictureItemProperty);
         }
     }
 }

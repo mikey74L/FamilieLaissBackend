@@ -37,5 +37,7 @@ namespace FamilieLaissAPI.Data.Models
         public virtual ICollection<MediaItem> MediaItems { get; set; }
 
         public virtual UploadPictureItemExif UploadPictureItemExif { get; set; }
+
+        public virtual UploadPictureItemProperty UploadPictureItemProperty { get; set; }
     }
 }

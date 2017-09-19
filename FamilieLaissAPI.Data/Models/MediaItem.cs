@@ -15,16 +15,20 @@ namespace FamilieLaissAPI.Data.Models
         public long MediaItemId { get; set; }
 
         [Required]
+        [Index("IDX_Media_Item_Name_German", 1, IsUnique = true)]
+        [Index("IDX_Media_Item_Name_English", 1, IsUnique = true)]
         public enMediaType MediaType { get; set; }
 
         [Required]
         [MaxLength(200)]
         [Column("Name_German")]
+        [Index("IDX_Media_Item_Name_German", 2, IsUnique = true)]
         public string NameGerman { get; set; }
 
         [Required]
         [MaxLength(200)]
         [Column("Name_English")]
+        [Index("IDX_Media_Item_Name_English", 2, IsUnique = true)]
         public string NameEnglish { get; set; }
 
         [MaxLength(2000)]
