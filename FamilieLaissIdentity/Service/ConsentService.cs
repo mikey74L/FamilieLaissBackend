@@ -1,15 +1,15 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
+﻿using FamilieLaissIdentity.Models;
+using FamilieLaissIdentity.Options;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IdentityServer4.Quickstart.UI
+namespace FamilieLaissIdentity.Service
 {
     public class ConsentService
     {
@@ -122,8 +122,8 @@ namespace IdentityServer4.Quickstart.UI
         }
 
         private ConsentViewModel CreateConsentViewModel(
-            ConsentInputModel model, string returnUrl, 
-            AuthorizationRequest request, 
+            ConsentInputModel model, string returnUrl,
+            AuthorizationRequest request,
             Client client, Resources resources)
         {
             var vm = new ConsentViewModel();
@@ -188,4 +188,3 @@ namespace IdentityServer4.Quickstart.UI
         }
     }
 }
-

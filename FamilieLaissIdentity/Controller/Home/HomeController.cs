@@ -1,12 +1,10 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
+﻿using FamilieLaissIdentity.Attributes;
+using FamilieLaissIdentity.Models;
 using IdentityServer4.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace IdentityServer4.Quickstart.UI
+namespace FamilieLaissIdentity.Controllers
 {
     [SecurityHeaders]
     public class HomeController : Controller

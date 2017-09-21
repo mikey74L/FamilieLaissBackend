@@ -1,8 +1,4 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
-
-
-using IdentityModel;
+﻿using IdentityModel;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using IdentityServer4.Test;
@@ -18,8 +14,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
+using FamilieLaissIdentity.Attributes;
+using FamilieLaissIdentity.Service;
+using FamilieLaissIdentity.Models;
+using FamilieLaissIdentity.Options;
 
-namespace IdentityServer4.Quickstart.UI
+namespace FamilieLaiss.Identity.Controllers
 {
     /// <summary>
     /// This sample controller implements a typical login/logout/provision workflow for local and external accounts.
@@ -29,11 +29,14 @@ namespace IdentityServer4.Quickstart.UI
     [SecurityHeaders]
     public class AccountController : Controller
     {
+        #region Private Members
         private readonly TestUserStore _users;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IEventService _events;
         private readonly AccountService _account;
+        #endregion
 
+        #region C'tor
         public AccountController(
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
@@ -47,7 +50,9 @@ namespace IdentityServer4.Quickstart.UI
             _events = events;
             _account = new AccountService(interaction, httpContextAccessor, clientStore);
         }
+        #endregion
 
+        #region Login-Page Show / Postback
         /// <summary>
         /// Show login page
         /// </summary>
@@ -112,7 +117,9 @@ namespace IdentityServer4.Quickstart.UI
             var vm = await _account.BuildLoginViewModelAsync(model);
             return View(vm);
         }
+        #endregion
 
+        #region External-Provider stuff
         /// <summary>
         /// initiate roundtrip to external authentication provider
         /// </summary>
@@ -241,7 +248,9 @@ namespace IdentityServer4.Quickstart.UI
 
             return Redirect("~/");
         }
+        #endregion
 
+        #region Logout Show / Postback
         /// <summary>
         /// Show logout page
         /// </summary>
@@ -295,5 +304,6 @@ namespace IdentityServer4.Quickstart.UI
 
             return View("LoggedOut", vm);
         }
+        #endregion
     }
 }
