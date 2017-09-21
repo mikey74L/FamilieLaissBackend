@@ -40,6 +40,9 @@ namespace FamilieLaissIdentity
                 .AddOperationalStore(o => o.UseSqlServer(Configuration.GetConnectionString("IdentityServer4Connection"),
                     options => options.MigrationsAssembly(typeof(AppIdentityDBContext).GetTypeInfo().Assembly.GetName().Name)))
                 .AddAspNetIdentity<FamilieLaissIdentityUser>();
+
+            //MVC hinzufügen
+            services.AddMvc();
         }
 
         public IConfigurationRoot Configuration { get; set; }
@@ -116,6 +119,12 @@ namespace FamilieLaissIdentity
 
             //Identity-Server verwenden
             app.UseIdentityServer();
+
+            //Browsen für statisches Dateien aktivieren 
+            app.UseStaticFiles();
+
+            //MVC mit default Route aktivieren
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
