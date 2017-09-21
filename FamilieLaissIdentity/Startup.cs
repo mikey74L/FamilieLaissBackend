@@ -17,6 +17,8 @@ using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
+using FamilieLaissIdentity.Interfaces;
+using FamilieLaissIdentity.Service;
 
 namespace FamilieLaissIdentity
 {
@@ -31,6 +33,55 @@ namespace FamilieLaissIdentity
 
             //ASP.NET Identity hinzufügen
             services.AddIdentity<FamilieLaissIdentityUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDBContext>();
+
+            //Den Service für den Mail-Versand hinzufügen
+            services.AddTransient<EMailMailtrapUserManagerService>();
+            services.AddTransient<EMailSendGridUserManagerService>();
+            services.AddTransient(factory =>
+            {
+                Func<string, IMailSender> accesor = key =>
+                {
+                    switch (key)
+                    {
+                        case "Debug":
+                            return factory.GetService<EMailMailtrapUserManagerService>();
+                        case "Runtime":
+                            return factory.GetService<EMailSendGridUserManagerService>();
+                        default:
+                            return factory.GetService<EMailMailtrapUserManagerService>();
+                    }
+                };
+                return accesor;
+            });
+
+            //Beispiel wie später über die Factory der richtige Service abgefragt werden muss
+            //Das geschieht dann im Account-Controller und dort kann dann der HTTPCONTEXT verwendet werden um nach runtime oder debug abzufragen
+            //    public class Consumer
+            //{
+            //    private readonly Func<string, IService> _serviceAccessor;
+
+            //    public Consumer(Func<string, IService> serviceAccessor)
+            //    {
+            //        _serviceAccessor = serviceAccesor;
+            //    }
+
+            //    public void UseServiceA(string key)
+            //    {
+            //        serviceAccessor(key).DoIServiceOperation();
+            //    }
+            //}
+
+
+            //if (!HttpContext.Current.IsDebuggingEnabled && !HttpContext.Current.Request.IsLocal)
+            //{
+            //    manager.EmailService = new EMailSendGridUserManager();
+            //}
+            //else
+            //{
+            //    manager.EmailService = new EMailMailtrapUserManager();
+            //}
+
+
 
             //Den Identity-Server zum DI-Container hinzufügen
             services.AddIdentityServer()

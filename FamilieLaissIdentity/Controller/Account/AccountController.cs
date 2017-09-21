@@ -18,6 +18,8 @@ using FamilieLaissIdentity.Attributes;
 using FamilieLaissIdentity.Service;
 using FamilieLaissIdentity.Models;
 using FamilieLaissIdentity.Options;
+using Microsoft.AspNetCore.Identity;
+using FamilieLaissIdentity.Data.Models;
 
 namespace FamilieLaiss.Identity.Controllers
 {
@@ -30,11 +32,13 @@ namespace FamilieLaiss.Identity.Controllers
     public class AccountController : Controller
     {
         #region Private Members
-        private readonly TestUserStore _users;
+        private readonly UserManager<FamilieLaissIdentityUser> _users;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IEventService _events;
         private readonly AccountService _account;
         #endregion
+
+        //SignInManager<User> signManager
 
         #region C'tor
         public AccountController(
@@ -42,10 +46,10 @@ namespace FamilieLaiss.Identity.Controllers
             IClientStore clientStore,
             IHttpContextAccessor httpContextAccessor,
             IEventService events,
-            TestUserStore users = null)
+            UserManager<FamilieLaissIdentityUser> userManager)
         {
             // if the TestUserStore is not in DI, then we'll just use the global users collection
-            _users = users ?? new TestUserStore(TestUsers.Users);
+            _users = userManager;
             _interaction = interaction;
             _events = events;
             _account = new AccountService(interaction, httpContextAccessor, clientStore);
@@ -80,7 +84,7 @@ namespace FamilieLaiss.Identity.Controllers
             if (ModelState.IsValid)
             {
                 // validate username/password against in-memory store
-                if (_users.ValidateCredentials(model.Username, model.Password))
+                if (await _users.FindByNameAsync(model.Username) != null)
                 {
                     AuthenticationProperties props = null;
                     // only set explicit expiration here if persistent. 
@@ -95,9 +99,9 @@ namespace FamilieLaiss.Identity.Controllers
                     };
 
                     // issue authentication cookie with subject ID and username
-                    var user = _users.FindByUsername(model.Username);
-                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.SubjectId, user.Username));
-                    await HttpContext.Authentication.SignInAsync(user.SubjectId, user.Username, props);
+                    var user = await _users.FindByNameAsync(model.Username);
+                    await _events.RaiseAsync(new UserLoginSuccessEvent("", "", ""));
+                    await HttpContext.Authentication.SignInAsync("", "", props);
 
                     // make sure the returnUrl is still valid, and if yes - redirect back to authorize endpoint or a local page
                     if (_interaction.IsValidReturnUrl(model.ReturnUrl) || Url.IsLocalUrl(model.ReturnUrl))
@@ -207,13 +211,13 @@ namespace FamilieLaiss.Identity.Controllers
             var userId = userIdClaim.Value;
 
             // check if the external user is already provisioned
-            var user = _users.FindByExternalProvider(provider, userId);
-            if (user == null)
-            {
-                // this sample simply auto-provisions new external user
-                // another common approach is to start a registrations workflow first
-                user = _users.AutoProvisionUser(provider, userId, claims);
-            }
+            //var user = _users.FindByExternalProvider(provider, userId);
+            //if (user == null)
+            //{
+            //    // this sample simply auto-provisions new external user
+            //    // another common approach is to start a registrations workflow first
+            //    user = _users.AutoProvisionUser(provider, userId, claims);
+            //}
 
             var additionalClaims = new List<Claim>();
 
@@ -234,8 +238,8 @@ namespace FamilieLaiss.Identity.Controllers
             }
 
             // issue authentication cookie for user
-            await _events.RaiseAsync(new UserLoginSuccessEvent(provider, userId, user.SubjectId, user.Username));
-            await HttpContext.Authentication.SignInAsync(user.SubjectId, user.Username, provider, props, additionalClaims.ToArray());
+            //await _events.RaiseAsync(new UserLoginSuccessEvent(provider, userId, user.SubjectId, user.Username));
+            //await HttpContext.Authentication.SignInAsync(user.SubjectId, user.Username, provider, props, additionalClaims.ToArray());
 
             // delete temporary cookie used during external authentication
             await HttpContext.Authentication.SignOutAsync(IdentityServer4.IdentityServerConstants.ExternalCookieAuthenticationScheme);

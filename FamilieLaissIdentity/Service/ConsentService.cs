@@ -124,7 +124,7 @@ namespace FamilieLaissIdentity.Service
         private ConsentViewModel CreateConsentViewModel(
             ConsentInputModel model, string returnUrl,
             AuthorizationRequest request,
-            Client client, Resources resources)
+            Client client, IdentityServer4.Models.Resources resources)
         {
             var vm = new ConsentViewModel();
             vm.RememberConsent = model?.RememberConsent ?? true;
