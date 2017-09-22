@@ -7,7 +7,9 @@ namespace FamilieLaissIdentity.Models
 {
     public class SendMailModel
     {
-        public string Destination { get; set; }
+        public string ReceiverAdress { get; set; }
+
+        public string ReceiverName { get; set; }
 
         public string Subject { get; set; }
 

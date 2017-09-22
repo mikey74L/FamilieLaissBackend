@@ -19,6 +19,7 @@ using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Mappers;
 using FamilieLaissIdentity.Interfaces;
 using FamilieLaissIdentity.Service;
+using FamilieLaissIdentity.Models;
 
 namespace FamilieLaissIdentity
 {
@@ -28,6 +29,21 @@ namespace FamilieLaissIdentity
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //Hinzufügen der Konfiguration (App-Settings) zum IOC-Container
+            var appSettings = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettings);
+
+            //Konfiguration kann später über folgenden Code in die entsprechenden Klassen injected werden
+
+            //    private readonly AppSettings _appSettings;
+            //public HomeController(IOptions<AppSettings> appSettings)
+            //{
+            //    _appSettings = appSettings.Value;
+            //}
+
+
+
+
             //Den DB-Context für ASP.NET Identity hinzufügen
             services.AddDbContext<AppIdentityDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
 
