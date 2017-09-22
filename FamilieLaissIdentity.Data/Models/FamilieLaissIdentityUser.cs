@@ -40,5 +40,8 @@ namespace FamilieLaissIdentity.Data.Models
         [MaxLength(10)]
         [Required]
         public string Country { get; set; }
+
+        [Required]
+        public bool IsAllowed { get; set; }
     }
 }

@@ -22,6 +22,7 @@ namespace FamilieLaissIdentity.Models
         #region Mail General
         public string MailSenderName { get; set; }
         public string MailSenderAdress { get; set; }
+        public string MailType { get; set; }
         #endregion
     }
 }

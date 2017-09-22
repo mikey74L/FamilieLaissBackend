@@ -33,22 +33,39 @@ namespace FamilieLaissIdentity
             var appSettings = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettings);
 
-            //Konfiguration kann später über folgenden Code in die entsprechenden Klassen injected werden
-
-            //    private readonly AppSettings _appSettings;
-            //public HomeController(IOptions<AppSettings> appSettings)
-            //{
-            //    _appSettings = appSettings.Value;
-            //}
-
-
-
-
             //Den DB-Context für ASP.NET Identity hinzufügen
             services.AddDbContext<AppIdentityDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
 
             //ASP.NET Identity hinzufügen
-            services.AddIdentity<FamilieLaissIdentityUser, IdentityRole>().AddEntityFrameworkStores<AppIdentityDBContext>();
+            services.AddIdentity<FamilieLaissIdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDBContext>()
+                .AddDefaultTokenProviders();
+
+            //ASP.NET.Core.Identity konfigurieren
+            services.Configure<IdentityOptions>(options =>
+            {
+                //Festlegen der Passwort-Einstellungen
+                options.Password.RequireDigit = true; //Das Passwort muss mindestens eine Zahl enthalten
+                options.Password.RequiredLength = 8; //Das Passwort muss mindestens 8 Zeichen lang sein
+                options.Password.RequireNonAlphanumeric = false; //Das Passwort muss mindestens ein nicht alphanumerisches Zeichen enthalten
+                options.Password.RequireUppercase = true; //Das Passwort muss mindestens einen Großbuchstaben enthalten
+                options.Password.RequireLowercase = false; //Das Passwort muss mindestens einen Kleinbuchstaben enthalten
+
+                //Legt fest, dass eine Anmeldung nur erfolgen kann wenn die Email-Adresse bestätigt wurde
+                options.SignIn.RequireConfirmedEmail = true;
+
+                //Festlegen nach wie vielen Fehlversuchen der Account gesperrt wird
+                options.Lockout.MaxFailedAccessAttempts = 5;
+
+                //Festlegen, dass die Email-Adresse für jede User eindeutig sein muss
+                options.User.RequireUniqueEmail = true;
+            });
+
+            //Den Service für den User-Manager hinzufügen
+            services.AddTransient<IUserOperations, UserOperationsService>();
+
+            //Den Service für den eMail-Generator hinzufügen
+            services.AddTransient<IMailGenerator, MailGeneratorService>();
 
             //Den Service für den Mail-Versand hinzufügen
             services.AddTransient<EMailMailtrapUserManagerService>();
@@ -59,9 +76,9 @@ namespace FamilieLaissIdentity
                 {
                     switch (key)
                     {
-                        case "Debug":
+                        case "Dev":
                             return factory.GetService<EMailMailtrapUserManagerService>();
-                        case "Runtime":
+                        case "Prod":
                             return factory.GetService<EMailSendGridUserManagerService>();
                         default:
                             return factory.GetService<EMailMailtrapUserManagerService>();
