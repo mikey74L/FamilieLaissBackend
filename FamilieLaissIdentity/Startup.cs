@@ -25,8 +25,23 @@ namespace FamilieLaissIdentity
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        #region C'tor
+        public Startup(IHostingEnvironment env)
+        {
+            //Konfigurations-Dateien konfigurieren
+            var builder = new ConfigurationBuilder()
+              .SetBasePath(env.ContentRootPath)
+              .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+              .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+              .AddEnvironmentVariables();
+
+            //Konfig-Objekt erzeugen
+            Configuration = builder.Build();
+        }
+        #endregion
+
+        #region Configure IOC-Container
+        //Diese Methode wird aufgerufen
         public void ConfigureServices(IServiceCollection services)
         {
             //Hinzufügen der Konfiguration (App-Settings) zum IOC-Container
@@ -128,9 +143,9 @@ namespace FamilieLaissIdentity
             //MVC hinzufügen
             services.AddMvc();
         }
+        #endregion
 
-        public IConfigurationRoot Configuration { get; set; }
-
+        #region Migrate and Seed EF for Identity-Server
         //Mit dieser Methode wird der EF-Context für IdentityServer Migrated und geseeded
         private void InitializeEntityServerDB(IApplicationBuilder app)
         {
@@ -172,18 +187,12 @@ namespace FamilieLaissIdentity
                 }
             }
         }
+        #endregion
 
+        #region Configure Pipeline
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            //Konfigurations-Dateien konfigurieren
-            var builder = new ConfigurationBuilder()
-              .SetBasePath(env.ContentRootPath)
-              .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-              .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-              .AddEnvironmentVariables();
-            Configuration = builder.Build();
-
             //Migraten und seeden des EF-Contexts für IdentityServer
             InitializeEntityServerDB(app);
 
@@ -210,5 +219,10 @@ namespace FamilieLaissIdentity
             //MVC mit default Route aktivieren
             app.UseMvcWithDefaultRoute();
         }
+        #endregion
+
+        #region Public Config-Property
+        public IConfigurationRoot Configuration { get; set; }
+        #endregion
     }
 }

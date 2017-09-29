@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace FamilieLaissIdentity.Service
 {
-    public class MailGeneratorService: IMailGenerator
+    public class MailGeneratorService : IMailGenerator
     {
+        public Task GenerateRegisterMail()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

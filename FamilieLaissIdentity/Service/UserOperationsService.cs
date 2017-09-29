@@ -16,7 +16,7 @@ namespace FamilieLaissIdentity.Service
         #endregion
 
         #region C'tor
-        public AuthRepository(UserManager<FamilieLaissIdentityUser> userManager)
+        public UserOperationsService(UserManager<FamilieLaissIdentityUser> userManager)
         {
             //From IOC
             _userManager = userManager;
@@ -274,7 +274,6 @@ namespace FamilieLaissIdentity.Service
         #region Dispose
         public void Dispose()
         {
-            _ctx.Dispose();
             _userManager.Dispose();
 
         }
