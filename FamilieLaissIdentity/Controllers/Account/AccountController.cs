@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using FamilieLaissIdentity.Interfaces;
 
-namespace FamilieLaiss.Identity.Controllers
+namespace FamilieLaissIdentity.Controllers
 {
     [Authorize]
     [SecurityHeaders]

@@ -69,5 +69,14 @@ namespace FamilieLaissIdentity.Views.Account.Resources {
                 return ResourceManager.GetString("btn_Register", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
     }
 }

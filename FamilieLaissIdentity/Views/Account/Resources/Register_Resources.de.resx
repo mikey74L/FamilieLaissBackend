@@ -120,4 +120,7 @@
   <data name="btn_Register" xml:space="preserve">
     <value>Registrieren</value>
   </data>
+  <data name="Register" xml:space="preserve">
+    <value>Registrierung</value>
+  </data>
 </root>
