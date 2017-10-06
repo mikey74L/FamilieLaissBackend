@@ -2,33 +2,83 @@
 
 @{
     string ReturnUrl = ViewBag.ReturnUrl;
-    string ViewName = FamilieLaissIdentity.Views.Account.Resources.Register_Resources.Title;
+    string ViewName = FamilieLaissIdentity.Views.Account.Resources.Register_Resources.View_Title;
+    string ViewDescription = FamilieLaissIdentity.Views.Account.Resources.Register_Resources.View_Description;
     string RegisterButton = FamilieLaissIdentity.Views.Account.Resources.Register_Resources.btn_Register;
 }
 
 <h2>@ViewName</h2>
 
 <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ReturnUrl" method="post" class="form-horizontal">
-    <h4>Create a new account.</h4>
+    <h4>@ViewDescription</h4>
     <hr />
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
-        <label asp-for="Email" class="col-md-2 control-label"></label>
+        <label asp-for="UserName" class="col-md-2 control-label"></label>
         <div class="col-md-10">
+            <input asp-for="UserName" class="form-control" />
+            <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="FirstName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="FamilyName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="FamilyName" class="form-control" />
+            <span asp-validation-for="FamilyName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Street" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Street" class="form-control" />
+            <span asp-validation-for="Street" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Number" class="col-md-2 control-label"></label>
+        <div class="col-md-3">
+            <input asp-for="Number" class="form-control" />
+            <span asp-validation-for="Number" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="ZIP" class="col-md-2 control-label"></label>
+        <div class="col-md-3">
+            <input asp-for="ZIP" class="form-control" />
+            <span asp-validation-for="ZIP" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="City" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="City" class="form-control" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Email" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
             <input asp-for="Email" class="form-control" />
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group">
         <label asp-for="Password" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
+        <div class="col-md-5">
             <input asp-for="Password" class="form-control" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group">
         <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
+        <div class="col-md-5">
             <input asp-for="ConfirmPassword" class="form-control" />
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>

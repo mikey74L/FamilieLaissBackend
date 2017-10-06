@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FamilieLaissIdentity.Views.Account.Resources {
+namespace FamilieLaissIdentity.Service.Resources {
     using System;
     using System.Reflection;
     
@@ -23,14 +23,14 @@ namespace FamilieLaissIdentity.Views.Account.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Register_Resources {
+    public class MailGenerator_Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Register_Resources() {
+        internal MailGenerator_Resources() {
         }
         
         /// <summary>
@@ -40,7 +40,7 @@ namespace FamilieLaissIdentity.Views.Account.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FamilieLaissIdentity.Views.Account.Resources.Register_Resources", typeof(Register_Resources).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FamilieLaissIdentity.Service.Resources.MailGenerator_Resources", typeof(MailGenerator_Resources).GetTypeInfo().Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,29 +62,11 @@ namespace FamilieLaissIdentity.Views.Account.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Register.
+        ///   Looks up a localized string similar to .
         /// </summary>
-        public static string btn_Register {
+        public static string Subject_Register {
             get {
-                return ResourceManager.GetString("btn_Register", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Create a new account.
-        /// </summary>
-        public static string View_Description {
-            get {
-                return ResourceManager.GetString("View_Description", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Register.
-        /// </summary>
-        public static string View_Title {
-            get {
-                return ResourceManager.GetString("View_Title", resourceCulture);
+                return ResourceManager.GetString("Subject_Register", resourceCulture);
             }
         }
     }

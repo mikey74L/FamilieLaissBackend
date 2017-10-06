@@ -501,10 +501,8 @@
     <Content Include="Properties\webjobs-list.json" />
     <Content Include="Views\Mailer\AdminConfirmAccount.cshtml" />
     <Content Include="Views\Mailer\LockAccount.cshtml" />
-    <Content Include="Views\Mailer\NewAccount.cshtml" />
     <Content Include="Views\Mailer\ResetPassword.cshtml" />
     <Content Include="Views\Mailer\UnlockAccount.cshtml" />
-    <Content Include="Views\Mailer\OneColumn_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AdminConfirmAccount_Resources.de.resx" />

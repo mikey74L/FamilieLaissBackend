@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.1.1" />
     <PackageReference Include="IdentityServer4" Version="1.5.2" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="1.0.1" />
     <PackageReference Include="IdentityServer4.EntityFramework" Version="1.0.1" />
@@ -57,6 +58,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>RegisterViewModel_Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Service\Resources\MailGenerator_Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MailGenerator_Resources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Views\Account\Resources\Register_Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -71,6 +77,13 @@
     <EmbeddedResource Update="Models\Account\Resources\RegisterViewModel_Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RegisterViewModel_Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Service\Resources\MailGenerator_Resources.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Service\Resources\MailGenerator_Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MailGenerator_Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\Account\Resources\Register_Resources.de.resx">
       <Generator></Generator>

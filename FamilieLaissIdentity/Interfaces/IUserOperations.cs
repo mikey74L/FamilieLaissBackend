@@ -11,6 +11,12 @@ namespace FamilieLaissIdentity.Interfaces
 {
     public interface IUserOperations
     {
+        //Einen neuen Benutzer-Account erstellen
+        Task<IdentityResult> CreateUser(FamilieLaissIdentityUser user, string password);
+
+        //Erstellt ein neues Token für Confirm Mail
+        Task<string> CreateMailConfirmationToken(FamilieLaissIdentityUser user);
+
         //Bestätigung der eMail-Adresse für den User
         Task<bool> ConfirmMail(string userID, string token);
 

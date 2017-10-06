@@ -19,6 +19,10 @@ using FamilieLaissIdentity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using FamilieLaissIdentity.Interfaces;
+using FamilieLaissIdentity.Models.Account;
+using FamilieLaissIdentity.Data.Models;
+using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 
 namespace FamilieLaissIdentity.Controllers
 {
@@ -27,6 +31,11 @@ namespace FamilieLaissIdentity.Controllers
     public class AccountController : Controller
     {
         #region Private Members
+        private readonly IMapper _mapper;
+        private readonly IUserOperations _userOperations;
+        private readonly Func<string, IMailSender> _mailSenderServiceAccessor;
+        private readonly IMailGenerator _mailGenerator;
+        private readonly IHostingEnvironment _hostingEnv;
         //private readonly IUserOperations _UserOperations;
         //private readonly UserManager<ApplicationUser> _userManager;
         //private readonly SignInManager<ApplicationUser> _signInManager;
@@ -39,6 +48,25 @@ namespace FamilieLaissIdentity.Controllers
         #endregion
 
         #region C'tor
+        public AccountController(
+            IMapper mapper, 
+            IUserOperations userOperations, 
+            Func<string, IMailSender> mailSenderServiceAccessor, 
+            IMailGenerator mailGenerator,
+            IHostingEnvironment hostingEnv)
+        {
+            //Auto-Mapper übernehmen
+            _mapper = mapper;
+
+            //User-Operations übernehmen
+            _userOperations = userOperations;
+
+            //Übernhemen der Factory für den Mail-Sender-Service
+            _mailSenderServiceAccessor = mailSenderServiceAccessor;
+
+            //Übernehmen des Mail-Generator
+            _mailGenerator = mailGenerator;
+        }
         //public AccountController(
         //    IUserOperations userOperations,
         //    UserManager<ApplicationUser> userManager,
@@ -275,36 +303,54 @@ namespace FamilieLaissIdentity.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/Register
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
-        //{
-        //    ViewData["ReturnUrl"] = returnUrl;
-        //    if (ModelState.IsValid)
-        //    {
-        //        var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-        //        var result = await _userManager.CreateAsync(user, model.Password);
-        //        if (result.Succeeded)
-        //        {
-        //            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
-        //            // Send an email with this link
-        //            //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-        //            //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-        //            //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-        //            //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
-        //            await _signInManager.SignInAsync(user, isPersistent: false);
-        //            _logger.LogInformation(3, "User created a new account with password.");
-        //            return RedirectToLocal(returnUrl);
-        //        }
-        //        AddErrors(result);
-        //    }
 
-        //    // If we got this far, something failed, redisplay form
-        //    return View(model);
-        //}
+        //POST: /Account/Register
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        {
+            //Das View-Bag mit der Return-URL bestücken
+            ViewBag.ReturnUrl = returnUrl;
+
+            //Nur wenn die Model-Daten valide sind wird etwas gemacht
+            if (ModelState.IsValid)
+            {
+                //Erstellen eines neuen Users mit Automapper
+                var user = _mapper.Map<FamilieLaissIdentityUser>(model);
+                user.IsAllowed = false;
+
+                //Hinzufügen des Users zum Identity-Store über die User-Operations
+                var result = await _userOperations.CreateUser(user, model.Password);
+
+                //Wenn das Anlegen des Benutzers erfolgreich war, dann wird eine Mail
+                //an den User versendet, die zur Bestätigung der eMail-Adresse auffordert
+                if (result.Succeeded)
+                {
+                    //Ermitteln eines neuen Tokens für das Bestätigen der eMail-Adresse
+                    string Token = await _userOperations.CreateMailConfirmationToken(user);
+
+                    //Ermitteln der Callback-URL zur Bestätigung der eMail-Adresse
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = Token }, protocol: HttpContext.Request.Scheme);
+
+                    //Erstellen der Mail für das Bestätigen des Passworts
+                    SendMailModel mailData = await _mailGenerator.GenerateRegisterMail(user, Token, callbackUrl);
+
+                    //Versenden der Mail an den User
+                    await GetMailSenderService().SendEmailAsync(mailData);
+
+                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
+                    //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
+                    return RedirectToLocal(returnUrl);
+                }
+
+                //Hinzufügen der Fehler aus dem Identity-Store
+                AddErrors(result);
+            }
+
+            //Wenn wir bis hierhin kommen ist etwas schief gelaufen.
+            return View(model);
+        }
         #endregion
 
         //#region Confirm Email (Show)
@@ -530,32 +576,47 @@ namespace FamilieLaissIdentity.Controllers
         //    }
         //}
         //#endregion
-        
-        //#region Helpers
-        //private void AddErrors(IdentityResult result)
-        //{
-        //    foreach (var error in result.Errors)
-        //    {
-        //        ModelState.AddModelError(string.Empty, error.Description);
-        //    }
-        //}
+
+        #region Helpers
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+        }
 
         //private Task<ApplicationUser> GetCurrentUserAsync()
         //{
         //    return _userManager.GetUserAsync(HttpContext.User);
         //}
 
-        //private IActionResult RedirectToLocal(string returnUrl)
-        //{
-        //    if (Url.IsLocalUrl(returnUrl))
-        //    {
-        //        return Redirect(returnUrl);
-        //    }
-        //    else
-        //    {
-        //        return RedirectToAction(nameof(HomeController.Index), "Home");
-        //    }
-        //}
-        //#endregion
+        private IActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                return null;
+               // return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+        }
+
+        //Ermittelt den benötigten Mail-Sender-Service aus dem IOC-Container
+        //je nach dem ob sich die Anwendung im Debug-Mode oder in der Produktion befindet
+        private IMailSender GetMailSenderService()
+        {
+            if (_hostingEnv.IsDevelopment())
+            {
+                return _mailSenderServiceAccessor("Dev");
+            }
+            else
+            {
+                return _mailSenderServiceAccessor("Prod");
+            }
+        }
+        #endregion
     }
 }

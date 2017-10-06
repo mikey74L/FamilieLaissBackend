@@ -24,6 +24,18 @@ namespace FamilieLaissIdentity.Service
         #endregion
 
         #region User-Operations
+        //Einen neuen Benutzeraccount erstellen
+        public Task<IdentityResult> CreateUser(FamilieLaissIdentityUser user, string password)
+        {
+            return _userManager.CreateAsync(user, password);
+        }
+
+        //Erstellt ein neues Token für die Bestätigung der eMail-Adresse
+        public Task<string> CreateMailConfirmationToken(FamilieLaissIdentityUser user)
+        {
+            return _userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
         //Hinzufügen einer Rolle zum User
         public async Task<IdentityResult> AddToRole(string userName, string roleName)
         {

@@ -129,6 +129,9 @@
   <data name="Email_Required" xml:space="preserve">
     <value>Email-Adesse wird benötigt</value>
   </data>
+  <data name="Email_Valid" xml:space="preserve">
+    <value>Keine valide Email-Adresse. Zum Beispiel: mail.test@test.com</value>
+  </data>
   <data name="FamilyName_Display" xml:space="preserve">
     <value>Familienname</value>
   </data>
@@ -153,6 +156,9 @@
   <data name="PasswordConfirm_Display" xml:space="preserve">
     <value>Passwort-Bestätigung</value>
   </data>
+  <data name="PasswordConfirm_Match" xml:space="preserve">
+    <value>Das Passwort und die Passwort-Bestätigung stimmen nicht überein</value>
+  </data>
   <data name="Password_Display" xml:space="preserve">
     <value>Passwort</value>
   </data>
@@ -164,6 +170,12 @@
   </data>
   <data name="Street_Required" xml:space="preserve">
     <value>Straßenname wird benötigt</value>
+  </data>
+  <data name="UserName_Display" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="UserName_Required" xml:space="preserve">
+    <value>Benutzername wird benötigt</value>
   </data>
   <data name="ZIP_Display" xml:space="preserve">
     <value>Postleitzahl</value>

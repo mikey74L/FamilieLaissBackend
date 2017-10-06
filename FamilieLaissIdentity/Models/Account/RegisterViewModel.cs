@@ -9,6 +9,11 @@ namespace FamilieLaissIdentity.Models.Account
 {
     public class RegisterViewModel
     {
+        [Display(Order = 0, Name = "UserName_Display", ResourceType = typeof(RegisterViewModel_Resources))]
+        [Required(ErrorMessageResourceName = "UserName_Required", ErrorMessageResourceType = typeof(RegisterViewModel_Resources))]
+        [StringLength(50, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(RegisterViewModel_Resources))]
+        public string UserName { get; set; }
+
         [Display(Order = 1, Name = "FirstName_Display", ResourceType = typeof(RegisterViewModel_Resources))]
         [Required(ErrorMessageResourceName = "FirstName_Required", ErrorMessageResourceType = typeof(RegisterViewModel_Resources))]
         [StringLength(150, ErrorMessageResourceName = "MaxLength", ErrorMessageResourceType = typeof(RegisterViewModel_Resources))]
@@ -41,7 +46,7 @@ namespace FamilieLaissIdentity.Models.Account
 
         [Display(Order = 7, Name = "Email_Display", ResourceType = typeof(RegisterViewModel_Resources))]
         [Required(ErrorMessageResourceName = "Email_Required", ErrorMessageResourceType = typeof(RegisterViewModel_Resources))]
-        [EmailAddress]
+        [EmailAddress(ErrorMessageResourceName = "Email_Valid", ErrorMessageResourceType = typeof(RegisterViewModel_Resources))]
         public string Email { get; set; }
 
         [Display(Order = 8, Name = "Password_Display", ResourceType = typeof(RegisterViewModel_Resources))]
@@ -52,7 +57,7 @@ namespace FamilieLaissIdentity.Models.Account
 
         [Display(Order = 9, Name = "PasswordConfirm_Display", ResourceType = typeof(RegisterViewModel_Resources))]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessageResourceName = "PasswordConfirm_Match", ErrorMessageResourceType = typeof(RegisterViewModel_Resources))]
         public string ConfirmPassword { get; set; }
     }
 }

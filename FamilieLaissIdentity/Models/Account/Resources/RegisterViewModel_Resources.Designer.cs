@@ -98,6 +98,15 @@ namespace FamilieLaissIdentity.Models.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No valid Email-Adress. For example: mail.test@test.com.
+        /// </summary>
+        public static string Email_Valid {
+            get {
+                return ResourceManager.GetString("Email_Valid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Familyname.
         /// </summary>
         public static string FamilyName_Display {
@@ -188,6 +197,15 @@ namespace FamilieLaissIdentity.Models.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The password and confirmation password do not match.
+        /// </summary>
+        public static string PasswordConfirm_Match {
+            get {
+                return ResourceManager.GetString("PasswordConfirm_Match", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Street.
         /// </summary>
         public static string Street_Display {
@@ -202,6 +220,24 @@ namespace FamilieLaissIdentity.Models.Account.Resources {
         public static string Street_Required {
             get {
                 return ResourceManager.GetString("Street_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        public static string UserName_Display {
+            get {
+                return ResourceManager.GetString("UserName_Display", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username is required.
+        /// </summary>
+        public static string UserName_Required {
+            get {
+                return ResourceManager.GetString("UserName_Required", resourceCulture);
             }
         }
         

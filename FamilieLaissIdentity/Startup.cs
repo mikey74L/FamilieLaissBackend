@@ -20,6 +20,7 @@ using IdentityServer4.EntityFramework.Mappers;
 using FamilieLaissIdentity.Interfaces;
 using FamilieLaissIdentity.Service;
 using FamilieLaissIdentity.Models;
+using FamilieLaissIdentity.Models.Account;
 
 namespace FamilieLaissIdentity
 {
@@ -102,35 +103,6 @@ namespace FamilieLaissIdentity
                 return accesor;
             });
 
-            //Beispiel wie später über die Factory der richtige Service abgefragt werden muss
-            //Das geschieht dann im Account-Controller und dort kann dann der HTTPCONTEXT verwendet werden um nach runtime oder debug abzufragen
-            //    public class Consumer
-            //{
-            //    private readonly Func<string, IService> _serviceAccessor;
-
-            //    public Consumer(Func<string, IService> serviceAccessor)
-            //    {
-            //        _serviceAccessor = serviceAccesor;
-            //    }
-
-            //    public void UseServiceA(string key)
-            //    {
-            //        serviceAccessor(key).DoIServiceOperation();
-            //    }
-            //}
-
-
-            //if (!HttpContext.Current.IsDebuggingEnabled && !HttpContext.Current.Request.IsLocal)
-            //{
-            //    manager.EmailService = new EMailSendGridUserManager();
-            //}
-            //else
-            //{
-            //    manager.EmailService = new EMailMailtrapUserManager();
-            //}
-
-
-
             //Den Identity-Server zum DI-Container hinzufügen
             services.AddIdentityServer()
                 .AddTemporarySigningCredential()
@@ -142,6 +114,14 @@ namespace FamilieLaissIdentity
 
             //MVC hinzufügen
             services.AddMvc();
+
+            //Automapper konfigurieren und zum DI-Container hinzufügen
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<RegisterViewModel, FamilieLaissIdentityUser>();
+            });
+            var mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
         }
         #endregion
 
