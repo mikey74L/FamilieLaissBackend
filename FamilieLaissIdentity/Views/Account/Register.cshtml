@@ -5,6 +5,8 @@
     string ViewName = FamilieLaissIdentity.Views.Account.Resources.Register_Resources.View_Title;
     string ViewDescription = FamilieLaissIdentity.Views.Account.Resources.Register_Resources.View_Description;
     string RegisterButton = FamilieLaissIdentity.Views.Account.Resources.Register_Resources.btn_Register;
+
+    FamilieLaissIdentity.ViewHelper.GenderSelectList GenderSelectList = new FamilieLaissIdentity.ViewHelper.GenderSelectList();
 }
 
 <h2>@ViewName</h2>
@@ -18,6 +20,12 @@
         <div class="col-md-10">
             <input asp-for="UserName" class="form-control" />
             <span asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Gender" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <select asp-for="Gender" asp-items="GenderSelectList.GenderList" class="form-control"></select>
         </div>
     </div>
     <div class="form-group">
@@ -60,6 +68,12 @@
         <div class="col-md-10">
             <input asp-for="City" class="form-control" />
             <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Country" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <select asp-for="Country" asp-items="GenderSelectList.GenderList" class="form-control"></select>
         </div>
     </div>
     <div class="form-group">

@@ -80,6 +80,15 @@ namespace FamilieLaissIdentity.Models.Account.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Country.
+        /// </summary>
+        public static string Country_Display {
+            get {
+                return ResourceManager.GetString("Country_Display", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email-Adress.
         /// </summary>
         public static string Email_Display {
@@ -139,6 +148,15 @@ namespace FamilieLaissIdentity.Models.Account.Resources {
         public static string FirstName_Required {
             get {
                 return ResourceManager.GetString("FirstName_Required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gender.
+        /// </summary>
+        public static string Gender_Display {
+            get {
+                return ResourceManager.GetString("Gender_Display", resourceCulture);
             }
         }
         
