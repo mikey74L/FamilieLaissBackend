@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="1.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Localization" Version="1.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="1.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.1.3" />
@@ -53,30 +54,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Models\Account\Resources\RegisterViewModel_Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>RegisterViewModel_Resources.resx</DependentUpon>
-    </Compile>
     <Compile Update="Service\Resources\MailGenerator_Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>MailGenerator_Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Views\Account\Resources\Register_Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Register_Resources.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Models\Account\Resources\RegisterViewModel_Resources.de.resx">
+    <EmbeddedResource Update="Localize\Models.Account.RegisterViewModel.de.resx">
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Models\Account\Resources\RegisterViewModel_Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>RegisterViewModel_Resources.Designer.cs</LastGenOutput>
+    <EmbeddedResource Update="Localize\Models.Account.RegisterViewModel.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Account.Register.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Account.Register.en.resx">
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Service\Resources\MailGenerator_Resources.de.resx">
       <Generator></Generator>
@@ -84,13 +80,6 @@
     <EmbeddedResource Update="Service\Resources\MailGenerator_Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MailGenerator_Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Account\Resources\Register_Resources.de.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\Account\Resources\Register_Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Register_Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

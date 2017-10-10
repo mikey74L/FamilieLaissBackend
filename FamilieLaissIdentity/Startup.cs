@@ -21,6 +21,9 @@ using FamilieLaissIdentity.Interfaces;
 using FamilieLaissIdentity.Service;
 using FamilieLaissIdentity.Models;
 using FamilieLaissIdentity.Models.Account;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace FamilieLaissIdentity
 {
@@ -112,8 +115,14 @@ namespace FamilieLaissIdentity
                     options => options.MigrationsAssembly(typeof(AppIdentityDBContext).GetTypeInfo().Assembly.GetName().Name)))
                 .AddAspNetIdentity<FamilieLaissIdentityUser>();
 
-            //MVC hinzufügen
-            services.AddMvc();
+            //Lokalisierung für ASP.NET Core hinzufügen
+            services.AddLocalization(options => options.ResourcesPath = "Localize");
+
+            //MVC hinzufügen mit Lokalisierungsfunktion für Views und für Data-Annotations
+            services.AddMvc()
+                .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization();
+
 
             //Automapper konfigurieren und zum DI-Container hinzufügen
             var config = new AutoMapper.MapperConfiguration(cfg =>
@@ -173,6 +182,21 @@ namespace FamilieLaissIdentity
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            //Die von der Website unterstützen Sprachen hinzufügen
+            var supportedCultures = new[]  
+            {
+                new CultureInfo("de"),
+                new CultureInfo("en")
+            };
+
+            //Lokalisierung anhand von Requests zur Pipeline hinzufügen
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en-US"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
+
             //Migraten und seeden des EF-Contexts für IdentityServer
             InitializeEntityServerDB(app);
 
