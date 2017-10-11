@@ -68,6 +68,18 @@
     <EmbeddedResource Update="Localize\Models.Account.RegisterViewModel.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Localize\ViewHelper.CountrySelectList.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\ViewHelper.CountrySelectList.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\ViewHelper.GenderSelectList.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\ViewHelper.GenderSelectList.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.Account.Register.de.resx">
       <Generator></Generator>
     </EmbeddedResource>

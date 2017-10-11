@@ -23,6 +23,8 @@ using FamilieLaissIdentity.Models.Account;
 using FamilieLaissIdentity.Data.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Localization;
+using FamilieLaissIdentity.ViewHelper;
 
 namespace FamilieLaissIdentity.Controllers
 {
@@ -36,6 +38,8 @@ namespace FamilieLaissIdentity.Controllers
         private readonly Func<string, IMailSender> _mailSenderServiceAccessor;
         private readonly IMailGenerator _mailGenerator;
         private readonly IHostingEnvironment _hostingEnv;
+        private readonly IStringLocalizer<GenderSelectList> LocalizerGender;
+        private readonly IStringLocalizer<CountrySelectList> LocalizerCountry;
         //private readonly IUserOperations _UserOperations;
         //private readonly UserManager<ApplicationUser> _userManager;
         //private readonly SignInManager<ApplicationUser> _signInManager;
@@ -53,7 +57,9 @@ namespace FamilieLaissIdentity.Controllers
             IUserOperations userOperations, 
             Func<string, IMailSender> mailSenderServiceAccessor, 
             IMailGenerator mailGenerator,
-            IHostingEnvironment hostingEnv)
+            IHostingEnvironment hostingEnv,
+            IStringLocalizer<GenderSelectList> localizerGender,
+            IStringLocalizer<CountrySelectList> localizerCountry)
         {
             //Auto-Mapper übernehmen
             _mapper = mapper;
@@ -66,6 +72,13 @@ namespace FamilieLaissIdentity.Controllers
 
             //Übernehmen des Mail-Generator
             _mailGenerator = mailGenerator;
+
+            //Die aktuelle Hosting Umgebung übernehmen
+            _hostingEnv = hostingEnv;
+
+            //Die Lokalisierungen übernehmen
+            LocalizerGender = localizerGender;
+            LocalizerCountry = localizerCountry;
         }
         //public AccountController(
         //    IUserOperations userOperations,
@@ -296,8 +309,16 @@ namespace FamilieLaissIdentity.Controllers
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
-            //Das View-Bag mit der Return-URL bestücken
+            //Erstellen der Gender-Liste
+            GenderSelectList GenderList = new GenderSelectList(LocalizerGender);
+
+            //Erstellen der Country-Liste
+            CountrySelectList CountryList = new CountrySelectList(LocalizerCountry);
+
+            //Das View-Bag bestücken
             ViewBag.ReturnUrl = returnUrl;
+            ViewBag.GenderList = GenderList;
+            ViewBag.CountryList = CountryList;
 
             //Die View Rendern
             return View();

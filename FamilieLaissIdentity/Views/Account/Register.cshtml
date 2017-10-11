@@ -7,7 +7,8 @@
 @{
     string ReturnUrl = ViewBag.ReturnUrl;
 
-    FamilieLaissIdentity.ViewHelper.GenderSelectList GenderSelectList = new FamilieLaissIdentity.ViewHelper.GenderSelectList();
+    FamilieLaissIdentity.ViewHelper.GenderSelectList GenderSelectList = ViewBag.GenderList;
+    FamilieLaissIdentity.ViewHelper.CountrySelectList CountrySelectList = ViewBag.CountryList;
 }
 
 <h2>@Localizer["View_Title"]</h2>
@@ -74,7 +75,7 @@
     <div class="form-group">
         <label asp-for="Country" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <select asp-for="Country" asp-items="GenderSelectList.GenderList" class="form-control"></select>
+            <select asp-for="Country" asp-items="CountrySelectList.CountryList" class="form-control"></select>
         </div>
     </div>
     <div class="form-group">
