@@ -171,6 +171,18 @@
   <data name="Password_Required" xml:space="preserve">
     <value>Password is required</value>
   </data>
+  <data name="SecurityAnswer_Display" xml:space="preserve">
+    <value>Security-Answer</value>
+  </data>
+  <data name="SecurityAnswer_Required" xml:space="preserve">
+    <value>Security-Answer is required</value>
+  </data>
+  <data name="SecurityQuestion_Display" xml:space="preserve">
+    <value>Security-Question</value>
+  </data>
+  <data name="SecurityQuestion_Required" xml:space="preserve">
+    <value>Security-Question is required</value>
+  </data>
   <data name="Street_Display" xml:space="preserve">
     <value>Street</value>
   </data>

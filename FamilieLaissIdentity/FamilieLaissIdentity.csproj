@@ -80,6 +80,12 @@
     <EmbeddedResource Update="Localize\ViewHelper.GenderSelectList.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Localize\ViewHelper.SecurityQuestionList.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\ViewHelper.SecurityQuestionList.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.Account.Register.de.resx">
       <Generator></Generator>
     </EmbeddedResource>

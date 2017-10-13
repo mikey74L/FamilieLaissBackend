@@ -39,6 +39,7 @@ namespace FamilieLaissIdentity.Models.Account
         [Display(Order = 6, Name = "ZIP_Display")]
         [Required(ErrorMessage = "ZIP_Required")]
         [StringLength(20, ErrorMessage = "MaxLength")]
+        [DataType(DataType.PostalCode)]
         public string ZIP { get; set; }
 
         [Display(Order = 7, Name = "City_Display")]
@@ -52,6 +53,7 @@ namespace FamilieLaissIdentity.Models.Account
         [Display(Order = 9, Name = "Email_Display")]
         [Required(ErrorMessage = "Email_Required")]
         [EmailAddress(ErrorMessage = "Email_Valid")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Display(Order = 10, Name = "Password_Display")]
@@ -64,5 +66,14 @@ namespace FamilieLaissIdentity.Models.Account
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "PasswordConfirm_Match")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Order = 12, Name = "SecurityQuestion_Display")]
+        [Required(ErrorMessage = "SecurityQuestion_Required")]
+        public string SecurityQuestion { get; set; }
+
+        [Display(Order = 13, Name = "SecurityAnswer_Display")]
+        [Required(ErrorMessage = "SecurityAnswer_Required")]
+        [StringLength(100, ErrorMessage = "MaxLength")]
+        public string SecurityAnswer { get; set; }
     }
 }

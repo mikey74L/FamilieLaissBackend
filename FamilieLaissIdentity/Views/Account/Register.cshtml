@@ -9,6 +9,7 @@
 
     FamilieLaissIdentity.ViewHelper.GenderSelectList GenderSelectList = ViewBag.GenderList;
     FamilieLaissIdentity.ViewHelper.CountrySelectList CountrySelectList = ViewBag.CountryList;
+    FamilieLaissIdentity.ViewHelper.SecurityQuestionList SecurityQuestionSelectList = ViewBag.QuestionList;
 }
 
 <h2>@Localizer["View_Title"]</h2>
@@ -97,6 +98,19 @@
         <div class="col-md-5">
             <input asp-for="ConfirmPassword" class="form-control" />
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="SecurityQuestion" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <select asp-for="SecurityQuestion" asp-items="SecurityQuestionSelectList.QuestionList" class="form-control"></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="SecurityAnswer" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="SecurityAnswer" class="form-control" />
+            <span asp-validation-for="SecurityAnswer" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group">

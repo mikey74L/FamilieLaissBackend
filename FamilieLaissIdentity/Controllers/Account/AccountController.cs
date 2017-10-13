@@ -40,6 +40,7 @@ namespace FamilieLaissIdentity.Controllers
         private readonly IHostingEnvironment _hostingEnv;
         private readonly IStringLocalizer<GenderSelectList> LocalizerGender;
         private readonly IStringLocalizer<CountrySelectList> LocalizerCountry;
+        private readonly IStringLocalizer<SecurityQuestionList> LocalizerQuestion;
         //private readonly IUserOperations _UserOperations;
         //private readonly UserManager<ApplicationUser> _userManager;
         //private readonly SignInManager<ApplicationUser> _signInManager;
@@ -59,7 +60,8 @@ namespace FamilieLaissIdentity.Controllers
             IMailGenerator mailGenerator,
             IHostingEnvironment hostingEnv,
             IStringLocalizer<GenderSelectList> localizerGender,
-            IStringLocalizer<CountrySelectList> localizerCountry)
+            IStringLocalizer<CountrySelectList> localizerCountry,
+            IStringLocalizer<SecurityQuestionList> localizerQuestion)
         {
             //Auto-Mapper übernehmen
             _mapper = mapper;
@@ -79,6 +81,7 @@ namespace FamilieLaissIdentity.Controllers
             //Die Lokalisierungen übernehmen
             LocalizerGender = localizerGender;
             LocalizerCountry = localizerCountry;
+            LocalizerQuestion = localizerQuestion;
         }
         //public AccountController(
         //    IUserOperations userOperations,
@@ -315,10 +318,14 @@ namespace FamilieLaissIdentity.Controllers
             //Erstellen der Country-Liste
             CountrySelectList CountryList = new CountrySelectList(LocalizerCountry);
 
+            //Erstellen der Question-Liste
+            SecurityQuestionList QuestionList = new SecurityQuestionList(LocalizerQuestion);
+
             //Das View-Bag bestücken
             ViewBag.ReturnUrl = returnUrl;
             ViewBag.GenderList = GenderList;
             ViewBag.CountryList = CountryList;
+            ViewBag.QuestionList = QuestionList;
 
             //Die View Rendern
             return View();
