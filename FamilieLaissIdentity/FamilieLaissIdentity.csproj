@@ -20,6 +20,8 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.1.2" />
+    <PackageReference Include="RazorLight" Version="1.1.0" />
+    <PackageReference Include="RazorLight.MVC" Version="1.0.4" />
     <PackageReference Include="Sendgrid" Version="9.9.0" />
   </ItemGroup>
 
@@ -54,18 +56,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Service\Resources\MailGenerator_Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>MailGenerator_Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="Localize\Models.Account.RegisterViewModel.de.resx">
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Models.Account.RegisterViewModel.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Service.MailGeneratorService.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Service.MailGeneratorService.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\ViewHelper.CountrySelectList.de.resx">
@@ -91,13 +91,6 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.Account.Register.en.resx">
       <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Service\Resources\MailGenerator_Resources.de.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Service\Resources\MailGenerator_Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>MailGenerator_Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

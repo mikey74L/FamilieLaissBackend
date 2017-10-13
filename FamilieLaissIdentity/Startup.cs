@@ -24,6 +24,7 @@ using FamilieLaissIdentity.Models.Account;
 using Microsoft.AspNetCore.Mvc.Razor;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using RazorLight.MVC;
 
 namespace FamilieLaissIdentity
 {
@@ -131,6 +132,9 @@ namespace FamilieLaissIdentity
             });
             var mapper = config.CreateMapper();
             services.AddSingleton(mapper);
+
+            //Razor-Light konfigurieren. Razor-Light wird für das generieren der Mail-Inhalte über Razor-Engine verwendet
+            services.AddRazorLight("/Views/MailGenerator"); // <-- Hier wird der Pfad für die Templates angegeben
         }
         #endregion
 

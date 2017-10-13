@@ -10,6 +10,6 @@ namespace FamilieLaissIdentity.Interfaces
     public interface IMailGenerator
     {
         //Erstellt eine Mail für den User nach dem die Registrierung erfolgreich abgeschlossen ist
-        Task<SendMailModel> GenerateRegisterMail(FamilieLaissIdentityUser user, string tokenMailConfirm, string callBackURL);
+        SendMailModel GenerateRegisterMail(FamilieLaissIdentityUser user, string tokenMailConfirm, string callBackURL);
     }
 }
