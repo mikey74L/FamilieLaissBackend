@@ -139,7 +139,7 @@ namespace FamilieLaissIdentity
 
         #region Migrate and Seed EF for Identity-Server
         //Mit dieser Methode wird der EF-Context für IdentityServer Migrated und geseeded
-        private void InitializeEntityServerDB(IApplicationBuilder app)
+        private void InitializeIdentityServerDB(IApplicationBuilder app)
         {
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
@@ -181,12 +181,31 @@ namespace FamilieLaissIdentity
         }
         #endregion
 
+        #region Migrate and Seed EF for ASP.NET Identity
+        private void InitializeIdentityDB(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<AppIdentityDBContext>();
+
+                //Migraten der Datenbank
+                context.Database.Migrate();
+
+                //Seeden der Daten für den Admin-User
+                if (!context.Users.Any())
+                {
+
+                }
+            }
+        }
+        #endregion
+
         #region Configure Pipeline
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             //Die von der Website unterstützen Sprachen hinzufügen
-            var supportedCultures = new[]  
+            var supportedCultures = new[]
             {
                 new CultureInfo("de"),
                 new CultureInfo("en")
@@ -201,7 +220,10 @@ namespace FamilieLaissIdentity
             });
 
             //Migraten und seeden des EF-Contexts für IdentityServer
-            InitializeEntityServerDB(app);
+            InitializeIdentityServerDB(app);
+
+            //Migraten und seeden des EF-Contexts für ASP.NET Identity
+            InitializeIdentityDB(app);
 
             //Das Logging für die Konsole hinzufügen und den
             //Logging-Level auf Debug festlegen

@@ -349,31 +349,29 @@ namespace FamilieLaissIdentity.Controllers
                 user.IsAllowed = false;
 
                 //Hinzufügen des Users zum Identity-Store über die User-Operations
-                //var result = await _userOperations.CreateUser(user, model.Password);
+                var result = await _userOperations.CreateUser(user, model.Password);
 
                 //Wenn das Anlegen des Benutzers erfolgreich war, dann wird eine Mail
                 //an den User versendet, die zur Bestätigung der eMail-Adresse auffordert
-                //if (result.Succeeded)
-                //{
+                if (result.Succeeded)
+                {
                     //Ermitteln eines neuen Tokens für das Bestätigen der eMail-Adresse
-                    //string Token = await _userOperations.CreateMailConfirmationToken(user);
+                    string Token = await _userOperations.CreateMailConfirmationToken(user);
 
                     //Ermitteln der Callback-URL zur Bestätigung der eMail-Adresse
-                    //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = Token }, protocol: HttpContext.Request.Scheme);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = "abc" }, protocol: HttpContext.Request.Scheme);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = Token }, protocol: HttpContext.Request.Scheme);
 
                     //Erstellen der Mail für das Bestätigen des Passworts
-                    //SendMailModel mailData = _mailGenerator.GenerateRegisterMail(callbackUrl, user, Token, callbackUrl);
-                    SendMailModel mailData = await _mailGenerator.GenerateRegisterMail(callbackUrl, user, "abc", callbackUrl);
+                    SendMailModel mailData = await _mailGenerator.GenerateRegisterMail(callbackUrl, user, Token, callbackUrl);
 
-                //Versenden der Mail an den User
-                await GetMailSenderService().SendEmailAsync(mailData);
+                    //Versenden der Mail an den User
+                    //await GetMailSenderService().SendEmailAsync(mailData);
 
                     return RedirectToLocal(returnUrl);
-                //}
+                }
 
                 //Hinzufügen der Fehler aus dem Identity-Store
-                //AddErrors(result);
+                AddErrors(result);
             }
 
             //Wenn wir bis hierhin kommen ist etwas schief gelaufen.
