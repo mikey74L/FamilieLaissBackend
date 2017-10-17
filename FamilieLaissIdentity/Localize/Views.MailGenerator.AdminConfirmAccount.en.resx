@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Subject_AdminUnlockAccount" xml:space="preserve">
-    <value>EMail-Adresse durch Benutzer bestätigt für Familie - Laiss</value>
+  <data name="Header" xml:space="preserve">
+    <value>User has confirmed his EMail-Adress</value>
   </data>
-  <data name="Subject_Register" xml:space="preserve">
-    <value>Verifizierung der EMail-Adresse für Familie - Laiss</value>
+  <data name="Information_1" xml:space="preserve">
+    <value>The user "{0} ({1} {2})" has confirmed his EMail-Adress. Please unlock the account in the useradministration view.</value>
+  </data>
+  <data name="Not_Reply" xml:space="preserve">
+    <value>This is an automatically generated eMail. Please do not reply to this eMail.</value>
+  </data>
+  <data name="Salutation" xml:space="preserve">
+    <value>Dear administrator,</value>
   </data>
 </root>

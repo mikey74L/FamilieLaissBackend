@@ -1,0 +1,39 @@
+﻿@model FamilieLaissIdentity.Models.GenerateMailAdminConfirmAccountModel
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@{
+    Layout = "OneColumn_Layout.cshtml";
+}
+
+<repeater>
+    <layout label="Text only">
+        <table class="w580" width="580" cellpadding="0" cellspacing="0" border="0">
+            <tbody>
+                <tr>
+                    <td class="w580" width="580">
+                        <p align="left" class="article-title"><singleline label="Title">@Localizer["Header"]</singleline></p>
+                        <div align="left" class="article-content">
+                            <multiline label="Description">
+                                <p>
+                                    @Localizer["Salutation"]
+                                </p>
+                                <p>
+                                    @string.Format(Localizer["Information_1"].Value, Model.User.UserName, Model.User.FirstName, Model.User.FamilyName)<br />
+                                    <br />
+                                    <br />
+                                    @Localizer["Not_Reply"]
+                                </p>
+                            </multiline>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="w580" width="580" height="10"></td>
+                </tr>
+            </tbody>
+        </table>
+    </layout>
+</repeater>

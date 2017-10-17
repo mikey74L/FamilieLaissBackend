@@ -53,5 +53,24 @@ namespace FamilieLaissIdentity.Service
             //Model zurückliefern
             return ReturnValue;
         }
+
+        public async Task<SendMailModel> GenerateAdminUnlockAccountMail(FamilieLaissIdentityUser user, FamilieLaissIdentityUser admin)
+        {
+            //Deklaration 
+            SendMailModel ReturnValue = new SendMailModel();
+            GenerateMailAdminConfirmAccountModel GenerateModel = new GenerateMailAdminConfirmAccountModel(user);
+
+            //Befüllen der Properties für Return-Value
+            ReturnValue.IsBodyHtml = true;
+            ReturnValue.ReceiverAdress = admin.Email;
+            ReturnValue.ReceiverName = "Administrator";
+            ReturnValue.Subject = _Localizer["Subject_AdminUnlockAccount"];
+
+            //Generieren des HTML-Bodies
+            ReturnValue.Body = await _ViewRenderer.RenderToStringAsync<GenerateMailAdminConfirmAccountModel>("~/Views/MailGenerator/AdminConfirmAccount.cshtml", GenerateModel);
+
+            //Model zurückliefern
+            return ReturnValue;
+        }
     }
 }

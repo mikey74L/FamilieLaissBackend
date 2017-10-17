@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Subject_AdminUnlockAccount" xml:space="preserve">
+    <value>EMail-Adress from user confirmed for Familie - Laiss</value>
+  </data>
   <data name="Subject_Register" xml:space="preserve">
     <value>EMail-Adress verification for Familie - Laiss</value>
   </data>

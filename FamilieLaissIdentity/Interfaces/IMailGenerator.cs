@@ -11,5 +11,8 @@ namespace FamilieLaissIdentity.Interfaces
     {
         //Erstellt eine Mail für den User nach dem die Registrierung erfolgreich abgeschlossen ist
         Task<SendMailModel> GenerateRegisterMail(string urlVerification, FamilieLaissIdentityUser user, string tokenMailConfirm, string callBackURL);
+
+        //Erstellt eine Mail für den Administrator mit der Aufforderung das Benutzerkonto freizuschalten
+        Task<SendMailModel> GenerateAdminUnlockAccountMail(FamilieLaissIdentityUser user, FamilieLaissIdentityUser admin);
     }
 }

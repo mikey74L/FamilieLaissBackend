@@ -90,6 +90,12 @@
     <EmbeddedResource Update="Localize\Views.Account.Register.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.MailGenerator.AdminConfirmAccount.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.MailGenerator.AdminConfirmAccount.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.MailGenerator.OneColumn_Layout.de.resx">
       <Generator></Generator>
     </EmbeddedResource>
