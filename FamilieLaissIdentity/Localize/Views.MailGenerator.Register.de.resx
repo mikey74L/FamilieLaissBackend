@@ -117,7 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Subject_Register" xml:space="preserve">
-    <value>Verifizierung der EMail-Adresse für Familie - Laiss</value>
+  <data name="City" xml:space="preserve">
+    <value>Stadt</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Land</value>
+  </data>
+  <data name="FamilyName" xml:space="preserve">
+    <value>Familienname</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Vorname</value>
+  </data>
+  <data name="Header" xml:space="preserve">
+    <value>Verifikation der EMail-Adresse</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>Um Zugang zu unserer Webpräsenz zu erhalten müssen Sie noch Ihre EMail-Adresse verifizieren.</value>
+  </data>
+  <data name="Link_1" xml:space="preserve">
+    <value>Klicken Sie</value>
+  </data>
+  <data name="Link_2" xml:space="preserve">
+    <value>hier</value>
+  </data>
+  <data name="Link_3" xml:space="preserve">
+    <value>um Ihre EMail-Adresse zu verifizieren.</value>
+  </data>
+  <data name="Mail" xml:space="preserve">
+    <value>Mail-Adresse</value>
+  </data>
+  <data name="Not_Reply" xml:space="preserve">
+    <value>Dieses ist eine automatisch generierte eMail. Bitte antworten Sie nicht auf diese eMail.</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Hausnummer</value>
+  </data>
+  <data name="Prefix_Female" xml:space="preserve">
+    <value>Frau</value>
+  </data>
+  <data name="Prefix_Male" xml:space="preserve">
+    <value>Herr</value>
+  </data>
+  <data name="Registration_Successful" xml:space="preserve">
+    <value>Ihr Benutzerprofil wurde erfolgreich mit den folgenden Angaben erstellt:</value>
+  </data>
+  <data name="SecurityAnswer" xml:space="preserve">
+    <value>Sicherheitsantwort</value>
+  </data>
+  <data name="SecurityQuestion" xml:space="preserve">
+    <value>Sicherheitsfrage</value>
+  </data>
+  <data name="Street" xml:space="preserve">
+    <value>Straße</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Benutzername</value>
+  </data>
+  <data name="ZIP" xml:space="preserve">
+    <value>Postleitzahl</value>
   </data>
 </root>

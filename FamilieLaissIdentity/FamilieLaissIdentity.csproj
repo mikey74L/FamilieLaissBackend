@@ -20,8 +20,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.2" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="1.1.2" />
-    <PackageReference Include="RazorLight" Version="1.1.0" />
-    <PackageReference Include="RazorLight.MVC" Version="1.0.4" />
     <PackageReference Include="Sendgrid" Version="9.9.0" />
   </ItemGroup>
 
@@ -90,6 +88,18 @@
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.Account.Register.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.MailGenerator.OneColumn_Layout.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.MailGenerator.OneColumn_Layout.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.MailGenerator.Register.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.MailGenerator.Register.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>

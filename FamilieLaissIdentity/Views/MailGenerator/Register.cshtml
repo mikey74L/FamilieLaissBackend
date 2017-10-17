@@ -1,17 +1,21 @@
-﻿@model FamilieLaissBackend.Model.Account.AccountNotificationModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@model FamilieLaissIdentity.Models.GenerateMailRegisterUserModel
+
+@inject IViewLocalizer Localizer
 
 @{
     Layout = "OneColumn_Layout.cshtml";
 
-    string Anrede_Prefix = "";
+    LocalizedHtmlString Anrede_Prefix;
 
-    if (Model.Geschlecht == 1)
+    if (Model.UserData.Gender == 1)
     {
-        Anrede_Prefix = FamilieLaissBackend.Resources.Mail_Resources.Anrede_Prefix_Men;
+        Anrede_Prefix = Localizer["Prefix_Male"];
     }
     else
     {
-        Anrede_Prefix = FamilieLaissBackend.Resources.Mail_Resources.Anrede_Prefix_Women;
+        Anrede_Prefix = Localizer["Prefix_Female"];
     }
 }
 
@@ -21,33 +25,70 @@
             <tbody>
                 <tr>
                     <td class="w580" width="580">
-                        <p align="left" class="article-title"><singleline label="Title">@FamilieLaissBackend.Resources.ConfirmationMail_Resources.Header</singleline></p>
+                        <p align="left" class="article-title"><singleline label="Title">@Localizer["Header"]</singleline></p>
                         <div align="left" class="article-content">
                             <multiline label="Description">
                                 <p>
-                                    @Anrede_Prefix <b>@Model.Vorname @Model.Familienname</b>,
+                                    @Anrede_Prefix @Model.UserData.FirstName @Model.UserData.FamilyName,
                                 </p>
                                 <p>
-                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Registration_Successful<br />
+                                    @Localizer["Registration_Successful"]<br />
+                                </p>
+                                <table>
+                                    <tr>
+                                        <td>@Localizer["UserName"]</td>
+                                        <td><b>@Model.UserData.UserName</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Localizer["FirstName"]</td>
+                                        <td><b>@Model.UserData.FirstName</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Localizer["FamilyName"]</td>
+                                        <td><b>@Model.UserData.FamilyName</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Localizer["Street"]</td>
+                                        <td><b>@Model.UserData.Street</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Localizer["Number"]</td>
+                                        <td><b>@Model.UserData.Number</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Localizer["ZIP"]</td>
+                                        <td><b>@Model.UserData.ZIP</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Localizer["City"]</td>
+                                        <td><b>@Model.UserData.City</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Localizer["Country"]</td>
+                                        <td><b>@Model.CountryList.CountryList.Single(x => x.Value == Model.UserData.Country).Text</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Localizer["Mail"]</td>
+                                        <td><b>@Model.UserData.Email</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Localizer["SecurityQuestion"]</td>
+                                        <td><b>@Model.SecurityQuestions.QuestionList.Single(x => x.Value == Model.UserData.SecurityQuestion).Text</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Localizer["SecurityAnswer"]</td>
+                                        <td><b>@Model.UserData.SecurityAnswer</b></td>
+                                        <td></td>
+                                </table>
+                                <p>
                                     <br />
-                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Benutzername <b>@Model.UserName</b><br />
-                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Vorname <b>@Model.Vorname</b><br />
-                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Familienname <b>@Model.Familienname</b><br />
-                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Strasse <b>@Model.Strasse</b><br />
-                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Hausnummer <b>@Model.HNR</b><br />
-                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Postleitzahl <b>@Model.PLZ</b><br />
-                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Stadt <b>@Model.Stadt</b><br />
-                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Land <b>@Model.Land</b><br />
-                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.eMail <b>@Model.Email</b><br />
-                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Sicherheitsfrage <b>@Model.SecurityQuestion</b><br />
-                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Sicherheitsantwort <b>@Model.SecurityAnswer</b><br />
-                                    <br />
-                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Information<br />
-                                    <br />
-                                    @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Click_1 <a href="@Model.URL"> @FamilieLaissBackend.Resources.ConfirmationMail_Resources.Click_2 </a>@FamilieLaissBackend.Resources.ConfirmationMail_Resources.Click_3
+                                    @Localizer["Information"]
                                     <br />
                                     <br />
-                                    @FamilieLaissBackend.Resources.Mail_Resources.Not_Reply
+                                    @Localizer["Link_1"] <a href="@Model.URL_Verification"> @Localizer["Link_2"] </a>@Localizer["Link_3"]
+                                    <br />
+                                    <br />
+                                    @Localizer["Not_Reply"]
                                 </p>
                             </multiline>
                         </div>

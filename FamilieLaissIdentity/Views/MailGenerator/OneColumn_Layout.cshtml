@@ -1,6 +1,7 @@
-﻿@{
-    var domainUrl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
-}
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
@@ -425,7 +426,7 @@
                                                             <tr><td class="w325" width="350" height="8"></td></tr>
                                                         </tbody>
                                                     </table>
-                                                    <div class="header-content"><webversion><a href="@domainUrl">@FamilieLaissBackend.Resources.Mail_Resources.Label_Visit</a></webversion></div>
+                                                    <div class="header-content"><webversion><a href="">bla bla bla bla visit</a></webversion></div>
                                                     <table class="w325" width="350" cellpadding="0" cellspacing="0" border="0">
                                                         <tbody>
                                                             <tr><td class="w325" width="350" height="8"></td></tr>
@@ -444,7 +445,7 @@
                                                             <tr>
                                                                 <td valign="middle"><fblike><img src="https://img.createsend1.com/img/templatebuilder/like-glyph.png" border="0" width="8" height="14" alt="Facebook icon"></fblike></td>
                                                                 <td width="3"></td>
-                                                                <td valign="middle"><div class="header-content"><fblike><a href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]=https://Aureliaauth.azurewebsites.net&p[images][0]=&p[title]=AureliaAuth%202.0&p[summary]=ASP.NET%20Identity%20token%20authentication%20using%20Aurelia" target="_blank">@FamilieLaissBackend.Resources.Mail_Resources.Share_Facebook</a></fblike></div></td>
+                                                                <td valign="middle"><div class="header-content"><fblike><a href="http://www.facebook.com/sharer/sharer.php?s=100&p[url]=https://Aureliaauth.azurewebsites.net&p[images][0]=&p[title]=AureliaAuth%202.0&p[summary]=ASP.NET%20Identity%20token%20authentication%20using%20Aurelia" target="_blank">bla bla</a></fblike></div></td>
 
                                                                 <td class="w10" width="10"></td>
                                                                 <td valign="middle"><tweet><img src="https://img.createsend1.com/img/templatebuilder/tweet-glyph.png" border="0" width="17" height="13" alt="Twitter icon"></tweet></td>
@@ -475,7 +476,7 @@
                                                 <td class="w580" width="580">
                                                     <div align="center" id="headline">
                                                         <p>
-                                                            <strong><singleline label="Title">@FamilieLaissBackend.Resources.Mail_Resources.FamilieLaiss_Notification</singleline></strong>
+                                                            <strong><singleline label="Title">@Localizer["FamilieLaiss_Notification"]</singleline></strong>
                                                         </p>
                                                     </div>
                                                 </td>
@@ -511,7 +512,7 @@
                                                 <td class="w30" width="30"></td>
                                                 <td class="w580" width="360" valign="top">
                                                     <span class="hide"><p id="permission-reminder" align="left" class="footer-content-left"></p></span>
-                                                    <p align="left" class="footer-content-left"><preferences lang="en">@FamilieLaissBackend.Resources.Mail_Resources.Rights_Reserved</preferences></p>
+                                                    <p align="left" class="footer-content-left"><preferences lang="en">@Localizer["Rights_Reserved"]</preferences></p>
                                                 </td>
                                                 <td class="hide w0" width="60"></td>
                                                 <td class="hide w0" width="160" valign="top">

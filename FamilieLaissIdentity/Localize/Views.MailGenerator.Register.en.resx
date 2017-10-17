@@ -117,7 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Subject_Register" xml:space="preserve">
-    <value>Verifizierung der EMail-Adresse für Familie - Laiss</value>
+  <data name="City" xml:space="preserve">
+    <value>Stadt</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="FamilyName" xml:space="preserve">
+    <value>Familyname</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Firstname</value>
+  </data>
+  <data name="Header" xml:space="preserve">
+    <value>EMail-Adress verification</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>To gain acces to our website you have to verify your EMail-Adress.</value>
+  </data>
+  <data name="Link_1" xml:space="preserve">
+    <value>Click</value>
+  </data>
+  <data name="Link_2" xml:space="preserve">
+    <value>here</value>
+  </data>
+  <data name="Link_3" xml:space="preserve">
+    <value>to verify your EMail-Adress.</value>
+  </data>
+  <data name="Mail" xml:space="preserve">
+    <value>Mail-Adress</value>
+  </data>
+  <data name="Not_Reply" xml:space="preserve">
+    <value>This is an automatically generated eMail. Please do not reply to this eMail.</value>
+  </data>
+  <data name="Number" xml:space="preserve">
+    <value>Housenumber</value>
+  </data>
+  <data name="Prefix_Female" xml:space="preserve">
+    <value>Mrs.</value>
+  </data>
+  <data name="Prefix_Male" xml:space="preserve">
+    <value>Mr.</value>
+  </data>
+  <data name="Registration_Successful" xml:space="preserve">
+    <value>your account has been created successfuly with following information:your account has been created successfuly with following information:</value>
+  </data>
+  <data name="SecurityAnswer" xml:space="preserve">
+    <value>Security-Answer</value>
+  </data>
+  <data name="SecurityQuestion" xml:space="preserve">
+    <value>Security-Question</value>
+  </data>
+  <data name="Street" xml:space="preserve">
+    <value>Street</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="ZIP" xml:space="preserve">
+    <value>ZIP</value>
   </data>
 </root>
