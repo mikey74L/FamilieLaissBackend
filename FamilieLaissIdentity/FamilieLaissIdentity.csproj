@@ -96,6 +96,12 @@
     <EmbeddedResource Update="Localize\Views.MailGenerator.AdminConfirmAccount.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.MailGenerator.GrantAccess.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.MailGenerator.GrantAccess.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.MailGenerator.OneColumn_Layout.de.resx">
       <Generator></Generator>
     </EmbeddedResource>
@@ -112,6 +118,12 @@
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.MailGenerator.ChangePassword.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.MailGenerator.RevokeAccess.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.MailGenerator.RevokeAccess.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>

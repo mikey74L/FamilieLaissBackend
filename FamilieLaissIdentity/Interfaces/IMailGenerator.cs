@@ -17,5 +17,11 @@ namespace FamilieLaissIdentity.Interfaces
 
         //Erstellt eine Mail für den Anwender mit Anweisungen wie das Passwort geändert werden kann
         Task<SendMailModel> GenerateChangePasswordMail(FamilieLaissIdentityUser user, string tokenChangePassword, string callBackURL);
+
+        //Erstellt eine Mail für den Anwender wenn das Benutzerkonto durch den Administrator freigegeben wurde
+        Task<SendMailModel> GenerateGrantAccessMail(FamilieLaissIdentityUser user);
+
+        //Erstellt eine Mail für den Anwender wenn das Benutzerkonto durch den Administrator gesperrt wurde
+        Task<SendMailModel> GenerateRevokeAcessMail(FamilieLaissIdentityUser user);
     }
 }

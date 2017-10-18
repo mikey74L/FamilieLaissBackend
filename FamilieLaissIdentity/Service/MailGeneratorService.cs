@@ -92,5 +92,43 @@ namespace FamilieLaissIdentity.Service
             //Model zurückliefern
             return ReturnValue;
         }
+
+        public async Task<SendMailModel> GenerateGrantAccessMail(FamilieLaissIdentityUser user)
+        {
+            //Deklaration
+            SendMailModel ReturnValue = new SendMailModel();
+            GenerateMailGrantAccessModel GenerateModel = new GenerateMailGrantAccessModel(user);
+
+            //Befüllen der Properties für Return-Value
+            ReturnValue.IsBodyHtml = true;
+            ReturnValue.ReceiverAdress = user.Email;
+            ReturnValue.ReceiverName = user.FirstName + " " + user.FamilyName;
+            ReturnValue.Subject = _Localizer["Subject_GrantAccess"];
+
+            //Generieren des HTML-Bodies
+            ReturnValue.Body = await _ViewRenderer.RenderToStringAsync<GenerateMailGrantAccessModel>("~/Views/MailGenerator/GrantAccess.cshtml", GenerateModel);
+
+            //Model zurückliefern
+            return ReturnValue;
+        }
+
+        public async Task<SendMailModel> GenerateRevokeAcessMail(FamilieLaissIdentityUser user)
+        {
+            //Deklaration
+            SendMailModel ReturnValue = new SendMailModel();
+            GenerateMailRevokeAccessModel GenerateModel = new GenerateMailRevokeAccessModel(user);
+
+            //Befüllen der Properties für Return-Value
+            ReturnValue.IsBodyHtml = true;
+            ReturnValue.ReceiverAdress = user.Email;
+            ReturnValue.ReceiverName = user.FirstName + " " + user.FamilyName;
+            ReturnValue.Subject = _Localizer["Subject_RevokeAccess"];
+
+            //Generieren des HTML-Bodies
+            ReturnValue.Body = await _ViewRenderer.RenderToStringAsync<GenerateMailRevokeAccessModel>("~/Views/MailGenerator/RevokeAccess.cshtml", GenerateModel);
+
+            //Model zurückliefern
+            return ReturnValue;
+        }
     }
 }
