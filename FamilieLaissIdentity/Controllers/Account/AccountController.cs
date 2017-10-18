@@ -362,7 +362,7 @@ namespace FamilieLaissIdentity.Controllers
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = Token }, protocol: HttpContext.Request.Scheme);
 
                     //Erstellen der Mail für das Bestätigen des Passworts
-                    SendMailModel mailData = await _mailGenerator.GenerateRegisterMail(callbackUrl, user, Token, callbackUrl);
+                    SendMailModel mailData = await _mailGenerator.GenerateRegisterMail(user, Token, callbackUrl);
 
                     //Versenden der Mail an den User
                     //await GetMailSenderService().SendEmailAsync(mailData);

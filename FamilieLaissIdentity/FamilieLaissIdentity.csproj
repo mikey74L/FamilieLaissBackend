@@ -108,5 +108,11 @@
     <EmbeddedResource Update="Localize\Views.MailGenerator.Register.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.MailGenerator.ChangePassword.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.MailGenerator.ChangePassword.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

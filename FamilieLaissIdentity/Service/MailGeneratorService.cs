@@ -1,6 +1,7 @@
 ﻿using FamilieLaissIdentity.Data.Models;
 using FamilieLaissIdentity.Interfaces;
 using FamilieLaissIdentity.Models;
+using FamilieLaissIdentity.Models.MailGenerator;
 using FamilieLaissIdentity.ViewHelper;
 using Microsoft.Extensions.Localization;
 using System;
@@ -33,13 +34,13 @@ namespace FamilieLaissIdentity.Service
         }
         #endregion
 
-        public async Task<SendMailModel> GenerateRegisterMail(string urlVerification, FamilieLaissIdentityUser user, string tokenMailConfirm, string callBackURL)
+        public async Task<SendMailModel> GenerateRegisterMail(FamilieLaissIdentityUser user, string tokenMailConfirm, string callBackURL)
         {
             //Deklaration
             SendMailModel ReturnValue = new SendMailModel();
             CountrySelectList CountryList = new CountrySelectList(_LocalizerCountry);
             SecurityQuestionList QuestionList = new SecurityQuestionList(_LocalizerQuestion);
-            GenerateMailRegisterUserModel GenerateModel = new GenerateMailRegisterUserModel(urlVerification, tokenMailConfirm, user, CountryList, QuestionList);
+            GenerateMailRegisterUserModel GenerateModel = new GenerateMailRegisterUserModel(callBackURL, tokenMailConfirm, user, CountryList, QuestionList);
 
             //Befüllen der Properties für Return-Value
             ReturnValue.IsBodyHtml = true;
@@ -68,6 +69,25 @@ namespace FamilieLaissIdentity.Service
 
             //Generieren des HTML-Bodies
             ReturnValue.Body = await _ViewRenderer.RenderToStringAsync<GenerateMailAdminConfirmAccountModel>("~/Views/MailGenerator/AdminConfirmAccount.cshtml", GenerateModel);
+
+            //Model zurückliefern
+            return ReturnValue;
+        }
+
+        public async Task<SendMailModel> GenerateChangePasswordMail(FamilieLaissIdentityUser user, string tokenChangePassword, string callBackURL)
+        {
+            //Deklaration
+            SendMailModel ReturnValue = new SendMailModel();
+            GenerateMailChangePasswordModel GenerateModel = new GenerateMailChangePasswordModel(callBackURL, user);
+
+            //Befüllen der Properties für Return-Value
+            ReturnValue.IsBodyHtml = true;
+            ReturnValue.ReceiverAdress = user.Email;
+            ReturnValue.ReceiverName = user.FirstName + " " + user.FamilyName;
+            ReturnValue.Subject = _Localizer["Subject_ChangePassword"];
+
+            //Generieren des HTML-Bodies
+            ReturnValue.Body = await _ViewRenderer.RenderToStringAsync<GenerateMailChangePasswordModel>("~/Views/MailGenerator/ChangePassword.cshtml", GenerateModel);
 
             //Model zurückliefern
             return ReturnValue;

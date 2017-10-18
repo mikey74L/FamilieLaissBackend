@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FamilieLaissIdentity.Models
+namespace FamilieLaissIdentity.Models.MailGenerator
 {
     public class GenerateMailAdminConfirmAccountModel
     {
