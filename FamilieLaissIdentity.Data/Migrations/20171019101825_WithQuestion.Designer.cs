@@ -8,9 +8,10 @@ using FamilieLaissIdentity.Data.DBContext;
 namespace FamilieLaissIdentity.Data.Migrations
 {
     [DbContext(typeof(AppIdentityDBContext))]
-    partial class AppIdentityDBContextModelSnapshot : ModelSnapshot
+    [Migration("20171019101825_WithQuestion")]
+    partial class WithQuestion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")

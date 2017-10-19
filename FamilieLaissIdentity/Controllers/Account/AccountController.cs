@@ -312,20 +312,8 @@ namespace FamilieLaissIdentity.Controllers
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
-            //Erstellen der Gender-Liste
-            GenderSelectList GenderList = new GenderSelectList(LocalizerGender);
-
-            //Erstellen der Country-Liste
-            CountrySelectList CountryList = new CountrySelectList(LocalizerCountry);
-
-            //Erstellen der Question-Liste
-            SecurityQuestionList QuestionList = new SecurityQuestionList(LocalizerQuestion);
-
-            //Das View-Bag bestücken
-            ViewBag.ReturnUrl = returnUrl;
-            ViewBag.GenderList = GenderList;
-            ViewBag.CountryList = CountryList;
-            ViewBag.QuestionList = QuestionList;
+            //Hinzufügen der Listendaten für Gender, Country und Questions
+            AddListDataToRegisterView(ViewBag, returnUrl);
 
             //Die View Rendern
             return View();
@@ -369,13 +357,36 @@ namespace FamilieLaissIdentity.Controllers
 
                     return RedirectToLocal(returnUrl);
                 }
-
-                //Hinzufügen der Fehler aus dem Identity-Store
-                AddErrors(result);
+                else
+                {
+                    //Hinzufügen der Fehler aus dem Identity-Store
+                    AddErrors(result);
+                }
             }
+
+            //Hinzufügen der Listen-Daten für Gender, Country, und Questions
+            AddListDataToRegisterView(ViewBag, returnUrl);
 
             //Wenn wir bis hierhin kommen ist etwas schief gelaufen.
             return View(model);
+        }
+
+        private void AddListDataToRegisterView(dynamic ViewBag, string returnUrl)
+        {
+            //Erstellen der Gender-Liste
+            GenderSelectList GenderList = new GenderSelectList(LocalizerGender);
+
+            //Erstellen der Country-Liste
+            CountrySelectList CountryList = new CountrySelectList(LocalizerCountry);
+
+            //Erstellen der Question-Liste
+            SecurityQuestionList QuestionList = new SecurityQuestionList(LocalizerQuestion);
+
+            //Das View-Bag bestücken
+            ViewBag.ReturnUrl = returnUrl;
+            ViewBag.GenderList = GenderList;
+            ViewBag.CountryList = CountryList;
+            ViewBag.QuestionList = QuestionList;
         }
         #endregion
 

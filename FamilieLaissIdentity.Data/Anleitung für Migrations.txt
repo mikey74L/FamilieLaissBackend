@@ -1,0 +1,11 @@
+﻿- Zuerst eine Windows Power Shell Console öffnen
+
+- Dann in das Verzeichnis des Projektes FamilieLaissIdentity.Data wechseln 
+
+- Dann folgendes Command zum Erstellen einer Migration absetzen
+
+        dotnet ef migrations add <Name> -c <DBContextName>  --> Name ist der Name der Migration und DBContextName ist der Name des DB-Context aus dem Projekt 
+		                                                        für welchen eine Migration erstellt werden soll.
+																Der Name für den Context von ASP.NET Core Identity lautet: AppIdentityDBContext
+
+		

@@ -24,6 +24,8 @@ using FamilieLaissIdentity.Models.Account;
 using Microsoft.AspNetCore.Mvc.Razor;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Identity;
+using FamilieLaissIdentity.Helper;
 
 namespace FamilieLaissIdentity
 {
@@ -66,9 +68,9 @@ namespace FamilieLaissIdentity
                 //Festlegen der Passwort-Einstellungen
                 options.Password.RequireDigit = true; //Das Passwort muss mindestens eine Zahl enthalten
                 options.Password.RequiredLength = 8; //Das Passwort muss mindestens 8 Zeichen lang sein
-                options.Password.RequireNonAlphanumeric = false; //Das Passwort muss mindestens ein nicht alphanumerisches Zeichen enthalten
+                options.Password.RequireNonAlphanumeric = true; //Das Passwort muss mindestens ein nicht alphanumerisches Zeichen enthalten
                 options.Password.RequireUppercase = true; //Das Passwort muss mindestens einen Großbuchstaben enthalten
-                options.Password.RequireLowercase = false; //Das Passwort muss mindestens einen Kleinbuchstaben enthalten
+                options.Password.RequireLowercase = true; //Das Passwort muss mindestens einen Kleinbuchstaben enthalten
 
                 //Legt fest, dass eine Anmeldung nur erfolgen kann wenn die Email-Adresse bestätigt wurde
                 options.SignIn.RequireConfirmedEmail = true;
@@ -79,6 +81,9 @@ namespace FamilieLaissIdentity
                 //Festlegen, dass die Email-Adresse für jede User eindeutig sein muss
                 options.User.RequireUniqueEmail = true;
             });
+
+            //Lokalisierbare Fehlermeldungen für ASP.NET Core Identity hinzufügen
+            services.AddTransient<IdentityErrorDescriber, FamilieLaissIdentityErrorDescriber>();
 
             //Den Service für den User-Manager hinzufügen
             services.AddTransient<IUserOperations, UserOperationsService>();

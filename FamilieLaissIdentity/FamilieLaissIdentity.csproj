@@ -54,6 +54,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Localize\Helper.FamilieLaissIdentityErrorDescriber.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Helper.FamilieLaissIdentityErrorDescriber.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localize\Models.Account.RegisterViewModel.de.resx">
       <Generator></Generator>
     </EmbeddedResource>
