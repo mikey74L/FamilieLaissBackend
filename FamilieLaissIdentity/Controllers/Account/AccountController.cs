@@ -38,6 +38,7 @@ namespace FamilieLaissIdentity.Controllers
         private readonly Func<string, IMailSender> _mailSenderServiceAccessor;
         private readonly IMailGenerator _mailGenerator;
         private readonly IHostingEnvironment _hostingEnv;
+        private readonly IStringLocalizer<AccountController> Localizer;
         private readonly IStringLocalizer<GenderSelectList> LocalizerGender;
         private readonly IStringLocalizer<CountrySelectList> LocalizerCountry;
         private readonly IStringLocalizer<SecurityQuestionList> LocalizerQuestion;
@@ -59,6 +60,7 @@ namespace FamilieLaissIdentity.Controllers
             Func<string, IMailSender> mailSenderServiceAccessor, 
             IMailGenerator mailGenerator,
             IHostingEnvironment hostingEnv,
+            IStringLocalizer<AccountController> localizer,
             IStringLocalizer<GenderSelectList> localizerGender,
             IStringLocalizer<CountrySelectList> localizerCountry,
             IStringLocalizer<SecurityQuestionList> localizerQuestion)
@@ -79,6 +81,7 @@ namespace FamilieLaissIdentity.Controllers
             _hostingEnv = hostingEnv;
 
             //Die Lokalisierungen übernehmen
+            Localizer = localizer;
             LocalizerGender = localizerGender;
             LocalizerCountry = localizerCountry;
             LocalizerQuestion = localizerQuestion;
@@ -214,7 +217,7 @@ namespace FamilieLaissIdentity.Controllers
         //}
         //#endregion
 
-        //#region External Provider Stuff
+        #region External Provider Stuff
         ////
         //// POST: /Account/ExternalLogin
         //[HttpPost]
@@ -303,7 +306,7 @@ namespace FamilieLaissIdentity.Controllers
         //    ViewData["ReturnUrl"] = returnUrl;
         //    return View(model);
         //}
-        //#endregion
+        #endregion
 
         #region Register (Show / Postback)
         //
@@ -329,45 +332,60 @@ namespace FamilieLaissIdentity.Controllers
             //Das View-Bag mit der Return-URL bestücken
             ViewBag.ReturnUrl = returnUrl;
 
-            //Nur wenn die Model-Daten valide sind wird etwas gemacht
-            if (ModelState.IsValid)
+            try
             {
-                //Erstellen eines neuen Users mit Automapper
-                var user = _mapper.Map<FamilieLaissIdentityUser>(model);
-                user.IsAllowed = false;
-
-                //Hinzufügen des Users zum Identity-Store über die User-Operations
-                var result = await _userOperations.CreateUser(user, model.Password);
-
-                //Wenn das Anlegen des Benutzers erfolgreich war, dann wird eine Mail
-                //an den User versendet, die zur Bestätigung der eMail-Adresse auffordert
-                if (result.Succeeded)
+                //Nur wenn die Model-Daten valide sind wird etwas gemacht
+                if (ModelState.IsValid)
                 {
-                    //Ermitteln eines neuen Tokens für das Bestätigen der eMail-Adresse
-                    string Token = await _userOperations.CreateMailConfirmationToken(user);
+                    //Erstellen eines neuen Users mit Automapper
+                    var user = _mapper.Map<FamilieLaissIdentityUser>(model);
+                    user.IsAllowed = false;
 
-                    //Ermitteln der Callback-URL zur Bestätigung der eMail-Adresse
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = Token }, protocol: HttpContext.Request.Scheme);
+                    //Hinzufügen des Users zum Identity-Store über die User-Operations
+                    var result = await _userOperations.CreateUser(user, model.Password);
 
-                    //Erstellen der Mail für das Bestätigen des Passworts
-                    SendMailModel mailData = await _mailGenerator.GenerateRegisterMail(user, Token, callbackUrl);
+                    //Wenn das Anlegen des Benutzers erfolgreich war, dann wird eine Mail
+                    //an den User versendet, die zur Bestätigung der eMail-Adresse auffordert
+                    if (result.Succeeded)
+                    {
+                        try
+                        {
+                            //Ermitteln eines neuen Tokens für das Bestätigen der eMail-Adresse
+                            string Token = await _userOperations.CreateMailConfirmationToken(user);
 
-                    //Versenden der Mail an den User
-                    //await GetMailSenderService().SendEmailAsync(mailData);
+                            //Ermitteln der Callback-URL zur Bestätigung der eMail-Adresse
+                            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = Token }, protocol: HttpContext.Request.Scheme);
 
-                    return RedirectToLocal(returnUrl);
+                            //Erstellen der Mail für das Bestätigen des Passworts
+                            SendMailModel mailData = await _mailGenerator.GenerateRegisterMail(user, Token, callbackUrl);
+
+                            //Versenden der Mail an den User
+                            await GetMailSenderService().SendEmailAsync(mailData);
+                        }
+                        catch
+                        {
+                            //Wenn ein Fehler beim Mail-Versand auftritt dann ist die Registrierung trotzdem erfolgreich.
+                            //TODO: Hier muss noch eine Benachrichtigung für den Administrator eingebaut werden
+                        }
+
+                        return RedirectToLocal(returnUrl);
+                    }
+                    else
+                    {
+                        //Hinzufügen der Fehler aus dem Identity-Store
+                        AddErrors(result);
+                    }
                 }
-                else
-                {
-                    //Hinzufügen der Fehler aus dem Identity-Store
-                    AddErrors(result);
-                }
+            }
+            catch
+            {
+                ModelState.AddModelError("Exception", Localizer["ExceptionRegistration"]);
             }
 
             //Hinzufügen der Listen-Daten für Gender, Country, und Questions
             AddListDataToRegisterView(ViewBag, returnUrl);
 
-            //Wenn wir bis hierhin kommen ist etwas schief gelaufen.
+            //Die View wird nur dann angezeigt wenn bei der Registrierung ein Fehler aufgetreten ist
             return View(model);
         }
 
@@ -390,25 +408,66 @@ namespace FamilieLaissIdentity.Controllers
         }
         #endregion
 
-        //#region Confirm Email (Show)
-        //// GET: /Account/ConfirmEmail
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> ConfirmEmail(string userId, string code)
-        //{
-        //    if (userId == null || code == null)
-        //    {
-        //        return View("Error");
-        //    }
-        //    var user = await _userManager.FindByIdAsync(userId);
-        //    if (user == null)
-        //    {
-        //        return View("Error");
-        //    }
-        //    var result = await _userManager.ConfirmEmailAsync(user, code);
-        //    return View(result.Succeeded ? "ConfirmEmail" : "Error");
-        //}
-        //#endregion
+        #region Confirm Email (Show)
+        // GET: /Account/ConfirmEmail
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        {
+            //Deklarationen
+            bool result = false;
+
+            try
+            {
+                //Überprüfen ob auch eine UserID und ein Token übergeben wurde. Wenn nicht wird auf die Fehlerseite gesprungen
+                if (userId == null || code == null)
+                {
+                    return View("Error");
+                }
+
+                //Ermitteln des Users
+                var user = await _userOperations.FindUserById(userId);
+
+                //Wenn keine User gefunden wurde dann wird auf die Fehlerseite gesprungen
+                if (user == null)
+                {
+                    return View("Error");
+                }
+
+                //Bestätigen des EMail-Adresse in ASP.NET Core Identity
+                result = await _userOperations.ConfirmMail(user, code);
+
+                //Mail an alle Admin-User versenden
+                try
+                {
+                    //Ermitteln der Liste der Admin-User
+                    IEnumerable<FamilieLaissIdentityUser> adminUserList = await _userOperations.GetAdminUsers();
+
+                    //Mit einer Schleife die Mail an alle Admin-User versenden
+                    foreach (var adminUser in adminUserList)
+                    {
+                        //Erstellen der Mail an den Adminstrator
+                        SendMailModel mailData = await _mailGenerator.GenerateAdminUnlockAccountMail(user, adminUser);
+
+                        //Versenden der Mail an den User
+                        await GetMailSenderService().SendEmailAsync(mailData);
+                    }
+                }
+                catch
+                {
+                    //Wenn das Versenden der Mail schiefläuft, dann wurde aber trotzdem das freischalten erfolgreich durchgeführt
+                    //TODO: Hier muss der Administrator noch benachrichtigt werden
+                }
+            }
+            catch
+            {
+                result = false;
+            }
+
+            //Wenn die Bestätigung funktioniert hat wird auf die Hinweisseite gesprungen und ansonsten wird auf die Fehlerseite gesprungen
+            return View(result ? "ConfirmEmail" : "Error");
+        }
+        #endregion
 
         //#region Forgot Password (Show / Postback)
         ////
@@ -636,8 +695,8 @@ namespace FamilieLaissIdentity.Controllers
             }
             else
             {
-                return null;
-               // return RedirectToAction(nameof(HomeController.Index), "Home");
+                //return RedirectToAction(nameof(HomeController.Index), "Home");
+                return Redirect("http://wwww.google.de");
             }
         }
 

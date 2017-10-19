@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace FamilieLaissIdentity.Service
@@ -63,11 +64,8 @@ namespace FamilieLaissIdentity.Service
         }
 
         //Bestätigung der eMail
-        public async Task<bool> ConfirmMail(string userId, string token)
+        public async Task<bool> ConfirmMail(FamilieLaissIdentityUser user, string token)
         {
-            //Ermitteln des Users
-            FamilieLaissIdentityUser user = await _userManager.FindByIdAsync(userId);
-
             //Bestätigen der eMail
             IdentityResult result = await _userManager.ConfirmEmailAsync(user, token);
 
@@ -171,8 +169,18 @@ namespace FamilieLaissIdentity.Service
           //  await _userManager.SendEmailAsync(user.Id, subject, body);
         }
 
+        //Ermitteln eines Users anhand der ID
+        public async Task<FamilieLaissIdentityUser> FindUserById(string Id)
+        {
+            //Ermitteln des Users anhand der Id
+            FamilieLaissIdentityUser user = await _userManager.FindByIdAsync(Id);
+
+            //Funktionsergebnis
+            return user;
+        }
+
         //Ermitteln eines Users anhand des Namens
-        public async Task<FamilieLaissIdentityUser> FindUser(string userName)
+        public async Task<FamilieLaissIdentityUser> FindUserByName(string userName)
         {
             //Ermitteln des Users anhand des Benutzernamens
             FamilieLaissIdentityUser user = await _userManager.FindByNameAsync(userName);
@@ -189,6 +197,19 @@ namespace FamilieLaissIdentity.Service
 
             //Funktionsergebnis
             return user;
+        }
+
+        //Ermittelt alle Admin-User
+        public async Task<IEnumerable<FamilieLaissIdentityUser>> GetAdminUsers()
+        {
+            //Deklaration
+            IList<FamilieLaissIdentityUser> adminUserList;
+
+            //Ermitteln der User anhand der Claims für den Adminstrator
+            adminUserList = await _userManager.GetUsersForClaimAsync(new Claim("IsAdmin", "Yes"));
+
+            //Funktionsergebnis
+            return adminUserList;
         }
 
         //Sperren / Entsperren des Accounts

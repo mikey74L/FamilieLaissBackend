@@ -18,7 +18,7 @@ namespace FamilieLaissIdentity.Interfaces
         Task<string> CreateMailConfirmationToken(FamilieLaissIdentityUser user);
 
         //Bestätigung der eMail-Adresse für den User
-        Task<bool> ConfirmMail(string userID, string token);
+        Task<bool> ConfirmMail(FamilieLaissIdentityUser user, string token);
 
         //Setzt den Count für eine Fehlanmeldung (falsches Passwort um eines nach oben)
         Task<IdentityResult> AccessFailed(string userName);
@@ -38,11 +38,17 @@ namespace FamilieLaissIdentity.Interfaces
         //Mail an den User über den Mail-Service von Identity senden
         Task SendMailToUser(string userName, string subject, string body);
 
+        //Ermitteln eines Users anhand der ID
+        Task<FamilieLaissIdentityUser> FindUserById(string Id);
+
         //Ermitteln eines Users anhand des Namens
-        Task<FamilieLaissIdentityUser> FindUser(string userName);
+        Task<FamilieLaissIdentityUser> FindUserByName(string userName);
 
         //Ermitteln eines Users anhand der eMail
         Task<FamilieLaissIdentityUser> FindUserByMail(string eMail);
+
+        //Ermittelt alle Admin-User
+        Task<IEnumerable<FamilieLaissIdentityUser>> GetAdminUsers();
 
         //Sperren / Entsperren des Accounts
         Task<IdentityResult> LockUnlockAccount(string userName, bool allowed);

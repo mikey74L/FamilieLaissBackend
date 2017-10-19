@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@model FamilieLaissIdentity.Data.Models.FamilieLaissIdentityUser
+
+@inject IViewLocalizer Localizer
+
+<h2>@Localizer["View_Title"]</h2>
+<p>@Localizer["Description"]</p>
+
+<table style="margin-top:15px; margin-bottom:30px;">
+    <tr>
+        <td><b><label asp-for="UserName"></label></b></td>
+        <td style="padding-left:5px;">@Model.UserName</td>
+    </tr>
+    <tr>
+        <td><b><label asp-for="FirstName"></label></b></td>
+        <td style="padding-left:5px;">@Model.FirstName</td>
+    </tr>
+    <tr>
+        <td><b><label asp-for="FamilyName"></label></b></td>
+        <td style="padding-left:5px;">@Model.FamilyName</td>
+    </tr>
+</table>
+
+<p>@Localizer["Information_1"]</p>
+
+<p>@Localizer["Information_2"]</p>
