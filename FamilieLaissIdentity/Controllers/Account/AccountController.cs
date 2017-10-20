@@ -422,7 +422,7 @@ namespace FamilieLaissIdentity.Controllers
                 //Überprüfen ob auch eine UserID und ein Token übergeben wurde. Wenn nicht wird auf die Fehlerseite gesprungen
                 if (userId == null || code == null)
                 {
-                    return View("Error");
+                    return View("ErrorConfirmEMail");
                 }
 
                 //Ermitteln des Users
@@ -431,7 +431,7 @@ namespace FamilieLaissIdentity.Controllers
                 //Wenn keine User gefunden wurde dann wird auf die Fehlerseite gesprungen
                 if (user == null)
                 {
-                    return View("Error");
+                    return View("ErrorConfirmEMail");
                 }
 
                 //Bestätigen des EMail-Adresse in ASP.NET Core Identity
@@ -465,7 +465,7 @@ namespace FamilieLaissIdentity.Controllers
             }
 
             //Wenn die Bestätigung funktioniert hat wird auf die Hinweisseite gesprungen und ansonsten wird auf die Fehlerseite gesprungen
-            return View(result ? "ConfirmEmail" : "Error");
+            return View(result ? "ConfirmEmail" : "ErrorConfirmEMail");
         }
         #endregion
 
