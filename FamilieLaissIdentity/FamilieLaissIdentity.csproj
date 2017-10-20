@@ -66,6 +66,12 @@
     <EmbeddedResource Update="Localize\Helper.FamilieLaissIdentityErrorDescriber.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Models.Account.ChangePasswordViewModel.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Models.Account.ChangePasswordViewModel.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localize\Models.Account.RegisterViewModel.de.resx">
       <Generator></Generator>
     </EmbeddedResource>
@@ -94,6 +100,12 @@
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\ViewHelper.SecurityQuestionList.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Account.ChangePassword.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Account.ChangePassword.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.Account.ConfirmEMail.de.resx">

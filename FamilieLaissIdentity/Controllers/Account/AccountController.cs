@@ -309,8 +309,6 @@ namespace FamilieLaissIdentity.Controllers
         #endregion
 
         #region Register (Show / Postback)
-        //
-        // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
@@ -322,8 +320,6 @@ namespace FamilieLaissIdentity.Controllers
             return View();
         }
 
-
-        //POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -388,28 +384,9 @@ namespace FamilieLaissIdentity.Controllers
             //Die View wird nur dann angezeigt wenn bei der Registrierung ein Fehler aufgetreten ist
             return View(model);
         }
-
-        private void AddListDataToRegisterView(dynamic ViewBag, string returnUrl)
-        {
-            //Erstellen der Gender-Liste
-            GenderSelectList GenderList = new GenderSelectList(LocalizerGender);
-
-            //Erstellen der Country-Liste
-            CountrySelectList CountryList = new CountrySelectList(LocalizerCountry);
-
-            //Erstellen der Question-Liste
-            SecurityQuestionList QuestionList = new SecurityQuestionList(LocalizerQuestion);
-
-            //Das View-Bag bestücken
-            ViewBag.ReturnUrl = returnUrl;
-            ViewBag.GenderList = GenderList;
-            ViewBag.CountryList = CountryList;
-            ViewBag.QuestionList = QuestionList;
-        }
         #endregion
 
         #region Confirm Email (Show)
-        // GET: /Account/ConfirmEmail
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
@@ -469,45 +446,48 @@ namespace FamilieLaissIdentity.Controllers
         }
         #endregion
 
-        //#region Forgot Password (Show / Postback)
-        ////
-        //// GET: /Account/ForgotPassword
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public IActionResult ForgotPassword()
-        //{
-        //    return View();
-        //}
+        #region Change Password (Show / Postback)
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ChangePassword()
+        {
+            //Deklaration
+            ChangePasswordViewModel model = new ChangePasswordViewModel();
 
-        ////
-        //// POST: /Account/ForgotPassword
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var user = await _userManager.FindByNameAsync(model.Email);
-        //        if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
-        //        {
-        //            // Don't reveal that the user does not exist or is not confirmed
-        //            return View("ForgotPasswordConfirmation");
-        //        }
+            //Hinzufügen der Country-Liste zum View-Bag
+            AddListDataQuestionToViewbag(ViewBag);
 
-        //        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
-        //        // Send an email with this link
-        //        //var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-        //        //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-        //        //await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-        //        //   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
-        //        //return View("ForgotPasswordConfirmation");
-        //    }
+            //Die View zurückliefern
+            return View(model);
+        }
 
-        //    // If we got this far, something failed, redisplay form
-        //    return View(model);
-        //}
-        //#endregion
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            //if (ModelState.IsValid)
+            //{
+            //    var user = await _userManager.FindByNameAsync(model.Email);
+            //    if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+            //    {
+            //        // Don't reveal that the user does not exist or is not confirmed
+            //        return View("ForgotPasswordConfirmation");
+            //    }
+
+            //    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
+            //    // Send an email with this link
+            //    //var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            //    //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+            //    //await _emailSender.SendEmailAsync(model.Email, "Reset Password",
+            //    //   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
+            //    //return View("ForgotPasswordConfirmation");
+            //}
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+        #endregion
 
         //#region Forgot Password Confirmation (Show)
         ////
@@ -674,6 +654,48 @@ namespace FamilieLaissIdentity.Controllers
         //#endregion
 
         #region Helpers
+        private void AddListDataGenderToViewbag(dynamic viewbag)
+        {
+            //Erstellen der Gender-Liste
+            GenderSelectList GenderList = new GenderSelectList(LocalizerGender);
+
+            //Das View-Bag bestücken
+            ViewBag.GenderList = GenderList;
+        }
+
+        private void AddListDataCountryToViewbag(dynamic viewbag)
+        {
+            //Erstellen der Country-Liste
+            CountrySelectList CountryList = new CountrySelectList(LocalizerCountry);
+
+            //Das View-Bag bestücken
+            ViewBag.CountryList = CountryList;
+        }
+
+        private void AddListDataQuestionToViewbag(dynamic viewbag)
+        {
+            //Erstellen der Question-Liste
+            SecurityQuestionList QuestionList = new SecurityQuestionList(LocalizerQuestion);
+
+            //Das View-Bag bestücken
+            ViewBag.QuestionList = QuestionList;
+        }
+
+        private void AddListDataToRegisterView(dynamic ViewBag, string returnUrl)
+        {
+            //Das View-Bag bestücken
+            ViewBag.ReturnUrl = returnUrl;
+
+            //Hinzufügen der Gender-Liste zum Viewbag
+            AddListDataGenderToViewbag(ViewBag);
+
+            //Hinzufügen der Country-Liste zum View-Bag
+            AddListDataCountryToViewbag(ViewBag);
+
+            //Hinzufügen der Security-Questions zum View-Bag
+            AddListDataQuestionToViewbag(ViewBag);
+        }
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
