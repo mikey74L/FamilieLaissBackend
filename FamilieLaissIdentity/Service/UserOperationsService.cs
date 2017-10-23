@@ -302,6 +302,12 @@ namespace FamilieLaissIdentity.Service
                 return IdentityResult.Failed(Errors.ToArray());
             }
         }
+
+        //Ermittelt ob ein User schon seine EMail-Adresse bestätigt hat
+        public Task<bool> IsEMailConfirmed(FamilieLaissIdentityUser user)
+        {
+            return _userManager.IsEmailConfirmedAsync(user);
+        }
         #endregion
 
         #region Dispose

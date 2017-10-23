@@ -26,6 +26,9 @@ namespace FamilieLaissIdentity.Interfaces
         //Überprüfen ob der Benutzer wegen zu vieler fehlgeschlagener Anmeldeversuche gesperrt ist
         Task<bool> IsLockedOut(string userName);
 
+        //Ermittelt ob ein User schon seine EMail-Adresse bestätigt hat
+        Task<bool> IsEMailConfirmed(FamilieLaissIdentityUser user);
+
         //Ermitteln der aktuellen Anzahl Fehlversuche
         Task<int> GetAccessFailedCount(string userName);
 

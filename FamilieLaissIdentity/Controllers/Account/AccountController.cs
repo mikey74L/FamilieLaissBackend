@@ -344,25 +344,17 @@ namespace FamilieLaissIdentity.Controllers
                     //an den User versendet, die zur Bestätigung der eMail-Adresse auffordert
                     if (result.Succeeded)
                     {
-                        try
-                        {
-                            //Ermitteln eines neuen Tokens für das Bestätigen der eMail-Adresse
-                            string Token = await _userOperations.CreateMailConfirmationToken(user);
+                        //Ermitteln eines neuen Tokens für das Bestätigen der eMail-Adresse
+                        string Token = await _userOperations.CreateMailConfirmationToken(user);
 
-                            //Ermitteln der Callback-URL zur Bestätigung der eMail-Adresse
-                            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = Token }, protocol: HttpContext.Request.Scheme);
+                        //Ermitteln der Callback-URL zur Bestätigung der eMail-Adresse
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = Token }, protocol: HttpContext.Request.Scheme);
 
-                            //Erstellen der Mail für das Bestätigen des Passworts
-                            SendMailModel mailData = await _mailGenerator.GenerateRegisterMail(user, Token, callbackUrl);
+                        //Erstellen der Mail für das Bestätigen des Passworts
+                        SendMailModel mailData = await _mailGenerator.GenerateRegisterMail(user, Token, callbackUrl);
 
-                            //Versenden der Mail an den User
-                            await GetMailSenderService().SendEmailAsync(mailData);
-                        }
-                        catch
-                        {
-                            //Wenn ein Fehler beim Mail-Versand auftritt dann ist die Registrierung trotzdem erfolgreich.
-                            //TODO: Hier muss noch eine Benachrichtigung für den Administrator eingebaut werden
-                        }
+                        //Versenden der Mail an den User
+                        await GetMailSenderService().SendEmailAsync(mailData);
 
                         return RedirectToLocal(returnUrl);
                     }
@@ -466,25 +458,64 @@ namespace FamilieLaissIdentity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    var user = await _userManager.FindByNameAsync(model.Email);
-            //    if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
-            //    {
-            //        // Don't reveal that the user does not exist or is not confirmed
-            //        return View("ForgotPasswordConfirmation");
-            //    }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    //Viewbag initialisieren
+                    ViewBag.EMailNotFound = false;
+                    ViewBag.EMailNotConfirmed = false;
 
-            //    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
-            //    // Send an email with this link
-            //    //var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-            //    //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-            //    //await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-            //    //   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
-            //    //return View("ForgotPasswordConfirmation");
-            //}
+                    //Ermitteln des Users anhand der EMail-Adresse
+                    var user = await _userOperations.FindUserByMail(model.Email);
 
-            // If we got this far, something failed, redisplay form
+                    //Überprüfen ob zu der angegebenen EMail-Adresse ein User gefunden wurde. Wenn nicht wird auf die
+                    //Fehlerseite gesprungen
+                    if (user == null)
+                    {
+                        //Das entsprechende Fehlerflag setzen
+                        ViewBag.EMailNotFound = true;
+
+                        //Die View für einen Fehler anzeigen
+                        return View("ChangePasswordError");
+                    }
+
+                    //Überprüfen ob der User seine EMail-Adresse schon bestätigt hat. Wenn nicht wird auf die entsprechende
+                    //Fehlerseite gesprungen
+                    if (await _userOperations.IsEMailConfirmed(user))
+                    {
+                        //Das entsprechende Fehlerflag setzen
+                        ViewBag.EMailNotConfirmed = true;
+
+                        //Die View für einen Fehler anzeigen
+                        return View("ChangePasswordError");
+                    }
+
+                    //Erstellen eines Tokens zum Ändern des Passworts
+                    string Token = await _userOperations.GeneratePasswordToken(user.Id);
+
+                    //Zusammenstellen der Callback-Url
+                    var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = Token }, protocol: HttpContext.Request.Scheme);
+
+                    //Die Mail für den Anwender erstellen
+                    SendMailModel mailData = await _mailGenerator.GenerateChangePasswordMail(user, Token, callbackUrl);
+
+                    //Die Mail über den entsprechenden Service versenden
+                    await GetMailSenderService().SendEmailAsync(mailData);
+
+                    //Auf die entsprechende Erfolgsseite wechseln
+                    return View("ChangePasswordSuccess");
+                }
+                catch
+                {
+                    return View("ChangePasswordError");
+                }
+            }
+
+            //Die Security-Questions zum View-Bag hinzufügen
+            AddListDataQuestionToViewbag(ViewBag);
+
+            //Die View wird nur dann angezeigt wenn bei der Registrierung ein Fehler aufgetreten ist
             return View(model);
         }
         #endregion
