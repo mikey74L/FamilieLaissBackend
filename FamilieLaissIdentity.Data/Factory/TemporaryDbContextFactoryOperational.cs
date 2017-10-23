@@ -2,6 +2,7 @@
 using IdentityServer4.EntityFramework.DbContexts;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ using System.Text;
 
 namespace FamilieLaissIdentity.Data.Factory
 {
-    public class TemporaryDbContextFactoryOperational : IDbContextFactory<ConfigurationDbContext>
+    public class TemporaryDbContextFactoryOperational : IDesignTimeDbContextFactory<ConfigurationDbContext>
     {
-        public ConfigurationDbContext Create(DbContextFactoryOptions options)
+        public ConfigurationDbContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<ConfigurationDbContext>();
             builder.UseSqlServer("Data Source=MIKEY-BOOK\\SQLEXPRESS;Initial Catalog=FamilieLaiss;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",

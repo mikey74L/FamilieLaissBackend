@@ -32,17 +32,10 @@ namespace FamilieLaissIdentity
     public class Startup
     {
         #region C'tor
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration configuration)
         {
-            //Konfigurations-Dateien konfigurieren
-            var builder = new ConfigurationBuilder()
-              .SetBasePath(env.ContentRootPath)
-              .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-              .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-              .AddEnvironmentVariables();
-
-            //Konfig-Objekt erzeugen
-            Configuration = builder.Build();
+            //Konfig-Objekt übernehmen
+            Configuration = configuration;
         }
         #endregion
 
@@ -113,11 +106,19 @@ namespace FamilieLaissIdentity
 
             //Den Identity-Server zum DI-Container hinzufügen
             services.AddIdentityServer()
-                .AddTemporarySigningCredential()
-                .AddConfigurationStore(o => o.UseSqlServer(Configuration.GetConnectionString("IdentityServer4Connection"),
-                    options => options.MigrationsAssembly(typeof(AppIdentityDBContext).GetTypeInfo().Assembly.GetName().Name)))
-                .AddOperationalStore(o => o.UseSqlServer(Configuration.GetConnectionString("IdentityServer4Connection"),
-                    options => options.MigrationsAssembly(typeof(AppIdentityDBContext).GetTypeInfo().Assembly.GetName().Name)))
+                .AddDeveloperSigningCredential()
+                .AddConfigurationStore(options =>
+                {
+                    options.ConfigureDbContext = builder =>
+                       builder.UseSqlServer(Configuration.GetConnectionString("IdentityServer4Connection"),
+                       sql => sql.MigrationsAssembly(typeof(AppIdentityDBContext).GetTypeInfo().Assembly.GetName().Name));
+                })
+                .AddOperationalStore(options =>
+                {
+                    options.ConfigureDbContext = builder =>
+                       builder.UseSqlServer(Configuration.GetConnectionString("IdentityServer4Connection"),
+                       sql => sql.MigrationsAssembly(typeof(AppIdentityDBContext).GetTypeInfo().Assembly.GetName().Name));
+                })
                 .AddAspNetIdentity<FamilieLaissIdentityUser>();
 
             //Lokalisierung für ASP.NET Core hinzufügen
@@ -242,7 +243,7 @@ namespace FamilieLaissIdentity
             }
 
             //ASP.NET Identity zur Pipeline hinzufügen
-            app.UseIdentity();
+            app.UseAuthentication();
 
             //Identity-Server verwenden
             app.UseIdentityServer();
@@ -256,7 +257,7 @@ namespace FamilieLaissIdentity
         #endregion
 
         #region Public Config-Property
-        public IConfigurationRoot Configuration { get; set; }
+        public IConfiguration Configuration { get; set; }
         #endregion
     }
 }
