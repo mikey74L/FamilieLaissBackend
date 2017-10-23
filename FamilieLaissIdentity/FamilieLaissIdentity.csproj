@@ -108,6 +108,18 @@
     <EmbeddedResource Update="Localize\Views.Account.ChangePassword.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Account.ChangePasswordError.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Account.ChangePasswordError.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Account.ChangePasswordSuccess.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Account.ChangePasswordSuccess.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.Account.ConfirmEMail.de.resx">
       <Generator></Generator>
     </EmbeddedResource>

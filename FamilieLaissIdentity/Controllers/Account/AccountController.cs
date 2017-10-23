@@ -25,6 +25,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Localization;
 using FamilieLaissIdentity.ViewHelper;
+using Microsoft.Extensions.Logging;
 
 namespace FamilieLaissIdentity.Controllers
 {
@@ -33,6 +34,7 @@ namespace FamilieLaissIdentity.Controllers
     public class AccountController : Controller
     {
         #region Private Members
+        private readonly ILogger<AccountController> _Logger;
         private readonly IMapper _mapper;
         private readonly IUserOperations _userOperations;
         private readonly Func<string, IMailSender> _mailSenderServiceAccessor;
@@ -55,6 +57,7 @@ namespace FamilieLaissIdentity.Controllers
 
         #region C'tor
         public AccountController(
+            ILogger<AccountController> logger,
             IMapper mapper, 
             IUserOperations userOperations, 
             Func<string, IMailSender> mailSenderServiceAccessor, 
@@ -65,6 +68,9 @@ namespace FamilieLaissIdentity.Controllers
             IStringLocalizer<CountrySelectList> localizerCountry,
             IStringLocalizer<SecurityQuestionList> localizerQuestion)
         {
+            //Den Logger übernehmen
+            _Logger = logger;
+
             //Auto-Mapper übernehmen
             _mapper = mapper;
 
@@ -443,13 +449,19 @@ namespace FamilieLaissIdentity.Controllers
         [AllowAnonymous]
         public IActionResult ChangePassword()
         {
+            //Logging ausgeben
+            _Logger.LogInformation("[{0}] is called", "ChangePassword");
+
             //Deklaration
+            _Logger.LogDebug("[{0}] Creating model", "ChangePassword");
             ChangePasswordViewModel model = new ChangePasswordViewModel();
 
             //Hinzufügen der Country-Liste zum View-Bag
+            _Logger.LogDebug("[{0}] Adding Country-List to viewbag", "ChangePassword");
             AddListDataQuestionToViewbag(ViewBag);
 
             //Die View zurückliefern
+            _Logger.LogDebug("[{0}] View rendern", "ChangePassword");
             return View(model);
         }
 
