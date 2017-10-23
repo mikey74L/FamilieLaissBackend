@@ -477,6 +477,7 @@ namespace FamilieLaissIdentity.Controllers
                     //Viewbag initialisieren
                     ViewBag.EMailNotFound = false;
                     ViewBag.EMailNotConfirmed = false;
+                    ViewBag.SecurityWrong = false;
 
                     //Ermitteln des Users anhand der EMail-Adresse
                     var user = await _userOperations.FindUserByMail(model.Email);
@@ -498,6 +499,16 @@ namespace FamilieLaissIdentity.Controllers
                     {
                         //Das entsprechende Fehlerflag setzen
                         ViewBag.EMailNotConfirmed = true;
+
+                        //Die View für einen Fehler anzeigen
+                        return View("ChangePasswordError");
+                    }
+
+                    //Überprüfen ob die Sicherheitsfrage und die Sicherheitsantwort übereinstimmen
+                    if (model.SecurityQuestion != user.SecurityQuestion || model.SecurityAnswer.Trim() != user.SecurityAnswer.Trim())
+                    {
+                        //Das entsprechende Fehlerflag setzen
+                        ViewBag.SecurityWrong = true;
 
                         //Die View für einen Fehler anzeigen
                         return View("ChangePasswordError");
