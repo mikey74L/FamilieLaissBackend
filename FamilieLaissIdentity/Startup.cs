@@ -53,7 +53,9 @@ namespace FamilieLaissIdentity
             //ASP.NET Identity hinzufügen
             services.AddIdentity<FamilieLaissIdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppIdentityDBContext>()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders()
+                .AddEmailAsPasswordValidator<FamilieLaissIdentityUser>()
+                .AddUsernameAsPasswordValidator<FamilieLaissIdentityUser>();
 
             //ASP.NET.Core.Identity konfigurieren
             services.Configure<IdentityOptions>(options =>

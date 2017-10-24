@@ -277,32 +277,6 @@ namespace FamilieLaissIdentity.Service
             return await _userManager.GeneratePasswordResetTokenAsync(user);
         }
 
-        //Setzt ein neues Passwort für den Benutzer
-        public async Task<IdentityResult> SetNewPassword(NewPasswordDTO model)
-        {
-            //Deklaration
-            List<IdentityError> Errors = new List<IdentityError>();
-
-            //Ermitteln des Users
-            FamilieLaissIdentityUser user = await _userManager.FindByNameAsync(model.UserName);
-
-            //Wenn ein User gefunden wurde dann wird das Passwort zurückgesetzt
-            if (user != null)
-            {
-                //Setzen des neuen Passworts
-                IdentityResult Result = await _userManager.ResetPasswordAsync(user, model.Token, model.Password);
-
-                //Funktionsergebnis
-                return Result;
-            }
-            else
-            {
-                //Funktionsergebnis
-                Errors.Add(new IdentityError() { Code = "UserNotFound", Description = "User not found" });
-                return IdentityResult.Failed(Errors.ToArray());
-            }
-        }
-
         //Ermittelt ob ein User schon seine EMail-Adresse bestätigt hat
         public Task<bool> IsEMailConfirmed(FamilieLaissIdentityUser user)
         {

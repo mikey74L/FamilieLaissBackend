@@ -68,10 +68,28 @@
     <EmbeddedResource Update="Localize\Models.Account.RegisterViewModel.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Models.Account.ResetPasswordViewModel.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Models.Account.ResetPasswordViewModel.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localize\Service.MailGeneratorService.de.resx">
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Service.MailGeneratorService.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Validators.Identity.EmailAsPasswordValidator.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Validators.Identity.EmailAsPasswordValidator.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Validators.Identity.UsernameAsPasswordValidator.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Validators.Identity.UsernameAsPasswordValidator.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\ViewHelper.CountrySelectList.de.resx">
@@ -126,6 +144,18 @@
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.Account.Register.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Account.ResetPassword.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Account.ResetPassword.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Account.ResetPasswordError.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Account.ResetPasswordError.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.MailGenerator.AdminConfirmAccount.de.resx">

@@ -543,169 +543,57 @@ namespace FamilieLaissIdentity.Controllers
         }
         #endregion
 
-        //#region Forgot Password Confirmation (Show)
-        ////
-        //// GET: /Account/ForgotPasswordConfirmation
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public IActionResult ForgotPasswordConfirmation()
-        //{
-        //    return View();
-        //}
-        //#endregion
+        #region Reset Password (Show / Postback)
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string userId = null, string code = null)
+        {
+            //Deklaration
+            ResetPasswordViewModel Model;
 
-        //#region Reset Password (Show / Postback)
-        ////
-        //// GET: /Account/ResetPassword
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public IActionResult ResetPassword(string code = null)
-        //{
-        //    return code == null ? View("Error") : View();
-        //}
+            //Fehlerseite oder Model erzeugen
+            if (code == null || userId == null)
+            {
+                //Wenn keine userId oder kein Code mitgegeben wurde, wird auf die Error-View gesprungen
+                return View("ResetPasswordError");
+            }
+            else
+            {
+                //Wenn alles OK ist wird das Model erstellt
+                Model = new ResetPasswordViewModel();
+                Model.UserId = userId;
+                Model.Token = code;
+            }
 
-        ////
-        //// POST: /Account/ResetPassword
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-        //    var user = await _userManager.FindByNameAsync(model.Email);
-        //    if (user == null)
-        //    {
-        //        // Don't reveal that the user does not exist
-        //        return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
-        //    }
-        //    var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
-        //    if (result.Succeeded)
-        //    {
-        //        return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
-        //    }
-        //    AddErrors(result);
-        //    return View();
-        //}
-        //#endregion
+            //Rendern der View
+            return View(Model);
+        }
 
-        //#region Reset Password Confirmation (Show)
-        ////
-        //// GET: /Account/ResetPasswordConfirmation
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public IActionResult ResetPasswordConfirmation()
-        //{
-        //    return View();
-        //}
-        //#endregion
-
-        //#region Send Code (Show / Postback)
-        ////
-        //// GET: /Account/SendCode
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public async Task<ActionResult> SendCode(string returnUrl = null, bool rememberMe = false)
-        //{
-        //    var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-        //    if (user == null)
-        //    {
-        //        return View("Error");
-        //    }
-        //    var userFactors = await _userManager.GetValidTwoFactorProvidersAsync(user);
-        //    var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
-        //    return View(new SendCodeViewModel { Providers = factorOptions, ReturnUrl = returnUrl, RememberMe = rememberMe });
-        //}
-
-        ////
-        //// POST: /Account/SendCode
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> SendCode(SendCodeViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View();
-        //    }
-
-        //    var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-        //    if (user == null)
-        //    {
-        //        return View("Error");
-        //    }
-
-        //    // Generate the token and send it
-        //    var code = await _userManager.GenerateTwoFactorTokenAsync(user, model.SelectedProvider);
-        //    if (string.IsNullOrWhiteSpace(code))
-        //    {
-        //        return View("Error");
-        //    }
-
-        //    var message = "Your security code is: " + code;
-        //    if (model.SelectedProvider == "Email")
-        //    {
-        //        await _emailSender.SendEmailAsync(await _userManager.GetEmailAsync(user), "Security Code", message);
-        //    }
-        //    else if (model.SelectedProvider == "Phone")
-        //    {
-        //        await _smsSender.SendSmsAsync(await _userManager.GetPhoneNumberAsync(user), message);
-        //    }
-
-        //    return RedirectToAction(nameof(VerifyCode), new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
-        //}
-        //#endregion
-
-        //#region Verify Code (Show / Postback)
-        ////
-        //// GET: /Account/VerifyCode
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> VerifyCode(string provider, bool rememberMe, string returnUrl = null)
-        //{
-        //    // Require that the user has already logged in via username/password or external login
-        //    var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-        //    if (user == null)
-        //    {
-        //        return View("Error");
-        //    }
-        //    return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
-        //}
-
-        ////
-        //// POST: /Account/VerifyCode
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> VerifyCode(VerifyCodeViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(model);
-        //    }
-
-        //    // The following code protects for brute force attacks against the two factor codes.
-        //    // If a user enters incorrect codes for a specified amount of time then the user account
-        //    // will be locked out for a specified amount of time.
-        //    var result = await _signInManager.TwoFactorSignInAsync(model.Provider, model.Code, model.RememberMe, model.RememberBrowser);
-        //    if (result.Succeeded)
-        //    {
-        //        return RedirectToLocal(model.ReturnUrl);
-        //    }
-        //    if (result.IsLockedOut)
-        //    {
-        //        _logger.LogWarning(7, "User account locked out.");
-        //        return View("Lockout");
-        //    }
-        //    else
-        //    {
-        //        ModelState.AddModelError(string.Empty, "Invalid code.");
-        //        return View(model);
-        //    }
-        //}
-        //#endregion
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            //var user = await _userManager.FindByNameAsync(model.Email);
+            //if (user == null)
+            //{
+            //    // Don't reveal that the user does not exist
+            //    return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
+            //}
+            //var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+            //if (result.Succeeded)
+            //{
+            //    return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
+            //}
+            //AddErrors(result);
+            //return View();
+            return View();
+        }
+        #endregion
 
         #region Helpers
         private void AddListDataGenderToViewbag(dynamic viewbag)

@@ -61,8 +61,5 @@ namespace FamilieLaissIdentity.Interfaces
 
         //Generiert ein Passwort Reset-Token
         Task<string> GeneratePasswordToken(string userID);
-
-        //Setzt ein neues Passwort für den Benutzer
-        Task<IdentityResult> SetNewPassword(NewPasswordDTO model);
     }
 }
