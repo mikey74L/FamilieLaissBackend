@@ -10,6 +10,7 @@
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.0.0" />
     <PackageReference Include="IdentityServer4.EntityFramework" Version="2.0.0" />
     <PackageReference Include="MailKit" Version="1.18.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
     <PackageReference Include="Sendgrid" Version="9.9.0" />
   </ItemGroup>
 
@@ -54,6 +55,12 @@
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Helper.FamilieLaissIdentityErrorDescriber.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Models.Account.LoginViewModel.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Models.Account.LoginViewModel.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Models.Account.ResetPasswordRequestViewModel.de.resx">
@@ -108,6 +115,12 @@
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\ViewHelper.SecurityQuestionList.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Account.Login.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Account.Login.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.Account.ResetPasswordRequest.de.resx">

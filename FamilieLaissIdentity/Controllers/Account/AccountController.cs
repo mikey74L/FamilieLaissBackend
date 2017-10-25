@@ -115,23 +115,20 @@ namespace FamilieLaissIdentity.Controllers
         //}
         #endregion
 
-        //#region Login (Show / Postback)
-        ////
-        //// GET: /Account/Login
-        //[AllowAnonymous]
-        //[HttpGet]
-        //public async Task<IActionResult> Login(string returnUrl)
-        //{
-        //    var vm = await _account.BuildLoginViewModelAsync(returnUrl);
+        #region Login (Show / Postback)
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> Login(string returnUrl)
+        {
+            //Das bestehende externe Cookie entfernen um einen saubern Login Prozess zu gewährleisten
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            
+            //Model erstellen
+            LoginViewModel Model = new LoginViewModel();
 
-        //    if (vm.IsExternalLoginOnly)
-        //    {
-        //        // only one option for logging in
-        //        return ExternalLogin(vm.ExternalProviders.First().AuthenticationScheme, returnUrl);
-        //    }
-
-        //    return View(vm);
-        //}
+            //Die View Rendern
+            return View(Model);
+        }
 
         ////
         //// POST: /Account/Login
@@ -169,7 +166,7 @@ namespace FamilieLaissIdentity.Controllers
         //    // If we got this far, something failed, redisplay form
         //    return View(await _account.BuildLoginViewModelAsync(model));
         //}
-        //#endregion
+        #endregion
 
         //#region Logout (Show / Postback)
         ///// <summary>
