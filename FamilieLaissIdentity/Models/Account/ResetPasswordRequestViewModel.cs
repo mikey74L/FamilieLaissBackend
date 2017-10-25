@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FamilieLaissIdentity.Models.Account
 {
-    public class ChangePasswordViewModel
+    public class ResetPasswordRequestViewModel
     {
         [Display(Order = 1, Name = "Email_Display")]
         [Required(ErrorMessage = "Email_Required")]

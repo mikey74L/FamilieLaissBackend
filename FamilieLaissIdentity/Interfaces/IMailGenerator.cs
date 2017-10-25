@@ -15,8 +15,8 @@ namespace FamilieLaissIdentity.Interfaces
         //Erstellt eine Mail für den Administrator mit der Aufforderung das Benutzerkonto freizuschalten
         Task<SendMailModel> GenerateAdminUnlockAccountMail(FamilieLaissIdentityUser user, FamilieLaissIdentityUser admin);
 
-        //Erstellt eine Mail für den Anwender mit Anweisungen wie das Passwort geändert werden kann
-        Task<SendMailModel> GenerateChangePasswordMail(FamilieLaissIdentityUser user, string tokenChangePassword, string callBackURL);
+        //Erstellt eine Mail für den Anwender mit Anweisungen wie das Passwort Zurückgesetzt werden kann
+        Task<SendMailModel> GenerateResetPasswordMail(FamilieLaissIdentityUser user, string tokenResetPassword, string callBackURL);
 
         //Erstellt eine Mail für den Anwender wenn das Benutzerkonto durch den Administrator freigegeben wurde
         Task<SendMailModel> GenerateGrantAccessMail(FamilieLaissIdentityUser user);

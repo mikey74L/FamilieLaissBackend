@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace FamilieLaissIdentity.Models.MailGenerator
 {
-    public class GenerateMailChangePasswordModel
+    public class GenerateMailResetPasswordModel
     {
         #region C'tor
-        public GenerateMailChangePasswordModel(string ChangePasswordURL, FamilieLaissIdentityUser user)
+        public GenerateMailResetPasswordModel(string ChangePasswordURL, FamilieLaissIdentityUser user)
         {
             User = user;
             URL_ChangePassword = ChangePasswordURL;

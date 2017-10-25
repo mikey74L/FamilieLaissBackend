@@ -444,31 +444,31 @@ namespace FamilieLaissIdentity.Controllers
         }
         #endregion
 
-        #region Change Password (Show / Postback)
+        #region Reset Password Request (Show / Postback)
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult ChangePassword()
+        public IActionResult ResetPasswordRequest()
         {
             //Logging ausgeben
-            _Logger.LogInformation("[{0}] is called", "ChangePassword");
+            _Logger.LogInformation("[{0}] is called", "ResetPasswordRequest");
 
             //Deklaration
-            _Logger.LogDebug("[{0}] Creating model", "ChangePassword");
-            ChangePasswordViewModel model = new ChangePasswordViewModel();
+            _Logger.LogDebug("[{0}] Creating model", "ResetPasswordRequest");
+            ResetPasswordRequestViewModel model = new ResetPasswordRequestViewModel();
 
             //Hinzufügen der Country-Liste zum View-Bag
-            _Logger.LogDebug("[{0}] Adding Country-List to viewbag", "ChangePassword");
+            _Logger.LogDebug("[{0}] Adding Country-List to viewbag", "ResetPasswordRequest");
             AddListDataQuestionToViewbag(ViewBag);
 
             //Die View zurückliefern
-            _Logger.LogDebug("[{0}] View rendern", "ChangePassword");
+            _Logger.LogDebug("[{0}] View rendern", "ResetPasswordRequest");
             return View(model);
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        public async Task<IActionResult> ResetPasswordRequest(ResetPasswordRequestViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -490,7 +490,7 @@ namespace FamilieLaissIdentity.Controllers
                         ViewBag.EMailNotFound = true;
 
                         //Die View für einen Fehler anzeigen
-                        return View("ChangePasswordError");
+                        return View("ResetPasswordRequestError");
                     }
 
                     //Überprüfen ob der User seine EMail-Adresse schon bestätigt hat. Wenn nicht wird auf die entsprechende
@@ -501,7 +501,7 @@ namespace FamilieLaissIdentity.Controllers
                         ViewBag.EMailNotConfirmed = true;
 
                         //Die View für einen Fehler anzeigen
-                        return View("ChangePasswordError");
+                        return View("ResetPasswordRequestError");
                     }
 
                     //Überprüfen ob die Sicherheitsfrage und die Sicherheitsantwort übereinstimmen
@@ -511,7 +511,7 @@ namespace FamilieLaissIdentity.Controllers
                         ViewBag.SecurityWrong = true;
 
                         //Die View für einen Fehler anzeigen
-                        return View("ChangePasswordError");
+                        return View("ResetPasswordRequestError");
                     }
 
                     //Erstellen eines Tokens zum Ändern des Passworts
@@ -521,17 +521,17 @@ namespace FamilieLaissIdentity.Controllers
                     var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = Token }, protocol: HttpContext.Request.Scheme);
 
                     //Die Mail für den Anwender erstellen
-                    SendMailModel mailData = await _mailGenerator.GenerateChangePasswordMail(user, Token, callbackUrl);
+                    SendMailModel mailData = await _mailGenerator.GenerateResetPasswordMail(user, Token, callbackUrl);
 
                     //Die Mail über den entsprechenden Service versenden
                     await GetMailSenderService().SendEmailAsync(mailData);
 
                     //Auf die entsprechende Erfolgsseite wechseln
-                    return View("ChangePasswordSuccess");
+                    return View("ResetPasswordRequestSuccess");
                 }
                 catch
                 {
-                    return View("ChangePasswordError");
+                    return View("ResetPasswordRequestError");
                 }
             }
 
@@ -574,24 +574,40 @@ namespace FamilieLaissIdentity.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
+                try
+                {
+                    //Den User anhand der UserID ermitteln
+                    var User = await _userOperations.FindUserById(model.UserId);
+
+                    //Es wurde kein User zu der UserId gefunden
+                    if (User == null)
+                    {
+                        return View("ResetPasswordError");
+                    }
+
+                    //Zurücksetzen des Passwortes
+                    var Result = await _userOperations.ResetPassword(User, model.Token, model.NewPassword);
+
+                    //
+                    if (Result.Succeeded)
+                    {
+                        return View("ResetPasswordSuccess");
+                    }
+                    else
+                    {
+                        AddErrors(Result);
+                    }
+                }
+                catch
+                {
+                    return View("ResetPasswordError");
+                }
             }
-            //var user = await _userManager.FindByNameAsync(model.Email);
-            //if (user == null)
-            //{
-            //    // Don't reveal that the user does not exist
-            //    return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
-            //}
-            //var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
-            //if (result.Succeeded)
-            //{
-            //    return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
-            //}
-            //AddErrors(result);
-            //return View();
-            return View();
+
+            //Die Eingaben in der Maske sind nicht korrekt. Maske nochmals anzeigen
+            return View(model);
         }
         #endregion
 

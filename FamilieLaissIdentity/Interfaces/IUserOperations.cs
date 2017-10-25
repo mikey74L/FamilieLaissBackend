@@ -61,5 +61,8 @@ namespace FamilieLaissIdentity.Interfaces
 
         //Generiert ein Passwort Reset-Token
         Task<string> GeneratePasswordToken(string userID);
+
+        //Setzt das Password anhand eines Tokens auf ein neues Passwort
+        Task<IdentityResult> ResetPassword(FamilieLaissIdentityUser user, string token, string newPassword);
     }
 }

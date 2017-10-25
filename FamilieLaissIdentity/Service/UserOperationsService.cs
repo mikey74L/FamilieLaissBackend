@@ -282,6 +282,12 @@ namespace FamilieLaissIdentity.Service
         {
             return _userManager.IsEmailConfirmedAsync(user);
         }
+
+        //Setzt dass Passwort mit Hilfe eines Tokens auf ein neues Passwort
+        public Task<IdentityResult> ResetPassword(FamilieLaissIdentityUser user, string token, string newPassword)
+        {
+            return _userManager.ResetPasswordAsync(user, token, newPassword);
+        }
         #endregion
 
         #region Dispose

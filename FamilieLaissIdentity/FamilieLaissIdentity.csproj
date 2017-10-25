@@ -56,10 +56,10 @@
     <EmbeddedResource Update="Localize\Helper.FamilieLaissIdentityErrorDescriber.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Models.Account.ChangePasswordViewModel.de.resx">
+    <EmbeddedResource Update="Localize\Models.Account.ResetPasswordRequestViewModel.de.resx">
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Models.Account.ChangePasswordViewModel.en.resx">
+    <EmbeddedResource Update="Localize\Models.Account.ResetPasswordRequestViewModel.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Models.Account.RegisterViewModel.de.resx">
@@ -110,22 +110,22 @@
     <EmbeddedResource Update="Localize\ViewHelper.SecurityQuestionList.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Views.Account.ChangePassword.de.resx">
+    <EmbeddedResource Update="Localize\Views.Account.ResetPasswordRequest.de.resx">
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Views.Account.ChangePassword.en.resx">
+    <EmbeddedResource Update="Localize\Views.Account.ResetPasswordRequest.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Views.Account.ChangePasswordError.de.resx">
+    <EmbeddedResource Update="Localize\Views.Account.ResetPasswordRequestError.de.resx">
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Views.Account.ChangePasswordError.en.resx">
+    <EmbeddedResource Update="Localize\Views.Account.ResetPasswordRequestError.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Views.Account.ChangePasswordSuccess.de.resx">
+    <EmbeddedResource Update="Localize\Views.Account.ResetPasswordRequestSuccess.de.resx">
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Views.Account.ChangePasswordSuccess.en.resx">
+    <EmbeddedResource Update="Localize\Views.Account.ResetPasswordRequestSuccess.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.Account.ConfirmEMail.de.resx">
@@ -158,6 +158,12 @@
     <EmbeddedResource Update="Localize\Views.Account.ResetPasswordError.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Account.ResetPasswordSuccess.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Account.ResetPasswordSuccess.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.MailGenerator.AdminConfirmAccount.de.resx">
       <Generator></Generator>
     </EmbeddedResource>
@@ -182,10 +188,10 @@
     <EmbeddedResource Update="Localize\Views.MailGenerator.Register.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Views.MailGenerator.ChangePassword.de.resx">
+    <EmbeddedResource Update="Localize\Views.MailGenerator.ResetPassword.de.resx">
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Views.MailGenerator.ChangePassword.en.resx">
+    <EmbeddedResource Update="Localize\Views.MailGenerator.ResetPassword.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.MailGenerator.RevokeAccess.de.resx">

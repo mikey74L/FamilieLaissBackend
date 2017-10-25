@@ -74,11 +74,11 @@ namespace FamilieLaissIdentity.Service
             return ReturnValue;
         }
 
-        public async Task<SendMailModel> GenerateChangePasswordMail(FamilieLaissIdentityUser user, string tokenChangePassword, string callBackURL)
+        public async Task<SendMailModel> GenerateResetPasswordMail(FamilieLaissIdentityUser user, string tokenResetPassword, string callBackURL)
         {
             //Deklaration
             SendMailModel ReturnValue = new SendMailModel();
-            GenerateMailChangePasswordModel GenerateModel = new GenerateMailChangePasswordModel(callBackURL, user);
+            GenerateMailResetPasswordModel GenerateModel = new GenerateMailResetPasswordModel(callBackURL, user);
 
             //Befüllen der Properties für Return-Value
             ReturnValue.IsBodyHtml = true;
@@ -87,7 +87,7 @@ namespace FamilieLaissIdentity.Service
             ReturnValue.Subject = _Localizer["Subject_ChangePassword"];
 
             //Generieren des HTML-Bodies
-            ReturnValue.Body = await _ViewRenderer.RenderToStringAsync<GenerateMailChangePasswordModel>("~/Views/MailGenerator/ChangePassword.cshtml", GenerateModel);
+            ReturnValue.Body = await _ViewRenderer.RenderToStringAsync<GenerateMailResetPasswordModel>("~/Views/MailGenerator/ResetPassword.cshtml", GenerateModel);
 
             //Model zurückliefern
             return ReturnValue;
