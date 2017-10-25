@@ -35,18 +35,18 @@ namespace FamilieLaissIdentity.Controllers
     {
         #region Private Members
         private readonly ILogger<AccountController> _Logger;
-        private readonly IMapper _mapper;
-        private readonly IUserOperations _userOperations;
-        private readonly Func<string, IMailSender> _mailSenderServiceAccessor;
-        private readonly IMailGenerator _mailGenerator;
-        private readonly IHostingEnvironment _hostingEnv;
-        private readonly IStringLocalizer<AccountController> Localizer;
-        private readonly IStringLocalizer<GenderSelectList> LocalizerGender;
-        private readonly IStringLocalizer<CountrySelectList> LocalizerCountry;
-        private readonly IStringLocalizer<SecurityQuestionList> LocalizerQuestion;
+        private readonly IMapper _Mapper;
+        private readonly IUserOperations _UserOperations;
+        private readonly ISigninOperations _SigninOperations;
+        private readonly Func<string, IMailSender> _MailSenderServiceAccessor;
+        private readonly IMailGenerator _MailGenerator;
+        private readonly IHostingEnvironment _HostingEnv;
+        private readonly IStringLocalizer<AccountController> _Localizer;
+        private readonly IStringLocalizer<GenderSelectList> _LocalizerGender;
+        private readonly IStringLocalizer<CountrySelectList> _LocalizerCountry;
+        private readonly IStringLocalizer<SecurityQuestionList> _LocalizerQuestion;
         //private readonly IUserOperations _UserOperations;
         //private readonly UserManager<ApplicationUser> _userManager;
-        //private readonly SignInManager<ApplicationUser> _signInManager;
         //private readonly IEmailSender _emailSender;
         //private readonly ISmsSender _smsSender;
         //private readonly ILogger _logger;
@@ -59,7 +59,8 @@ namespace FamilieLaissIdentity.Controllers
         public AccountController(
             ILogger<AccountController> logger,
             IMapper mapper, 
-            IUserOperations userOperations, 
+            IUserOperations userOperations,
+            ISigninOperations signInOperations,
             Func<string, IMailSender> mailSenderServiceAccessor, 
             IMailGenerator mailGenerator,
             IHostingEnvironment hostingEnv,
@@ -72,25 +73,27 @@ namespace FamilieLaissIdentity.Controllers
             _Logger = logger;
 
             //Auto-Mapper übernehmen
-            _mapper = mapper;
+            _Mapper = mapper;
 
             //User-Operations übernehmen
-            _userOperations = userOperations;
+            _UserOperations = userOperations;
+
+            _SigninOperations = signInOperations;
 
             //Übernhemen der Factory für den Mail-Sender-Service
-            _mailSenderServiceAccessor = mailSenderServiceAccessor;
+            _MailSenderServiceAccessor = mailSenderServiceAccessor;
 
             //Übernehmen des Mail-Generator
-            _mailGenerator = mailGenerator;
+            _MailGenerator = mailGenerator;
 
             //Die aktuelle Hosting Umgebung übernehmen
-            _hostingEnv = hostingEnv;
+            _HostingEnv = hostingEnv;
 
             //Die Lokalisierungen übernehmen
-            Localizer = localizer;
-            LocalizerGender = localizerGender;
-            LocalizerCountry = localizerCountry;
-            LocalizerQuestion = localizerQuestion;
+            _Localizer = localizer;
+            _LocalizerGender = localizerGender;
+            _LocalizerCountry = localizerCountry;
+            _LocalizerQuestion = localizerQuestion;
         }
         //public AccountController(
         //    IUserOperations userOperations,
@@ -126,46 +129,49 @@ namespace FamilieLaissIdentity.Controllers
             //Model erstellen
             LoginViewModel Model = new LoginViewModel();
 
+            //Die Return-Url in das View-Bag hängen
+            ViewBag.ReturnUrl = returnUrl;
+
             //Die View Rendern
             return View(Model);
         }
 
-        ////
-        //// POST: /Account/Login
-        //[HttpPost]
-        //[AllowAnonymous]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Login(LoginInputModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        // This doesn't count login failures towards account lockout
-        //        // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-        //        var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberLogin, lockoutOnFailure: false);
-        //        if (result.Succeeded)
-        //        {
-        //            _logger.LogInformation(1, "User logged in.");
-        //            return RedirectToLocal(model.ReturnUrl);
-        //        }
-        //        if (result.RequiresTwoFactor)
-        //        {
-        //            return RedirectToAction(nameof(SendCode), new { ReturnUrl = model.ReturnUrl, RememberMe = model.RememberLogin });
-        //        }
-        //        if (result.IsLockedOut)
-        //        {
-        //            _logger.LogWarning(2, "User account locked out.");
-        //            return View("Lockout");
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-        //            return View(await _account.BuildLoginViewModelAsync(model));
-        //        }
-        //    }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //Überprüfen ob die EMail-Adresse verifiziert wurde
 
-        //    // If we got this far, something failed, redisplay form
-        //    return View(await _account.BuildLoginViewModelAsync(model));
-        //}
+                //Überprüfen ob der User durch den Admin freigeschalten wurde
+
+                //Überprüfen ob der User durch zu viele 
+                //var result = await _SignInManager.PasswordSignInAsync(model.Username, model.Password, false, lockoutOnFailure: true);
+
+                //Überprüfen ob der User durch zu viele Fehlversuche ausgesperrt wurde
+
+                //        if (result.Succeeded)
+                //        {
+                //            _logger.LogInformation(1, "User logged in.");
+                //            return RedirectToLocal(model.ReturnUrl);
+                //        }
+                //        if (result.IsLockedOut)
+                //        {
+                //            _logger.LogWarning(2, "User account locked out.");
+                //            return View("Lockout");
+                //        }
+                //        else
+                //        {
+                //            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                //            return View(await _account.BuildLoginViewModelAsync(model));
+                //        }
+            }
+
+            //Rendern der View
+            return View(model);
+        }
         #endregion
 
         //#region Logout (Show / Postback)
@@ -337,24 +343,24 @@ namespace FamilieLaissIdentity.Controllers
                 if (ModelState.IsValid)
                 {
                     //Erstellen eines neuen Users mit Automapper
-                    var user = _mapper.Map<FamilieLaissIdentityUser>(model);
+                    var user = _Mapper.Map<FamilieLaissIdentityUser>(model);
                     user.IsAllowed = false;
 
                     //Hinzufügen des Users zum Identity-Store über die User-Operations
-                    var result = await _userOperations.CreateUser(user, model.Password);
+                    var result = await _UserOperations.CreateUser(user, model.Password);
 
                     //Wenn das Anlegen des Benutzers erfolgreich war, dann wird eine Mail
                     //an den User versendet, die zur Bestätigung der eMail-Adresse auffordert
                     if (result.Succeeded)
                     {
                         //Ermitteln eines neuen Tokens für das Bestätigen der eMail-Adresse
-                        string Token = await _userOperations.CreateMailConfirmationToken(user);
+                        string Token = await _UserOperations.CreateMailConfirmationToken(user);
 
                         //Ermitteln der Callback-URL zur Bestätigung der eMail-Adresse
                         var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = Token }, protocol: HttpContext.Request.Scheme);
 
                         //Erstellen der Mail für das Bestätigen des Passworts
-                        SendMailModel mailData = await _mailGenerator.GenerateRegisterMail(user, Token, callbackUrl);
+                        SendMailModel mailData = await _MailGenerator.GenerateRegisterMail(user, Token, callbackUrl);
 
                         //Versenden der Mail an den User
                         await GetMailSenderService().SendEmailAsync(mailData);
@@ -370,7 +376,7 @@ namespace FamilieLaissIdentity.Controllers
             }
             catch
             {
-                ModelState.AddModelError("Exception", Localizer["ExceptionRegistration"]);
+                ModelState.AddModelError("Exception", _Localizer["ExceptionRegistration"]);
             }
 
             //Hinzufügen der Listen-Daten für Gender, Country, und Questions
@@ -398,7 +404,7 @@ namespace FamilieLaissIdentity.Controllers
                 }
 
                 //Ermitteln des Users
-                var user = await _userOperations.FindUserById(userId);
+                var user = await _UserOperations.FindUserById(userId);
 
                 //Wenn keine User gefunden wurde dann wird auf die Fehlerseite gesprungen
                 if (user == null)
@@ -407,19 +413,19 @@ namespace FamilieLaissIdentity.Controllers
                 }
 
                 //Bestätigen des EMail-Adresse in ASP.NET Core Identity
-                result = await _userOperations.ConfirmMail(user, code);
+                result = await _UserOperations.ConfirmMail(user, code);
 
                 //Mail an alle Admin-User versenden
                 try
                 {
                     //Ermitteln der Liste der Admin-User
-                    IEnumerable<FamilieLaissIdentityUser> adminUserList = await _userOperations.GetAdminUsers();
+                    IEnumerable<FamilieLaissIdentityUser> adminUserList = await _UserOperations.GetAdminUsers();
 
                     //Mit einer Schleife die Mail an alle Admin-User versenden
                     foreach (var adminUser in adminUserList)
                     {
                         //Erstellen der Mail an den Adminstrator
-                        SendMailModel mailData = await _mailGenerator.GenerateAdminUnlockAccountMail(user, adminUser);
+                        SendMailModel mailData = await _MailGenerator.GenerateAdminUnlockAccountMail(user, adminUser);
 
                         //Versenden der Mail an den User
                         await GetMailSenderService().SendEmailAsync(mailData);
@@ -477,7 +483,7 @@ namespace FamilieLaissIdentity.Controllers
                     ViewBag.SecurityWrong = false;
 
                     //Ermitteln des Users anhand der EMail-Adresse
-                    var user = await _userOperations.FindUserByMail(model.Email);
+                    var user = await _UserOperations.FindUserByMail(model.Email);
 
                     //Überprüfen ob zu der angegebenen EMail-Adresse ein User gefunden wurde. Wenn nicht wird auf die
                     //Fehlerseite gesprungen
@@ -492,7 +498,7 @@ namespace FamilieLaissIdentity.Controllers
 
                     //Überprüfen ob der User seine EMail-Adresse schon bestätigt hat. Wenn nicht wird auf die entsprechende
                     //Fehlerseite gesprungen
-                    if (await _userOperations.IsEMailConfirmed(user))
+                    if (await _UserOperations.IsEMailConfirmed(user))
                     {
                         //Das entsprechende Fehlerflag setzen
                         ViewBag.EMailNotConfirmed = true;
@@ -512,13 +518,13 @@ namespace FamilieLaissIdentity.Controllers
                     }
 
                     //Erstellen eines Tokens zum Ändern des Passworts
-                    string Token = await _userOperations.GeneratePasswordToken(user.Id);
+                    string Token = await _UserOperations.GeneratePasswordToken(user.Id);
 
                     //Zusammenstellen der Callback-Url
                     var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = Token }, protocol: HttpContext.Request.Scheme);
 
                     //Die Mail für den Anwender erstellen
-                    SendMailModel mailData = await _mailGenerator.GenerateResetPasswordMail(user, Token, callbackUrl);
+                    SendMailModel mailData = await _MailGenerator.GenerateResetPasswordMail(user, Token, callbackUrl);
 
                     //Die Mail über den entsprechenden Service versenden
                     await GetMailSenderService().SendEmailAsync(mailData);
@@ -576,7 +582,7 @@ namespace FamilieLaissIdentity.Controllers
                 try
                 {
                     //Den User anhand der UserID ermitteln
-                    var User = await _userOperations.FindUserById(model.UserId);
+                    var User = await _UserOperations.FindUserById(model.UserId);
 
                     //Es wurde kein User zu der UserId gefunden
                     if (User == null)
@@ -585,7 +591,7 @@ namespace FamilieLaissIdentity.Controllers
                     }
 
                     //Zurücksetzen des Passwortes
-                    var Result = await _userOperations.ResetPassword(User, model.Token, model.NewPassword);
+                    var Result = await _UserOperations.ResetPassword(User, model.Token, model.NewPassword);
 
                     //
                     if (Result.Succeeded)
@@ -612,7 +618,7 @@ namespace FamilieLaissIdentity.Controllers
         private void AddListDataGenderToViewbag(dynamic viewbag)
         {
             //Erstellen der Gender-Liste
-            GenderSelectList GenderList = new GenderSelectList(LocalizerGender);
+            GenderSelectList GenderList = new GenderSelectList(_LocalizerGender);
 
             //Das View-Bag bestücken
             ViewBag.GenderList = GenderList;
@@ -621,7 +627,7 @@ namespace FamilieLaissIdentity.Controllers
         private void AddListDataCountryToViewbag(dynamic viewbag)
         {
             //Erstellen der Country-Liste
-            CountrySelectList CountryList = new CountrySelectList(LocalizerCountry);
+            CountrySelectList CountryList = new CountrySelectList(_LocalizerCountry);
 
             //Das View-Bag bestücken
             ViewBag.CountryList = CountryList;
@@ -630,7 +636,7 @@ namespace FamilieLaissIdentity.Controllers
         private void AddListDataQuestionToViewbag(dynamic viewbag)
         {
             //Erstellen der Question-Liste
-            SecurityQuestionList QuestionList = new SecurityQuestionList(LocalizerQuestion);
+            SecurityQuestionList QuestionList = new SecurityQuestionList(_LocalizerQuestion);
 
             //Das View-Bag bestücken
             ViewBag.QuestionList = QuestionList;
@@ -681,13 +687,13 @@ namespace FamilieLaissIdentity.Controllers
         //je nach dem ob sich die Anwendung im Debug-Mode oder in der Produktion befindet
         private IMailSender GetMailSenderService()
         {
-            if (_hostingEnv.IsDevelopment())
+            if (_HostingEnv.IsDevelopment())
             {
-                return _mailSenderServiceAccessor("Dev");
+                return _MailSenderServiceAccessor("Dev");
             }
             else
             {
-                return _mailSenderServiceAccessor("Prod");
+                return _MailSenderServiceAccessor("Prod");
             }
         }
         #endregion

@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-4">
         <section>
-            <form asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+            <form asp-action="Login" asp-route-returnurl="@ViewBag.ReturnUrl" method="post">
                 <h4>@Localizer["View_Description"]</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>

@@ -80,8 +80,11 @@ namespace FamilieLaissIdentity
             //Lokalisierbare Fehlermeldungen für ASP.NET Core Identity hinzufügen
             services.AddTransient<IdentityErrorDescriber, FamilieLaissIdentityErrorDescriber>();
 
-            //Den Service für den User-Manager hinzufügen
+            //Den Service für den User-Operations hinzufügen
             services.AddTransient<IUserOperations, UserOperationsService>();
+
+            //Den Service für die Signin-Operations hinzufügen
+            services.AddTransient<ISigninOperations, SigninOperationsService>();
 
             //Den Service für den eMail-Generator hinzufügen
             services.AddTransient<IMailGenerator, MailGeneratorService>();
