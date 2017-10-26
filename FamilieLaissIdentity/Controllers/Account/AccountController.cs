@@ -143,30 +143,19 @@ namespace FamilieLaissIdentity.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Überprüfen ob die EMail-Adresse verifiziert wurde
+                //Anmeldung starten
+                var Result = await _SigninOperations.SigninWithPassword(model.Username, model.Password);
 
-                //Überprüfen ob der User durch den Admin freigeschalten wurde
-
-                //Überprüfen ob der User durch zu viele 
-                //var result = await _SignInManager.PasswordSignInAsync(model.Username, model.Password, false, lockoutOnFailure: true);
-
-                //Überprüfen ob der User durch zu viele Fehlversuche ausgesperrt wurde
-
-                //        if (result.Succeeded)
-                //        {
-                //            _logger.LogInformation(1, "User logged in.");
-                //            return RedirectToLocal(model.ReturnUrl);
-                //        }
-                //        if (result.IsLockedOut)
-                //        {
-                //            _logger.LogWarning(2, "User account locked out.");
-                //            return View("Lockout");
-                //        }
-                //        else
-                //        {
-                //            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                //            return View(await _account.BuildLoginViewModelAsync(model));
-                //        }
+                //Auswerten des Results
+                if (Result.Succeeded)
+                {
+                    //Anmeldung erfolgreich
+                    return RedirectToLocal("");
+                }
+                else
+                {
+                    //Auswerten des Fehlers
+                }
             }
 
             //Rendern der View

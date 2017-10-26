@@ -212,6 +212,15 @@ namespace FamilieLaissIdentity.Service
             return adminUserList;
         }
 
+        //Property für sämtliche User
+        public IQueryable<FamilieLaissIdentityUser> Users
+        {
+            get
+            {
+                return _userManager.Users;
+            }
+        }
+
         //Sperren / Entsperren des Accounts
         public async Task<IdentityResult> LockUnlockAccount(string userName, bool Allowed)
         {

@@ -64,5 +64,8 @@ namespace FamilieLaissIdentity.Interfaces
 
         //Setzt das Password anhand eines Tokens auf ein neues Passwort
         Task<IdentityResult> ResetPassword(FamilieLaissIdentityUser user, string token, string newPassword);
+
+        //Die Property für die User
+        IQueryable<FamilieLaissIdentityUser> Users { get; }
     }
 }
