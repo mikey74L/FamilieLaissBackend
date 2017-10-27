@@ -117,10 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Error_Wrong_Username_Or_Password" xml:space="preserve">
-    <value>Falscher Benutzername oder Passwort.</value>
+  <data name="View_Description_EMail_Confirmed" xml:space="preserve">
+    <value />
   </data>
-  <data name="ExceptionRegistration" xml:space="preserve">
-    <value>Unerwarteter Fehler bei der Registrierung aufgetreten. Bitte versuchen Sie es nochmal.</value>
+  <data name="View_Description_General_Error" xml:space="preserve">
+    <value />
+  </data>
+  <data name="View_Description_Is_Allowed" xml:space="preserve">
+    <value />
+  </data>
+  <data name="View_Description_Is_Locked_Out" xml:space="preserve">
+    <value />
+  </data>
+  <data name="View_Title" xml:space="preserve">
+    <value />
   </data>
 </root>

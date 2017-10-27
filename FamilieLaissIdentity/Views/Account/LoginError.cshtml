@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+<h2>@Localizer["View_Title"]</h2>
+
+@if (ViewBag.GeneralError)
+{
+    <h4>@Localizer["View_Description_General_Error"]</h4>
+}
+else
+{
+    if (!ViewBag.EMailConfirmed)
+    {
+        <h4>@Localizer["View_Description_EMail_Confirmed"]</h4>
+    }
+    else
+    {
+        if (ViewBag.IsLockedOut)
+        {
+            <h4>@Localizer["View_Description_Is_Locked_Out"]</h4>
+        }
+        else
+        {
+            if (!ViewBag.IsAllowed)
+            {
+                <h4>@Localizer["View_Description_Is_Allowed"]</h4>
+            }
+        }
+    }
+}

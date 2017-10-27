@@ -45,14 +45,6 @@ namespace FamilieLaissIdentity.Controllers
         private readonly IStringLocalizer<GenderSelectList> _LocalizerGender;
         private readonly IStringLocalizer<CountrySelectList> _LocalizerCountry;
         private readonly IStringLocalizer<SecurityQuestionList> _LocalizerQuestion;
-        //private readonly IUserOperations _UserOperations;
-        //private readonly UserManager<ApplicationUser> _userManager;
-        //private readonly IEmailSender _emailSender;
-        //private readonly ISmsSender _smsSender;
-        //private readonly ILogger _logger;
-        //private readonly IIdentityServerInteractionService _interaction;
-        //private readonly IClientStore _clientStore;
-        //private readonly AccountService _account;
         #endregion
 
         #region C'tor
@@ -78,6 +70,7 @@ namespace FamilieLaissIdentity.Controllers
             //User-Operations übernehmen
             _UserOperations = userOperations;
 
+            //Signin-Operations übernehmen
             _SigninOperations = signInOperations;
 
             //Übernhemen der Factory für den Mail-Sender-Service
@@ -95,27 +88,6 @@ namespace FamilieLaissIdentity.Controllers
             _LocalizerCountry = localizerCountry;
             _LocalizerQuestion = localizerQuestion;
         }
-        //public AccountController(
-        //    IUserOperations userOperations,
-        //    UserManager<ApplicationUser> userManager,
-        //    SignInManager<ApplicationUser> signInManager,
-        //    IEmailSender emailSender,
-        //    ISmsSender smsSender,
-        //    ILoggerFactory loggerFactory,
-        //    IIdentityServerInteractionService interaction,
-        //    IHttpContextAccessor httpContext,
-        //    IClientStore clientStore)
-        //{
-        //    _userManager = userManager;
-        //    _signInManager = signInManager;
-        //    _emailSender = emailSender;
-        //    _smsSender = smsSender;
-        //    _logger = loggerFactory.CreateLogger<AccountController>();
-        //    _interaction = interaction;
-        //    _clientStore = clientStore;
-
-        //    _account = new AccountService(interaction, httpContext, clientStore);
-        //}
         #endregion
 
         #region Login (Show / Postback)
@@ -139,8 +111,14 @@ namespace FamilieLaissIdentity.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
+            //Initialisierung
+            ViewBag.IsAllowed = true;
+            ViewBag.EMailConfirmed = true;
+            ViewBag.IsLockedOut = false;
+            ViewBag.GeneralError = false;
+
             if (ModelState.IsValid)
             {
                 //Anmeldung starten
@@ -150,11 +128,25 @@ namespace FamilieLaissIdentity.Controllers
                 if (Result.Succeeded)
                 {
                     //Anmeldung erfolgreich
-                    return RedirectToLocal("");
+                    return RedirectToLocal(returnUrl);
                 }
                 else
                 {
-                    //Auswerten des Fehlers
+                    if (!Result.UsernameOrPasswordWrong)
+                    {
+                        //Auswerten des Fehlers
+                        ViewBag.IsAllowed = Result.IsAllowed;
+                        ViewBag.EMailConfirmed = Result.EMailConfirmed;
+                        ViewBag.IsLockedOut = Result.IsLockedOut;
+                        ViewBag.GeneralError = Result.GeneralError;
+
+                        //Die Error-View rendern
+                        return View("LoginError");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("UserPassword", _Localizer["Error_Wrong_Username_Or_Password"]);
+                    }
                 }
             }
 
@@ -646,19 +638,6 @@ namespace FamilieLaissIdentity.Controllers
             AddListDataQuestionToViewbag(ViewBag);
         }
 
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-        }
-
-        //private Task<ApplicationUser> GetCurrentUserAsync()
-        //{
-        //    return _userManager.GetUserAsync(HttpContext.User);
-        //}
-
         private IActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
@@ -669,6 +648,14 @@ namespace FamilieLaissIdentity.Controllers
             {
                 //return RedirectToAction(nameof(HomeController.Index), "Home");
                 return Redirect("http://wwww.google.de");
+            }
+        }
+
+        private void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
             }
         }
 
