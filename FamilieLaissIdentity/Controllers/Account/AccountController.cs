@@ -27,7 +27,7 @@ using Microsoft.Extensions.Localization;
 using FamilieLaissIdentity.ViewHelper;
 using Microsoft.Extensions.Logging;
 
-namespace FamilieLaissIdentity.Controllers
+namespace FamilieLaissIdentity.Controllers.Account
 {
     [Authorize]
     [SecurityHeaders]

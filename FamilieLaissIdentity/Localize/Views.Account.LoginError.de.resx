@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="View_Description_EMail_Confirmed" xml:space="preserve">
-    <value />
+    <value>Sie haben bisher Ihre EMail-Adresse noch nicht bestätigt. Zu diesem Zweck haben Sie von uns bei Ihrer Registrierung eine Mail mit Anweisungen erhalten wie Sie Ihre EMail-Adresse bestätigen können.</value>
   </data>
   <data name="View_Description_General_Error" xml:space="preserve">
-    <value />
+    <value>Es ist ein unerwarteter Fehler aufgetreten. Bitte versuchen Sie es zu einem späteren Zeitpunkt nochmals.</value>
   </data>
   <data name="View_Description_Is_Allowed" xml:space="preserve">
-    <value />
+    <value>Ihr Benutzerkonto wurde bisher noch nicht von uns freigeschalten. Sobald wir Ihr Benutzerkonto freigeschalten haben erhalten Sie von uns eine entsprechende Mail.</value>
   </data>
   <data name="View_Description_Is_Locked_Out" xml:space="preserve">
-    <value />
+    <value>Ihr Benutzerkonto ist zur Zeit gesperrt, da Sie sich zu oft mit einem falschen Benutzernamen / Passwort angemeldet haben. Diese temporäre Sperre wird nach einiger Zeit automatisch entfernt. Bitte versuchen Sie es daher zu einem späteren Zeitpunkt nochmals.</value>
   </data>
   <data name="View_Title" xml:space="preserve">
-    <value />
+    <value>Fehler bei der Anmeldung</value>
   </data>
 </root>
