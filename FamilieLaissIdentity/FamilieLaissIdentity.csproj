@@ -3,6 +3,33 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\Consent\**" />
+    <Compile Remove="Controllers\Grants\**" />
+    <Compile Remove="Controllers\Home\**" />
+    <Compile Remove="Views\Consent\**" />
+    <Compile Remove="Views\Grants\**" />
+    <Compile Remove="Views\Home\**" />
+    <Content Remove="Controllers\Consent\**" />
+    <Content Remove="Controllers\Grants\**" />
+    <Content Remove="Controllers\Home\**" />
+    <Content Remove="Views\Consent\**" />
+    <Content Remove="Views\Grants\**" />
+    <Content Remove="Views\Home\**" />
+    <EmbeddedResource Remove="Controllers\Consent\**" />
+    <EmbeddedResource Remove="Controllers\Grants\**" />
+    <EmbeddedResource Remove="Controllers\Home\**" />
+    <EmbeddedResource Remove="Views\Consent\**" />
+    <EmbeddedResource Remove="Views\Grants\**" />
+    <EmbeddedResource Remove="Views\Home\**" />
+    <None Remove="Controllers\Consent\**" />
+    <None Remove="Controllers\Grants\**" />
+    <None Remove="Controllers\Home\**" />
+    <None Remove="Views\Consent\**" />
+    <None Remove="Views\Grants\**" />
+    <None Remove="Views\Home\**" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="AutoMapper" Version="6.1.1" />
@@ -33,15 +60,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FamilieLaissIdentity.Data\FamilieLaissIdentity.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\Consent\" />
-    <Folder Include="Controllers\Grants\" />
-    <Folder Include="Controllers\Home\" />
-    <Folder Include="Views\Consent\" />
-    <Folder Include="Views\Grants\" />
-    <Folder Include="Views\Home\" />
   </ItemGroup>
 
   <ItemGroup>
