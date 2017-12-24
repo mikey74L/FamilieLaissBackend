@@ -31,13 +31,13 @@
     <None Remove="Views\Home\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="AutoMapper" Version="6.1.1" />
-    <PackageReference Include="IdentityServer4" Version="2.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="AutoMapper" Version="6.2.2" />
+    <PackageReference Include="IdentityServer4" Version="2.0.6" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="2.0.0" />
-    <PackageReference Include="IdentityServer4.EntityFramework" Version="2.0.0" />
-    <PackageReference Include="MailKit" Version="1.18.1.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
+    <PackageReference Include="IdentityServer4.EntityFramework" Version="2.1.0" />
+    <PackageReference Include="MailKit" Version="2.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.1" />
     <PackageReference Include="Sendgrid" Version="9.9.0" />
   </ItemGroup>
 
@@ -46,7 +46,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\css\site.less" />
     <None Include="wwwroot\js\signout-redirect.js" />
     <None Include="wwwroot\lib\bootstrap\css\bootstrap.css.map" />
     <None Include="wwwroot\lib\bootstrap\fonts\glyphicons-halflings-regular.svg" />
