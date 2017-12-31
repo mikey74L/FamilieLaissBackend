@@ -1,2 +1,5 @@
 ﻿@using FamilieLaissIdentity.Controllers
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using FamilieLaissCoreHelpers.TagHelpers
+
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@addTagHelper "FamilieLaissCoreHelpers.TagHelpers.*, FamilieLaissCoreHelpers"
