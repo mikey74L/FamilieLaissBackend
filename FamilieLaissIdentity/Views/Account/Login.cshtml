@@ -4,9 +4,15 @@
 
 @inject IViewLocalizer Localizer
 
+@{
+    ViewData["Title"] = Localizer["View_Title"];
+}
+
 <div class="login-content">
     <div class="lc-block toggled">
+        <h2>Familie Laiss - Anmeldung</h2>
         <form class="lcb-form" asp-action="Login" asp-route-returnurl="@ViewBag.ReturnUrl" method="post">
+            <!-- Eingabebereich für Benutzername -->
             <div class="input-group m-b-20">
                 <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
                 <div class="fg-line">
@@ -15,29 +21,28 @@
                 </div>
             </div>
 
+            <!-- Eingabebereich für Passwort -->
             <div class="input-group m-b-20">
-                <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
+                <span class="input-group-addon"><i class="zmdi zmdi-key"></i></span>
                 <div class="fg-line">
                     <input asp-for="Password" asp-placeholder-for="Password" class="form-control" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
             </div>
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-default">@Localizer["btn_Login"]</button>
-            </div>
-            <div class="form-group">
-                <p>
-                    <a asp-action="ResetPasswordRequest">@Localizer["Question_Forgot_Password"]</a>
-                </p>
-                <p>
-                    <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">@Localizer["Question_Register"]</a>
-                </p>
-            </div>
+            <!-- Ausgeben des Submit-Buttons -->
+            <a href="" class="btn btn-login btn-success btn-float"><i class="zmdi zmdi-arrow-forward"></i></a>
         </form>
+
+        <!-- Ausgeben der Buttons für die Navigation (Register, Forgot Password)-->
+        <div class="lcb-navigation">
+            <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" data-ma-action="login-switch" data-ma-block="#l-register"><i class="zmdi zmdi-plus"></i> <span>@Localizer["Question_Register"]</span></a>
+            <a asp-action="ResetPasswordRequest" data-ma-action="login-switch" data-ma-block="#l-forget-password"><i>?</i> <span>@Localizer["Question_Forgot_Password"]</span></a>
+        </div>
     </div>
 </div>
 
+<!-- Scripte für die Validierung hinzufügen -->
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }

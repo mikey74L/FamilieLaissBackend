@@ -1,4 +1,8 @@
 ﻿@using IdentityServer4.Extensions
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
 @{
     string name = null;
     if (!true.Equals(ViewData["signed-out"]))
@@ -10,17 +14,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Wichtige HTML5 Meta-Informationen -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IdentityServer4</title>
+
+    <!-- Setzen des Site-Name -->
+    <title>@ViewData["Title"] - @Localizer["SiteName"]</title>
+
+    <!-- Setzen des Icons für die Website -->
     <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
     <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
 
-    <!-- Vendor Styles -->
+    <!-- Stylesheet von Drittanbietern -->
     <link href="~/lib/material-design-iconic-font/dist/css/material-design-iconic-font.css" rel="stylesheet" />
 
-    <!-- Application Styles -->
+    <!-- Stylesheets für die Applikation -->
     <link href="~/css/app_1.css" rel="stylesheet" />
     <link href="~/css/app_2.css" rel="stylesheet" />
 </head>

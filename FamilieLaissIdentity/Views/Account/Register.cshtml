@@ -12,114 +12,143 @@
     FamilieLaissIdentity.ViewHelper.SecurityQuestionList SecurityQuestionSelectList = ViewBag.QuestionList;
 }
 
-<h2>@Localizer["View_Title"]</h2>
+<div class="login-content">
+    <div class="lc-block toggled">
+        <form class="lcb-form" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ReturnUrl" method="post">
+            <!-- Eingabebereich für Username -->
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                <div class="fg-line">
+                    <input asp-for="UserName" asp-placeholder-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+            </div>
 
-<form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ReturnUrl" method="post" class="form-horizontal">
-    <h4>@Localizer["View_Description"]</h4>
-    <hr />
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="UserName" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="UserName" class="form-control" />
-            <span asp-validation-for="UserName" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="Gender" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <select asp-for="Gender" asp-items="GenderSelectList.GenderList" class="form-control"></select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="FirstName" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="FirstName" class="form-control" />
-            <span asp-validation-for="FirstName" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="FamilyName" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="FamilyName" class="form-control" />
-            <span asp-validation-for="FamilyName" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="Street" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Street" class="form-control" />
-            <span asp-validation-for="Street" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="Number" class="col-md-2 control-label"></label>
-        <div class="col-md-3">
-            <input asp-for="Number" class="form-control" />
-            <span asp-validation-for="Number" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="ZIP" class="col-md-2 control-label"></label>
-        <div class="col-md-3">
-            <input asp-for="ZIP" class="form-control" />
-            <span asp-validation-for="ZIP" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="City" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="City" class="form-control" />
-            <span asp-validation-for="City" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="Country" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <select asp-for="Country" asp-items="CountrySelectList.CountryList" class="form-control"></select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="Email" class="col-md-2 control-label"></label>
-        <div class="col-md-5">
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="Password" class="col-md-2 control-label"></label>
-        <div class="col-md-5">
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
-        <div class="col-md-5">
-            <input asp-for="ConfirmPassword" class="form-control" />
-            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="SecurityQuestion" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <select asp-for="SecurityQuestion" asp-items="SecurityQuestionSelectList.QuestionList" class="form-control"></select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="SecurityAnswer" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="SecurityAnswer" class="form-control" />
-            <span asp-validation-for="SecurityAnswer" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-default">@Localizer["btn_Register"]</button>
-        </div>
-    </div>
-</form>
+            <!-- Eingabebereich für Geschlecht -->
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-male"></i></span>
+                <div class="fg-line">
+                    <select asp-for="Gender" asp-items="GenderSelectList.GenderList" class="form-control"></select>
+                </div>
+            </div>
 
+            <!-- Eingabebereich für Vorname -->
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                <div class="fg-line">
+                    <input asp-for="FirstName" asp-placeholder-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Eingabebereich für Familienname -->
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                <div class="fg-line">
+                    <input asp-for="FamilyName" asp-placeholder-for="FamilyName" class="form-control" />
+                    <span asp-validation-for="FamilyName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Eingabebereich für Straße -->
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                <div class="fg-line">
+                    <input asp-for="Street" asp-placeholder-for="Street" class="form-control" />
+                    <span asp-validation-for="Street" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Eingabebereich für Hausnummer -->
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                <div class="fg-line">
+                    <input asp-for="Number" asp-placeholder-for="Number" class="form-control" />
+                    <span asp-validation-for="Number" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Eingabebereich für Postleitzahl -->
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                <div class="fg-line">
+                    <input asp-for="ZIP" asp-placeholder-for="ZIP" class="form-control" />
+                    <span asp-validation-for="ZIP" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Eingabebereich für Ort -->
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-city"></i></span>
+                <div class="fg-line">
+                    <input asp-for="City" asp-placeholder-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Eingabebereich für Land -->
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                <div class="fg-line">
+                    <select asp-for="Country" asp-items="CountrySelectList.CountryList" class="form-control"></select>
+                </div>
+            </div>
+
+            <!-- Eingabebereich für eMail -->
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
+                <div class="fg-line">
+                    <input asp-for="Email" asp-placeholder-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Eingabebereich für Passwort -->
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-key"></i></span>
+                <div class="fg-line">
+                    <input asp-for="Password" asp-placeholder-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Eingabebereich für Passwort Bestätigung -->
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-key"></i></span>
+                <div class="fg-line">
+                    <input asp-for="ConfirmPassword" asp-placeholder-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Eingabebereich für Sicherheitsfrage -->
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                <div class="fg-line">
+                    <select asp-for="SecurityQuestion" asp-items="SecurityQuestionSelectList.QuestionList" class="form-control"></select>
+                </div>
+            </div>
+
+            <!-- Eingabebereich für Sicherheitsantwort -->
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="zmdi zmdi-account"></i></span>
+                <div class="fg-line">
+                    <input asp-for="SecurityAnswer" asp-placeholder-for="SecurityAnswer" class="form-control" />
+                    <span asp-validation-for="SecurityAnswer" class="text-danger"></span>
+                </div>
+            </div>
+
+            <!-- Ausgeben der Buttons -->
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="submit" class="btn btn-default">@Localizer["btn_Register"]</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Scripte für die Validierung hinzufügen -->
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }

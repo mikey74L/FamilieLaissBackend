@@ -30,6 +30,10 @@
     <None Remove="Views\Grants\**" />
     <None Remove="Views\Home\**" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="Localize\Views.Shared._Layout.en.resx" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="AutoMapper" Version="6.2.2" />
@@ -46,6 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Localize\Views.Shared._Layout.en.resx" />
     <None Include="wwwroot\js\signout-redirect.js" />
     <None Include="wwwroot\lib\jquery\dist\core.js" />
     <None Include="wwwroot\lib\jquery\dist\jquery.js" />
@@ -340,6 +345,9 @@
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.MailGenerator.RevokeAccess.en.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Localize\Views.Shared._Layout.de.resx">
       <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>
