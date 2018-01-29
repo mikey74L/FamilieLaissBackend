@@ -36,8 +36,11 @@
 <body>
     @RenderBody()
 
-    <!-- JQuery muss immer als Script geladen werden -->
+    <!-- Scripts die immer geladen werden müssen (JQuery, Bootstrap, App) -->
     <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/lib/Waves/dist/waves.js"></script>
+    <script src="~/js/app.js"></script>
 
     <!-- Die Page spezifischen Scripte laden -->
     @RenderSection("scripts", required: false)
