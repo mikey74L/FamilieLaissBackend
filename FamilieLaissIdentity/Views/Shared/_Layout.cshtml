@@ -17,30 +17,34 @@
     <!-- Wichtige HTML5 Meta-Informationen -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Dem Browser beibringen das er ein responsive Verhalten in Bezug auf die Screen-Width haben soll -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Zusatzinformationen über die Beschreibung der Website und den Autor -->
+    <meta name="description" content="Homepage for Family Laiss">
+    <meta name="author" content="Michael Laiss">
 
     <!-- Setzen des Site-Name -->
     <title>@ViewData["Title"] - @Localizer["SiteName"]</title>
 
     <!-- Setzen des Icons für die Website -->
-    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
-    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+@*    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />*@
 
-    <!-- Stylesheet von Drittanbietern -->
-    <link href="~/lib/material-design-iconic-font/dist/css/material-design-iconic-font.css" rel="stylesheet" />
+    <!-- Das Core-CSS für Bootstrap einbinden -->
+    <link 
+    <!-- Einbinden des Core-Stylesheets für das AdminPro-Template -->
 
-    <!-- Stylesheets für die Applikation -->
-    <link href="~/css/app_1.css" rel="stylesheet" />
-    <link href="~/css/app_2.css" rel="stylesheet" />
+    <!-- Setzen der Theme - Color auf Light-Blue über das Einbinden des entsprechenden CSS aus AdminPro Template -->
+
+    <!-- Zusätzliche Styles aus der aktuellen Razor-View rendern -->
+    @RenderSection("styles", required: false)
 </head>
 <body>
     @RenderBody()
 
     <!-- Scripts die immer geladen werden müssen (JQuery, Bootstrap, App) -->
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/lib/Waves/dist/waves.js"></script>
-    <script src="~/js/app.js"></script>
 
     <!-- Die Page spezifischen Scripte laden -->
     @RenderSection("scripts", required: false)
