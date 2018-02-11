@@ -231,14 +231,14 @@ namespace FamilieLaissIdentity
             });
 
             //Migraten und seeden des EF-Contexts für IdentityServer
-            InitializeIdentityServerDB(app);
+            //InitializeIdentityServerDB(app);
 
             //Migraten und seeden des EF-Contexts für ASP.NET Identity
-            InitializeIdentityDB(app);
+            //InitializeIdentityDB(app);
 
             //Das Logging für die Konsole hinzufügen und den
             //Logging-Level auf Debug festlegen
-            loggerFactory.AddConsole(LogLevel.Debug);
+            //loggerFactory.AddConsole(LogLevel.Debug);
 
             //Wenn sich der Server im Entwicklermodus befindet, dann
             //soll die Entwickler Exception-Page verwendet werden
@@ -248,10 +248,10 @@ namespace FamilieLaissIdentity
             }
 
             //ASP.NET Identity zur Pipeline hinzufügen
-            app.UseAuthentication();
+            //app.UseAuthentication();
 
             //Identity-Server verwenden
-            app.UseIdentityServer();
+            //app.UseIdentityServer();
 
             //Browsen für statisches Dateien aktivieren 
             app.UseStaticFiles();

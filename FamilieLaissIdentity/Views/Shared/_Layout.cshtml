@@ -28,15 +28,19 @@
     <!-- Setzen des Site-Name -->
     <title>@ViewData["Title"] - @Localizer["SiteName"]</title>
 
+
     <!-- Setzen des Icons für die Website -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
-@*    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />*@
+    @*<link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">*@
+    @*    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />*@
 
     <!-- Das Core-CSS für Bootstrap einbinden -->
-    <link 
+    <link href="~/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
     <!-- Einbinden des Core-Stylesheets für das AdminPro-Template -->
+    <link href="~/css/style.css" rel="stylesheet" />
 
     <!-- Setzen der Theme - Color auf Light-Blue über das Einbinden des entsprechenden CSS aus AdminPro Template -->
+    <link href="~/css/colors/blue.css" rel="stylesheet" />
 
     <!-- Zusätzliche Styles aus der aktuellen Razor-View rendern -->
     @RenderSection("styles", required: false)
@@ -44,7 +48,14 @@
 <body>
     @RenderBody()
 
-    <!-- Scripts die immer geladen werden müssen (JQuery, Bootstrap, App) -->
+    <!-- Das Script für Jquery muss immer geladen werden -->
+    <script src="~/vendor/jquery/dist/jquery.min.js"></script>
+
+    <!-- Das Script für Bootstrap muss immer geladen werden -->
+    <script src="~/vendor/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="~/js/waves.js"></script>
 
     <!-- Die Page spezifischen Scripte laden -->
     @RenderSection("scripts", required: false)

@@ -45,7 +45,13 @@ File: scss
  *  7. Widgets
  *  8. Custom Templates
  */
+
+
+/******************* 
+Importieren des Montserrat-Font von Google-Fonts
+*******************/
 @import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700");
+
 /******************* 
 Global Styles 
 *******************/
@@ -58,6 +64,7 @@ Global Styles
 @import url(../scss/icons/material-design-iconic-font/css/materialdesignicons.min.css);
 @import url(../css/spinners.css);
 @import url(../css/animate.css);
+
 * {
   outline: none; }
 

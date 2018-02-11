@@ -124,12 +124,15 @@
     <value>Passwort vergessen?</value>
   </data>
   <data name="Question_Register" xml:space="preserve">
-    <value>Als neuer Benutzer registrieren?</value>
+    <value>Noch kein Konto?</value>
   </data>
   <data name="View_Description" xml:space="preserve">
     <value>Ein lokales Benutzerkonto zur Anmeldung verwenden.</value>
   </data>
   <data name="View_Title" xml:space="preserve">
     <value>Anmeldung</value>
+  </data>
+  <data name="Link_Register" xml:space="preserve">
+    <value>Registrieren</value>
   </data>
 </root>

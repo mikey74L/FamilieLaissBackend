@@ -1,4 +1,4 @@
-﻿/// <binding Clean='clean, minify, scripts' />
+﻿/// <binding Clean='clean, scripts' />
 /*
 This file in the main entry point for defining Gulp tasks and using Gulp plugins.
 Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
@@ -6,6 +6,7 @@ Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
 
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
+var gulpCopy = require('gulp-copy');
 var concat = require('gulp-concat');
 var rimraf = require("rimraf");
 var merge = require('merge-stream');
@@ -26,34 +27,21 @@ var merge = require('merge-stream');
 //    return merge(streams);
 //});
 
-// Dependency Dirs
-var deps = {
-    "jquery": {
-        "dist/*": ""
-    },
-    "bootstrap": {
-        "dist/**/*": ""
-    }
-};
-
 gulp.task("clean", function (cb) {
     return rimraf("wwwroot/vendor/", cb);
 });
 
 gulp.task("scripts", function () {
 
-    var streams = [];
+    var sourceFiles = ['node_modules/jquery/dist/*.js',
+        'node_modules/bootstrap/dist/js/*.js',
+        'node_modules/bootstrap/dist/css/*.css',
+        'node_modules/popper.js/dist/umd/*.js'];
+    var destination = 'wwwroot/vendor';
 
-    for (var prop in deps) {
-        console.log("Prepping Scripts for: " + prop);
-        for (var itemProp in deps[prop]) {
-            streams.push(gulp.src("node_modules/" + prop + "/" + itemProp)
-                .pipe(gulp.dest("wwwroot/vendor/" + prop + "/" + deps[prop][itemProp])));
-        }
-    }
-
-    return merge(streams);
-
+    return gulp
+        .src(sourceFiles)
+        .pipe(gulpCopy(destination, { prefix: 1}));
 });
 
 gulp.task("default", ['clean', 'scripts']);
