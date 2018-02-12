@@ -15,6 +15,7 @@
 <!-- Die spezifischen Styles für die aktuelle Seite einbinden -->
 @section Styles {
     <link href="~/css/pages/login-register-lock.css" rel="stylesheet" />
+    <link href="~/css/pages/floating-label.css" rel="stylesheet" />
 }
 
 <!-- ============================================================== -->
@@ -33,69 +34,141 @@
     <div class="login-box card">
         <div class="card-body">
             <h3 class="text-center">Familie-Laiß / Registrierung</h3>
-            <form id="formLogin" class="form-horizontal form-material" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ReturnUrl" method="post">
+            <form id="formLogin" class="floating-labels m-t-40" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ReturnUrl" method="post">
                 <!-- Eingabebereich für Benutzername -->
-                <div class="form-group m-t-40">
-                    <div class="col-xs-12">
-                        <input asp-for="UserName" asp-placeholder-for="UserName" class="form-control" />
+                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["UserName"].Errors.Count > 0)
+                {
+                    <div class="form-group col-xs-12 m-b-30 has-danger has-error">
+                        <input asp-for="UserName" class="form-control" />
+                        <span class="bar"></span>
+                        <label asp-for="UserName"></label>
+                        <div class="form-control-feedback">@ViewData.ModelState["UserName"].Errors.First().ErrorMessage</div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="form-group col-xs-12 m-b-30">
+                        <input asp-for="UserName" class="form-control" />
+                        <span class="bar"></span>
+                        <label asp-for="UserName"></label>
+                    </div>
+                }
 
                 <!-- Eingabebereich für Geschlecht -->
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <select asp-for="Gender" asp-items="GenderSelectList.GenderList" class="form-control"></select>
-                    </div>
+                <div class="form-group col-xs-12 m-b-30">
+                    <select asp-for="Gender" asp-items="GenderSelectList.GenderList" class="form-control"></select>
+                    <span class="bar"></span>
+                    <label asp-for="Gender"></label>
                 </div>
 
                 <!-- Eingabebereich für Vorname -->
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <input asp-for="FirstName" asp-placeholder-for="FirstName" class="form-control" />
+                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["FirstName"].Errors.Count > 0)
+                {
+                    <div class="form-group col-xs-12 m-b-30 has-danger has-error">
+                        <input asp-for="FirstName" class="form-control" />
+                        <span class="bar"></span>
+                        <label asp-for="FirstName"></label>
+                        <div class="form-control-feedback">@ViewData.ModelState["FirstName"].Errors.First().ErrorMessage</div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="form-group col-xs-12 m-b-30">
+                        <input asp-for="FirstName" class="form-control" />
+                        <span class="bar"></span>
+                        <label asp-for="FirstName"></label>
+                    </div>
+                }
 
                 <!-- Eingabebereich für Familienname -->
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <input asp-for="FamilyName" asp-placeholder-for="FamilyName" class="form-control" />
+                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["FamilyName"].Errors.Count > 0)
+                {
+                    <div class="form-group col-xs-12 m-b-30 has-danger has-error">
+                        <input asp-for="FamilyName" class="form-control" />
+                        <span class="bar"></span>
+                        <label asp-for="FamilyName"></label>
+                        <div class="form-control-feedback">@ViewData.ModelState["FamilyName"].Errors.First().ErrorMessage</div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="form-group col-xs-12 m-b-30">
+                        <input asp-for="FamilyName" class="form-control" />
+                        <span class="bar"></span>
+                        <label asp-for="FamilyName"></label>
+                    </div>
+                }
 
                 <!-- Eingabebereich für eMail -->
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <input asp-for="Email" asp-placeholder-for="Email" class="form-control" />
+                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Email"].Errors.Count > 0)
+                {
+                    <div class="form-group col-xs-12 m-b-30 has-danger has-error">
+                        <input asp-for="Email" class="form-control" />
+                        <span class="bar"></span>
+                        <label asp-for="Email"></label>
+                        <div class="form-control-feedback">@ViewData.ModelState["Email"].Errors.First().ErrorMessage</div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="form-group col-xs-12 m-b-30">
+                        <input asp-for="Email" class="form-control" />
+                        <span class="bar"></span>
+                        <label asp-for="Email"></label>
+                    </div>
+                }
 
                 <!-- Eingabebereich für Passwort -->
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <input asp-for="Password" asp-placeholder-for="Password" class="form-control" />
+                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Password"].Errors.Count > 0)
+                {
+                    <div class="form-group col-xs-12 m-b-30 has-danger has-error">
+                        <input asp-for="Password" class="form-control" />
+                        <span class="bar"></span>
+                        <label asp-for="Password"></label>
+                        <div class="form-control-feedback">@ViewData.ModelState["Password"].Errors.First().ErrorMessage</div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="form-group col-xs-12 m-b-30">
+                        <input asp-for="Password" class="form-control" />
+                        <span class="bar"></span>
+                        <label asp-for="Password"></label>
+                    </div>
+                }
 
                 <!-- Eingabebereich für Passwort-Bestätigung -->
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <input asp-for="ConfirmPassword" asp-placeholder-for="ConfirmPassword" class="form-control" />
-                    </div>
+                <div class="form-group col-xs-12 m-b-30">
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span class="bar"></span>
+                    <label asp-for="ConfirmPassword"></label>
                 </div>
 
                 <!-- Eingabebereich für Sicherheitsfrage -->
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <select asp-for="SecurityQuestion" asp-items="SecurityQuestionSelectList.QuestionList" class="form-control"></select>
-                    </div>
+                <div class="form-group col-xs-12 m-b-30">
+                    <select asp-for="SecurityQuestion" asp-items="SecurityQuestionSelectList.QuestionList" class="form-control"></select>
+                    <span class="bar"></span>
+                    <label asp-for="SecurityQuestion"></label>
                 </div>
 
                 <!-- Eingabebereich für Sicherheitsantwort -->
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        <input asp-for="SecurityAnswer" asp-placeholder-for="SecurityAnswer" class="form-control" />
+                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["SecurityAnswer"].Errors.Count > 0)
+                {
+                    <div class="form-group col-xs-12 has-danger has-error">
+                        <input asp-for="SecurityAnswer" class="form-control" />
+                        <span class="bar"></span>
+                        <label asp-for="SecurityAnswer"></label>
+                        <div class="form-control-feedback">@ViewData.ModelState["SecurityAnswer"].Errors.First().ErrorMessage</div>
                     </div>
-                </div>
+                }
+                else
+                {
+                    <div class="form-group col-xs-12">
+                        <input asp-for="SecurityAnswer" class="form-control" />
+                        <span class="bar"></span>
+                        <label asp-for="SecurityAnswer"></label>
+                    </div>
+                }
 
                 <!-- Ausgeben des Registrieren-Buttons -->
                 <div class="form-group text-center m-t-20">
@@ -112,9 +185,16 @@
 @section Scripts {
     <!--Custom JavaScript für Preloader -->
     <script type="text/javascript">
-        $(function() {
+        $(function () {
             $(".preloader").fadeOut();
         });
+    </script>
+
+    <!--Custom JavaScript für Floating-Labels -->
+    <script type="text/javascript">
+        $('.floating-labels .form-control').on('focus blur', function (e) {
+            $(this).parents('.form-group').toggleClass('focused', (e.type === 'focus' || this.value.length > 0));
+        }).trigger('blur');
     </script>
 
     @*@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }*@

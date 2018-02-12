@@ -709,4 +709,8 @@
       <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\vendor\" />
+  </ItemGroup>
 </Project>

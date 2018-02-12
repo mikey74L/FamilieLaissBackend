@@ -28,20 +28,20 @@ var merge = require('merge-stream');
 //});
 
 gulp.task("clean", function (cb) {
-    return rimraf("wwwroot/vendor/", cb);
+    //return rimraf("wwwroot/vendor/", cb);
 });
 
 gulp.task("scripts", function () {
 
-    var sourceFiles = ['node_modules/jquery/dist/*.js',
-        'node_modules/bootstrap/dist/js/*.js',
-        'node_modules/bootstrap/dist/css/*.css',
-        'node_modules/popper.js/dist/umd/*.js'];
-    var destination = 'wwwroot/vendor';
+    //var sourceFiles = ['node_modules/jquery/dist/*.js',
+    //    'node_modules/bootstrap/dist/js/*.js',
+    //    'node_modules/bootstrap/dist/css/*.css',
+    //    'node_modules/popper.js/dist/umd/*.js'];
+    //var destination = 'wwwroot/vendor';
 
-    return gulp
-        .src(sourceFiles)
-        .pipe(gulpCopy(destination, { prefix: 1}));
+    //return gulp
+    //    .src(sourceFiles)
+    //    .pipe(gulpCopy(destination, { prefix: 1}));
 });
 
 gulp.task("default", ['clean', 'scripts']);
