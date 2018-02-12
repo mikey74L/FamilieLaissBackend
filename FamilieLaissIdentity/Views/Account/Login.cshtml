@@ -11,11 +11,10 @@
 <!-- Die spezifischen Styles für die aktuelle Seite einbinden -->
 @section Styles {
     <link href="~/css/pages/login-register-lock.css" rel="stylesheet" />
-    <link href="~/css/Application.css" rel="stylesheet" />
 }
 
 <!-- ============================================================== -->
-<!-- Preloader - Style befindet sich in spinners.css -->
+<!-- Preloader - Style befindet sich in spinners.css                -->
 <!-- ============================================================== -->
 <div class="preloader">
     <div class="loader">
@@ -24,13 +23,13 @@
     </div>
 </div>
 <!-- ============================================================== -->
-<!-- Preloader - Style befindet sich in page spezifischem css -->
+<!-- Login-Form - Style befindet sich in page spezifischem css      -->
 <!-- ============================================================== -->
 <section id="wrapper" class="login-register login-sidebar loginpicture2" style="background-image: url(/Images/Login_Register_Background_2.jpg)">
     <div class="login-box card">
         <div class="card-body">
             <h3 class="text-center">Familie-Laiß / Login</h3>
-            <form id="formLogin" class="form-horizontal form-material" asp-action="Login" asp-route-returnurl="@ViewBag.ReturnUrl" method="post">
+            <form id="formLogin" class="form-horizontal form-material" asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewBag.ReturnUrl" method="post">
                 <div class="form-group m-t-40">
                     <div class="col-xs-12">
                         <input asp-for="Username" asp-placeholder-for="Username" class="form-control" />
