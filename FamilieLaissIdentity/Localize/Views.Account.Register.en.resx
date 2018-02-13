@@ -126,4 +126,10 @@
   <data name="View_Title" xml:space="preserve">
     <value>Register</value>
   </data>
+  <data name="Alert_Exception_Header" xml:space="preserve">
+    <value>Unexpected error occurred</value>
+  </data>
+  <data name="View_Heading" xml:space="preserve">
+    <value>Familie-Laiß / Register</value>
+  </data>
 </root>

@@ -22,23 +22,18 @@ namespace FamilieLaissIdentity.Data.Models
         public string FamilyName { get; set; }
 
         [MaxLength(150)]
-        [Required]
         public string Street { get; set; }
 
         [MaxLength(15)]
-        [Required]
         public string Number { get; set; }
 
         [MaxLength(20)]
-        [Required]
         public string ZIP { get; set; }
 
         [MaxLength(150)]
-        [Required]
         public string City { get; set; }
 
         [MaxLength(10)]
-        [Required]
         public string Country { get; set; }
 
         [MaxLength(5)]

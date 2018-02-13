@@ -121,6 +121,6 @@
     <value>Wrong username or password.</value>
   </data>
   <data name="ExceptionRegistration" xml:space="preserve">
-    <value>Unexpected error during the registration process occured. Please try again.</value>
+    <value>During the registration process an unexpected error occured. Please try again later. If the error persists then please contact our support via e-mail.</value>
   </data>
 </root>

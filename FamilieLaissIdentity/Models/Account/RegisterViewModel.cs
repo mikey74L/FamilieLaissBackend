@@ -26,30 +26,6 @@ namespace FamilieLaissIdentity.Models.Account
         [StringLength(150, ErrorMessage = "MaxLength")]
         public string FamilyName { get; set; }
 
-        [Display(Order = 4, Name = "Street_Display")]
-        [Required(ErrorMessage = "Street_Required")]
-        [StringLength(150, ErrorMessage = "MaxLength")]
-        public string Street { get; set; }
-
-        [Display(Order = 5, Name = "Number_Display")]
-        [Required(ErrorMessage = "Number_Required")]
-        [StringLength(15, ErrorMessage = "MaxLength")]
-        public string Number { get; set; }
-
-        [Display(Order = 6, Name = "ZIP_Display")]
-        [Required(ErrorMessage = "ZIP_Required")]
-        [StringLength(20, ErrorMessage = "MaxLength")]
-        [DataType(DataType.PostalCode)]
-        public string ZIP { get; set; }
-
-        [Display(Order = 7, Name = "City_Display")]
-        [Required(ErrorMessage = "City_Required")]
-        [StringLength(150, ErrorMessage = "MaxLength")]
-        public string City { get; set; }
-
-        [Display(Order = 8, Name = "Country_Display")]
-        public string Country { get; set; }
-
         [Display(Order = 9, Name = "Email_Display")]
         [Required(ErrorMessage = "Email_Required")]
         [EmailAddress(ErrorMessage = "Email_Valid")]

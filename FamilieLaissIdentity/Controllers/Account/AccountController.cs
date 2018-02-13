@@ -346,7 +346,8 @@ namespace FamilieLaissIdentity.Controllers.Account
                         //Versenden der Mail an den User
                         await GetMailSenderService().SendEmailAsync(mailData);
 
-                        return RedirectToLocal(returnUrl);
+                        //Wenn alles erfolgreich verlaufen ist, dann wird auf die Informations-View angezeigt
+                        return View("RegisterSuccess");
                     }
                     else
                     {

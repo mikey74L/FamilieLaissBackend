@@ -121,6 +121,6 @@
     <value>Falscher Benutzername oder Passwort.</value>
   </data>
   <data name="ExceptionRegistration" xml:space="preserve">
-    <value>Unerwarteter Fehler bei der Registrierung aufgetreten. Bitte versuchen Sie es nochmal.</value>
+    <value>Es ist ein Unerwarteter Fehler bei der Registrierung aufgetreten. Bitte versuchen Sie es zu einem späteren Zeitpunkt nochmal. Wenn der Fehler bestehen bleibt dann verständigen Sie bitte unseren Support per Mail.</value>
   </data>
 </root>

@@ -30,153 +30,168 @@
 <!-- ============================================================== -->
 <!-- Register-Form - Style befindet sich in page spezifischem css   -->
 <!-- ============================================================== -->
-<section id="wrapper" class="login-register login-sidebar loginpicture2" style="background-image: url(/Images/Login_Register_Background_2.jpg)">
+<section id="wrapper" class="login-register login-sidebar" style="background-image: url(/Images/Login_Register_Background_22.jpg)">
     <div class="login-box card">
         <div class="card-body">
-            <h3 class="text-center">Familie-Laiß / Registrierung</h3>
-            <form id="formLogin" class="floating-labels m-t-40" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ReturnUrl" method="post">
-                <!-- Eingabebereich für Benutzername -->
-                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["UserName"].Errors.Count > 0)
-                {
-                    <div class="form-group col-xs-12 m-b-30 has-danger has-error">
-                        <input asp-for="UserName" class="form-control" />
-                        <span class="bar"></span>
-                        <label asp-for="UserName"></label>
-                        <div class="form-control-feedback">@ViewData.ModelState["UserName"].Errors.First().ErrorMessage</div>
-                    </div>
-                }
-                else
-                {
-                    <div class="form-group col-xs-12 m-b-30">
-                        <input asp-for="UserName" class="form-control" />
-                        <span class="bar"></span>
-                        <label asp-for="UserName"></label>
-                    </div>
-                }
+            <!-- Ausgeben der Überschrift-->
+            <h3 class="text-center">@Localizer["View_Heading"]</h3>
 
-                <!-- Eingabebereich für Geschlecht -->
-                <div class="form-group col-xs-12 m-b-30">
-                    <select asp-for="Gender" asp-items="GenderSelectList.GenderList" class="form-control"></select>
-                    <span class="bar"></span>
-                    <label asp-for="Gender"></label>
+            <!-- Wenn eine Exception aufgetreten ist dann wird ein entsprechender -->
+            <!-- Alert ausgegeben -->
+            @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Exception"].Errors.Count > 0)
+            {
+                <div class="alert alert-danger m-t-40">
+                    <h3>@Localizer["Alert_Exception_Header"]</h3>
+                    @ViewData.ModelState["Exception"].Errors.First().ErrorMessage
                 </div>
+            }
+            else
+            {
+                <!-- Ausgeben des Formulars -->
+                <form id="formLogin" class="floating-labels m-t-40" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ReturnUrl" method="post">
+                    <!-- Eingabebereich für Benutzername -->
+                    @if (!ViewData.ModelState.IsValid && ViewData.ModelState["UserName"].Errors.Count > 0)
+                    {
+                        <div class="form-group col-xs-12 m-b-30 has-danger has-error">
+                            <input asp-for="UserName" class="form-control form-control-sm" />
+                            <span class="bar"></span>
+                            <label asp-for="UserName"></label>
+                            <div class="form-control-feedback">@ViewData.ModelState["UserName"].Errors.First().ErrorMessage</div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group col-xs-12 m-b-30">
+                            <input asp-for="UserName" class="form-control form-control-sm" />
+                            <span class="bar"></span>
+                            <label asp-for="UserName"></label>
+                        </div>
+                    }
 
-                <!-- Eingabebereich für Vorname -->
-                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["FirstName"].Errors.Count > 0)
-                {
-                    <div class="form-group col-xs-12 m-b-30 has-danger has-error">
-                        <input asp-for="FirstName" class="form-control" />
-                        <span class="bar"></span>
-                        <label asp-for="FirstName"></label>
-                        <div class="form-control-feedback">@ViewData.ModelState["FirstName"].Errors.First().ErrorMessage</div>
-                    </div>
-                }
-                else
-                {
+                    <!-- Eingabebereich für Geschlecht -->
                     <div class="form-group col-xs-12 m-b-30">
-                        <input asp-for="FirstName" class="form-control" />
+                        <select asp-for="Gender" asp-items="GenderSelectList.GenderList" class="form-control form-control-sm"></select>
                         <span class="bar"></span>
-                        <label asp-for="FirstName"></label>
+                        <label asp-for="Gender"></label>
                     </div>
-                }
 
-                <!-- Eingabebereich für Familienname -->
-                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["FamilyName"].Errors.Count > 0)
-                {
-                    <div class="form-group col-xs-12 m-b-30 has-danger has-error">
-                        <input asp-for="FamilyName" class="form-control" />
-                        <span class="bar"></span>
-                        <label asp-for="FamilyName"></label>
-                        <div class="form-control-feedback">@ViewData.ModelState["FamilyName"].Errors.First().ErrorMessage</div>
-                    </div>
-                }
-                else
-                {
+                    <!-- Eingabebereich für Vorname -->
+                    @if (!ViewData.ModelState.IsValid && ViewData.ModelState["FirstName"].Errors.Count > 0)
+                    {
+                        <div class="form-group col-xs-12 m-b-30 has-danger has-error">
+                            <input asp-for="FirstName" class="form-control form-control-sm" />
+                            <span class="bar"></span>
+                            <label asp-for="FirstName"></label>
+                            <div class="form-control-feedback">@ViewData.ModelState["FirstName"].Errors.First().ErrorMessage</div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group col-xs-12 m-b-30">
+                            <input asp-for="FirstName" class="form-control form-control-sm" />
+                            <span class="bar"></span>
+                            <label asp-for="FirstName"></label>
+                        </div>
+                    }
+
+                    <!-- Eingabebereich für Familienname -->
+                    @if (!ViewData.ModelState.IsValid && ViewData.ModelState["FamilyName"].Errors.Count > 0)
+                    {
+                        <div class="form-group col-xs-12 m-b-30 has-danger has-error">
+                            <input asp-for="FamilyName" class="form-control form-control-sm" />
+                            <span class="bar"></span>
+                            <label asp-for="FamilyName"></label>
+                            <div class="form-control-feedback">@ViewData.ModelState["FamilyName"].Errors.First().ErrorMessage</div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group col-xs-12 m-b-30">
+                            <input asp-for="FamilyName" class="form-control form-control-sm" />
+                            <span class="bar"></span>
+                            <label asp-for="FamilyName"></label>
+                        </div>
+                    }
+
+                    <!-- Eingabebereich für eMail -->
+                    @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Email"].Errors.Count > 0)
+                    {
+                        <div class="form-group col-xs-12 m-b-30 has-danger has-error">
+                            <input asp-for="Email" class="form-control form-control-sm" />
+                            <span class="bar"></span>
+                            <label asp-for="Email"></label>
+                            <div class="form-control-feedback">@ViewData.ModelState["Email"].Errors.First().ErrorMessage</div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group col-xs-12 m-b-30">
+                            <input asp-for="Email" class="form-control form-control-sm" />
+                            <span class="bar"></span>
+                            <label asp-for="Email"></label>
+                        </div>
+                    }
+
+                    <!-- Eingabebereich für Passwort -->
+                    @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Password"].Errors.Count > 0)
+                    {
+                        <div class="form-group col-xs-12 m-b-30 has-danger has-error">
+                            <input asp-for="Password" class="form-control form-control-sm" />
+                            <span class="bar"></span>
+                            <label asp-for="Password"></label>
+                            <div class="form-control-feedback">@ViewData.ModelState["Password"].Errors.First().ErrorMessage</div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group col-xs-12 m-b-30">
+                            <input asp-for="Password" class="form-control form-control-sm" />
+                            <span class="bar"></span>
+                            <label asp-for="Password"></label>
+                        </div>
+                    }
+
+                    <!-- Eingabebereich für Passwort-Bestätigung -->
                     <div class="form-group col-xs-12 m-b-30">
-                        <input asp-for="FamilyName" class="form-control" />
+                        <input asp-for="ConfirmPassword" class="form-control form-control-sm" />
                         <span class="bar"></span>
-                        <label asp-for="FamilyName"></label>
+                        <label asp-for="ConfirmPassword"></label>
                     </div>
-                }
 
-                <!-- Eingabebereich für eMail -->
-                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Email"].Errors.Count > 0)
-                {
-                    <div class="form-group col-xs-12 m-b-30 has-danger has-error">
-                        <input asp-for="Email" class="form-control" />
-                        <span class="bar"></span>
-                        <label asp-for="Email"></label>
-                        <div class="form-control-feedback">@ViewData.ModelState["Email"].Errors.First().ErrorMessage</div>
-                    </div>
-                }
-                else
-                {
+                    <!-- Eingabebereich für Sicherheitsfrage -->
                     <div class="form-group col-xs-12 m-b-30">
-                        <input asp-for="Email" class="form-control" />
+                        <select asp-for="SecurityQuestion" asp-items="SecurityQuestionSelectList.QuestionList" class="form-control form-control-sm"></select>
                         <span class="bar"></span>
-                        <label asp-for="Email"></label>
+                        <label asp-for="SecurityQuestion"></label>
                     </div>
-                }
 
-                <!-- Eingabebereich für Passwort -->
-                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Password"].Errors.Count > 0)
-                {
-                    <div class="form-group col-xs-12 m-b-30 has-danger has-error">
-                        <input asp-for="Password" class="form-control" />
-                        <span class="bar"></span>
-                        <label asp-for="Password"></label>
-                        <div class="form-control-feedback">@ViewData.ModelState["Password"].Errors.First().ErrorMessage</div>
-                    </div>
-                }
-                else
-                {
-                    <div class="form-group col-xs-12 m-b-30">
-                        <input asp-for="Password" class="form-control" />
-                        <span class="bar"></span>
-                        <label asp-for="Password"></label>
-                    </div>
-                }
+                    <!-- Eingabebereich für Sicherheitsantwort -->
+                    @if (!ViewData.ModelState.IsValid && ViewData.ModelState["SecurityAnswer"].Errors.Count > 0)
+                    {
+                        <div class="form-group col-xs-12 has-danger has-error">
+                            <input asp-for="SecurityAnswer" class="form-control form-control-sm" />
+                            <span class="bar"></span>
+                            <label asp-for="SecurityAnswer"></label>
+                            <div class="form-control-feedback">@ViewData.ModelState["SecurityAnswer"].Errors.First().ErrorMessage</div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="form-group col-xs-12">
+                            <input asp-for="SecurityAnswer" class="form-control form-control-sm" />
+                            <span class="bar"></span>
+                            <label asp-for="SecurityAnswer"></label>
+                        </div>
+                    }
 
-                <!-- Eingabebereich für Passwort-Bestätigung -->
-                <div class="form-group col-xs-12 m-b-30">
-                    <input asp-for="ConfirmPassword" class="form-control" />
-                    <span class="bar"></span>
-                    <label asp-for="ConfirmPassword"></label>
-                </div>
-
-                <!-- Eingabebereich für Sicherheitsfrage -->
-                <div class="form-group col-xs-12 m-b-30">
-                    <select asp-for="SecurityQuestion" asp-items="SecurityQuestionSelectList.QuestionList" class="form-control"></select>
-                    <span class="bar"></span>
-                    <label asp-for="SecurityQuestion"></label>
-                </div>
-
-                <!-- Eingabebereich für Sicherheitsantwort -->
-                @if (!ViewData.ModelState.IsValid && ViewData.ModelState["SecurityAnswer"].Errors.Count > 0)
-                {
-                    <div class="form-group col-xs-12 has-danger has-error">
-                        <input asp-for="SecurityAnswer" class="form-control" />
-                        <span class="bar"></span>
-                        <label asp-for="SecurityAnswer"></label>
-                        <div class="form-control-feedback">@ViewData.ModelState["SecurityAnswer"].Errors.First().ErrorMessage</div>
+                    <!-- Ausgeben des Registrieren-Buttons -->
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-xs-12">
+                            <button class="btn btn-info btn-lg btn-block waves-effect waves-light text-uppercase btn-rounded" type="submit">@Localizer["btn_Register"]</button>
+                        </div>
                     </div>
-                }
-                else
-                {
-                    <div class="form-group col-xs-12">
-                        <input asp-for="SecurityAnswer" class="form-control" />
-                        <span class="bar"></span>
-                        <label asp-for="SecurityAnswer"></label>
-                    </div>
-                }
-
-                <!-- Ausgeben des Registrieren-Buttons -->
-                <div class="form-group text-center m-t-20">
-                    <div class="col-xs-12">
-                        <button class="btn btn-info btn-lg btn-block waves-effect waves-light text-uppercase btn-rounded" type="submit">@Localizer["btn_Register"]</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            }
         </div>
     </div>
 </section>
