@@ -84,6 +84,7 @@ namespace FamilieLaissIdentity.Helper
         {
             IdentityError ReturnValue = base.PasswordRequiresDigit();
 
+            ReturnValue.Code = "PasswordRequiresDigit";
             ReturnValue.Description = Localizer["PasswordRequiresDigit"];
 
             return ReturnValue;
@@ -93,6 +94,7 @@ namespace FamilieLaissIdentity.Helper
         {
             IdentityError ReturnValue = base.PasswordRequiresLower();
 
+            ReturnValue.Code = "PasswordRequiresLower";
             ReturnValue.Description = Localizer["PasswordRequireLowercase"];
 
             return ReturnValue;
@@ -102,6 +104,7 @@ namespace FamilieLaissIdentity.Helper
         {
             IdentityError ReturnValue = base.PasswordRequiresNonAlphanumeric();
 
+            ReturnValue.Code = "PasswordRequiresNonAlphanumeric";
             ReturnValue.Description = Localizer["PasswordRequireNonAlphanumeric"];
 
             return ReturnValue;
@@ -111,6 +114,7 @@ namespace FamilieLaissIdentity.Helper
         {
             IdentityError ReturnValue = base.PasswordRequiresUpper();
 
+            ReturnValue.Code = "PasswordRequiresUpper";
             ReturnValue.Description = Localizer["PasswordRequireUppercase"];
 
             return ReturnValue;
@@ -120,6 +124,7 @@ namespace FamilieLaissIdentity.Helper
         {
             IdentityError ReturnValue = base.PasswordTooShort(length);
 
+            ReturnValue.Code = "PasswordTooShort";
             ReturnValue.Description = string.Format(Localizer["PasswordToShort"], length.ToString());
 
             return ReturnValue;

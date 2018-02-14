@@ -352,7 +352,7 @@ namespace FamilieLaissIdentity.Controllers.Account
                     else
                     {
                         //Hinzufügen der Fehler aus dem Identity-Store
-                        AddErrors(result);
+                        AddErrorsRegister(result);
                     }
                 }
             }
@@ -582,7 +582,7 @@ namespace FamilieLaissIdentity.Controllers.Account
                     }
                     else
                     {
-                        AddErrors(Result);
+                        AddErrorsRegister(Result);
                     }
                 }
                 catch
@@ -652,11 +652,28 @@ namespace FamilieLaissIdentity.Controllers.Account
             }
         }
 
-        private void AddErrors(IdentityResult result)
+        private void AddErrorsRegister(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError(string.Empty, error.Description);
+                switch (error.Code)
+                {
+                    case "PasswordRequiresDigit":
+                        ModelState.AddModelError("Password", error.Description);
+                        break;
+                    case "PasswordRequiresLower":
+                        ModelState.AddModelError("Password", error.Description);
+                        break;
+                    case "PasswordRequiresNonAlphanumeric":
+                        ModelState.AddModelError("Password", error.Description);
+                        break;
+                    case "PasswordRequiresUpper":
+                        ModelState.AddModelError("Password", error.Description);
+                        break;
+                    case "PasswordTooShort":
+                        ModelState.AddModelError("Password", error.Description);
+                        break;
+                }
             }
         }
 
