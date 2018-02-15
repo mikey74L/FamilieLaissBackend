@@ -659,19 +659,31 @@ namespace FamilieLaissIdentity.Controllers.Account
                 switch (error.Code)
                 {
                     case "PasswordRequiresDigit":
-                        ModelState.AddModelError("Password", error.Description);
+                        ModelState.AddModelError("IdentityPassword", error.Description);
                         break;
                     case "PasswordRequiresLower":
-                        ModelState.AddModelError("Password", error.Description);
+                        ModelState.AddModelError("IdentityPassword", error.Description);
                         break;
                     case "PasswordRequiresNonAlphanumeric":
-                        ModelState.AddModelError("Password", error.Description);
+                        ModelState.AddModelError("IdentityPassword", error.Description);
                         break;
                     case "PasswordRequiresUpper":
-                        ModelState.AddModelError("Password", error.Description);
+                        ModelState.AddModelError("IdentityPassword", error.Description);
                         break;
                     case "PasswordTooShort":
-                        ModelState.AddModelError("Password", error.Description);
+                        ModelState.AddModelError("IdentityPassword", error.Description);
+                        break;
+                    case "EmailAsPassword":
+                        ModelState.AddModelError("IdentityPassword", error.Description);
+                        break;
+                    case "UsernameAsPassword":
+                        ModelState.AddModelError("IdentityPassword", error.Description);
+                        break;
+                    case "DuplicateEmail":
+                        ModelState.AddModelError("Email", error.Description);
+                        break;
+                    case "DuplicateUserName":
+                        ModelState.AddModelError("UserName", error.Description);
                         break;
                 }
             }

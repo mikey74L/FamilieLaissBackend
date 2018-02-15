@@ -132,4 +132,7 @@
   <data name="View_Heading" xml:space="preserve">
     <value>Familie-Laiß / Register</value>
   </data>
+  <data name="Alert_Password_Header" xml:space="preserve">
+    <value>Password does not match the rules</value>
+  </data>
 </root>

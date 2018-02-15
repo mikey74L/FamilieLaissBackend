@@ -37,7 +37,12 @@ namespace FamilieLaissIdentity.Helper
 
         public override IdentityError DuplicateEmail(string email)
         {
-            return base.DuplicateEmail(email);
+            IdentityError ReturnValue = base.PasswordRequiresDigit();
+
+            ReturnValue.Code = "DuplicateEmail";
+            ReturnValue.Description = Localizer["DuplicateEmail"];
+
+            return ReturnValue;
         }
 
         public override IdentityError DuplicateRoleName(string name)
@@ -47,7 +52,12 @@ namespace FamilieLaissIdentity.Helper
 
         public override IdentityError DuplicateUserName(string name)
         {
-            return base.DuplicateUserName(name);
+            IdentityError ReturnValue = base.PasswordRequiresDigit();
+
+            ReturnValue.Code = "DuplicateUserName";
+            ReturnValue.Description = Localizer["DuplicateUserName"];
+
+            return ReturnValue;
         }
 
         public override IdentityError InvalidEmail(string email)

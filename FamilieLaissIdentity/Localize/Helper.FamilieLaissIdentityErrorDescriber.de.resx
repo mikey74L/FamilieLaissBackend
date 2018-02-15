@@ -132,4 +132,10 @@
   <data name="PasswordToShort" xml:space="preserve">
     <value>Passwort muss mindestens {0} Zeichen lang sein.</value>
   </data>
+  <data name="DuplicateEmail" xml:space="preserve">
+    <value>Die eMail-Adresse wurde schon für eine Registrierung verwendet</value>
+  </data>
+  <data name="DuplicateUserName" xml:space="preserve">
+    <value>Der Benutzername wurde schon für eine Registrierung verwendet</value>
+  </data>
 </root>
