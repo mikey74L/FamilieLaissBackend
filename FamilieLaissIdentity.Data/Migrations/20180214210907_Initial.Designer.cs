@@ -11,14 +11,14 @@ using System;
 namespace FamilieLaissIdentity.Data.Migrations
 {
     [DbContext(typeof(AppIdentityDBContext))]
-    [Migration("20171024092431_Initial")]
+    [Migration("20180214210907_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
+                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("FamilieLaissIdentity.Data.Models.FamilieLaissIdentityUser", b =>
@@ -29,14 +29,12 @@ namespace FamilieLaissIdentity.Data.Migrations
                     b.Property<int>("AccessFailedCount");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasMaxLength(150);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasMaxLength(10);
 
                     b.Property<string>("Email")
@@ -67,7 +65,6 @@ namespace FamilieLaissIdentity.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("Number")
-                        .IsRequired()
                         .HasMaxLength(15);
 
                     b.Property<string>("PasswordHash");
@@ -87,7 +84,6 @@ namespace FamilieLaissIdentity.Data.Migrations
                     b.Property<string>("SecurityStamp");
 
                     b.Property<string>("Street")
-                        .IsRequired()
                         .HasMaxLength(150);
 
                     b.Property<bool>("TwoFactorEnabled");
@@ -96,7 +92,6 @@ namespace FamilieLaissIdentity.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("ZIP")
-                        .IsRequired()
                         .HasMaxLength(20);
 
                     b.HasKey("Id");

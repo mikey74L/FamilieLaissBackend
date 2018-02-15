@@ -16,7 +16,7 @@ namespace FamilieLaissIdentity.Data.Factory
         public PersistedGrantDbContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<PersistedGrantDbContext>();
-            builder.UseSqlServer("Data Source=MIKEY-BOOK\\SQLEXPRESS;Initial Catalog=FamilieLaiss;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
+            builder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=FamilieLaiss;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False",
                 optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(AppIdentityDBContext).GetTypeInfo().Assembly.GetName().Name));
             return new PersistedGrantDbContext(builder.Options, new OperationalStoreOptions());
         }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilieLaissBackend", "FamilieLaissBackend\FamilieLaissBackend.csproj", "{B8C3FB49-68D0-4C84-801F-3A6735C3C16D}"
 EndProject
@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamilieLaissIdentity", "Fam
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamilieLaissIdentity.Data", "FamilieLaissIdentity.Data\FamilieLaissIdentity.Data.csproj", "{244700A3-0B8F-4522-80E5-225C27FF2151}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FamilieLaissCoreHelpers", "FamilieLaissCoreHelpers\FamilieLaissCoreHelpers.csproj", "{15CE2CBD-5176-4586-AB92-A35FDB073344}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FamilieLaissCoreHelpers", "FamilieLaissCoreHelpers\FamilieLaissCoreHelpers.csproj", "{15CE2CBD-5176-4586-AB92-A35FDB073344}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

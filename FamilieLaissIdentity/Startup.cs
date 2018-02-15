@@ -248,10 +248,10 @@ namespace FamilieLaissIdentity
             }
 
             //ASP.NET Identity zur Pipeline hinzufügen
-            //app.UseAuthentication();
+            app.UseAuthentication();
 
             //Identity-Server verwenden
-            //app.UseIdentityServer();
+            app.UseIdentityServer();
 
             //Browsen für statisches Dateien aktivieren 
             app.UseStaticFiles();

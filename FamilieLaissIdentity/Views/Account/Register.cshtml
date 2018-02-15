@@ -38,7 +38,7 @@
 
             <!-- Wenn eine Exception aufgetreten ist dann wird ein entsprechender -->
             <!-- Alert ausgegeben -->
-            @if (!ViewData.ModelState.IsValid && ViewData.ModelState["Exception"].Errors.Count > 0)
+            @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ContainsKey("Exception") && ViewData.ModelState["Exception"].Errors.Count > 0)
             {
                 <div class="alert alert-danger m-t-40">
                     <h3>@Localizer["Alert_Exception_Header"]</h3>
