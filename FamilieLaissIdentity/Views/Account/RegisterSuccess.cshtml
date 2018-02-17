@@ -1,0 +1,53 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["View_Title"];
+}
+
+<!-- Die spezifischen Styles für die aktuelle Seite einbinden -->
+@section Styles {
+    <link href="~/css/pages/login-register-lock.css" rel="stylesheet" />
+}
+
+<!-- ============================================================== -->
+<!-- Preloader - Style befindet sich in spinners.css                -->
+<!-- ============================================================== -->
+<div class="preloader">
+    <div class="loader">
+        <div class="loader__figure"></div>
+        <p class="loader__label">Admin Pro</p>
+    </div>
+</div>
+
+<!-- ============================================================== -->
+<!-- Ausgeben der Meldung über erfolgreiche Registrierung           -->
+<!-- ============================================================== -->
+<section id="wrapper" class="login-register login-sidebar" style="background-image: url(/Images/Login_Register_Background_2.jpg)">
+    <div class="login-box card">
+        <div class="card-body">
+            <!-- Ausgeben der Überschrift-->
+            <h3 class="text-center">@Localizer["View_Heading"]</h3>
+
+            <!-- Ausgeben des Alerts mit dem Hinweis über eine erfolgreiche Registrierung -->
+            <div class="alert alert-success m-t-40">
+                <h3 class="text-success">
+                    <i class="fa fa-check-circle"></i>
+                    @Localizer["Register_Success_Header"]
+                </h3>
+                @Localizer["Register_Success_Body"]
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Scripte für die Validierung hinzufügen -->
+@section Scripts {
+    <!-- Custom JavaScript für Preloader -->
+    <script type="text/javascript">
+        $(function () {
+            $(".preloader").fadeOut();
+        });
+    </script>
+}

@@ -5,6 +5,8 @@
 @model FamilieLaissIdentity.Models.Account.RegisterViewModel
 
 @{
+    ViewData["Title"] = Localizer["View_Title"];
+
     string ReturnUrl = ViewBag.ReturnUrl;
 
     FamilieLaissIdentity.ViewHelper.GenderSelectList GenderSelectList = ViewBag.GenderList;
@@ -30,7 +32,7 @@
 <!-- ============================================================== -->
 <!-- Register-Form - Style befindet sich in page spezifischem css   -->
 <!-- ============================================================== -->
-<section id="wrapper" class="login-register login-sidebar" style="background-image: url(/Images/Login_Register_Background_22.jpg)">
+<section id="wrapper" class="login-register login-sidebar" style="background-image: url(/Images/Login_Register_Background_2.jpg)">
     <div class="login-box card">
         <div id="slimscroll_Login" class="card-body">
             <!-- Ausgeben der Überschrift-->
@@ -229,12 +231,9 @@
             $(this).parents('.form-group').toggleClass('focused', (e.type === 'focus' || this.value.length > 0));
         }).trigger('blur');
     </script>
-    
+
     <!-- Custom JavaScript für Slim-Scroll -->
     <script type="text/javascript">
         $('#slimscroll_Login').perfectScrollbar();
     </script>
-
-    @*@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }*@
 }
-
