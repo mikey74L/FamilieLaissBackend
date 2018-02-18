@@ -117,13 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Description" xml:space="preserve">
-    <value>Beim Bestätigen Ihrer EMail-Adresse ist ein unerwarteter Fehler aufgetreten.</value>
+  <data name="Confirmation_Error_Body" xml:space="preserve">
+    <value>Beim Bestätigen Ihrer eMail-Adresse ist ein unerwarteter Fehler aufgetreten.</value>
   </data>
-  <data name="Information_1" xml:space="preserve">
-    <value>Bitte versuchen Sie die Bestätigung Ihrer EMail-Adresse zu einem späteren Zeitpunkt nochmals durchzuführen. Wenn der Fehler weiterhin bestehen bleibt wenden Sie sich bitte an unseren Suport.</value>
+  <data name="Confirmation_Error_Body_2" xml:space="preserve">
+    <value>Bitte versuchen Sie die Bestätigung Ihrer eMail-Adresse zu einem späteren Zeitpunkt nochmals durchzuführen. Wenn der Fehler bestehen bleibt wenden Sie sich an unseren Support.</value>
+  </data>
+  <data name="Confirmation_Error_Header" xml:space="preserve">
+    <value>Unerwarteter Fehler</value>
+  </data>
+  <data name="View_Heading" xml:space="preserve">
+    <value>Familie-Laiß / eMail Bestätigung</value>
   </data>
   <data name="View_Title" xml:space="preserve">
-    <value>Bestätigung nicht erfolgreich</value>
+    <value>eMail Bestätigung</value>
   </data>
 </root>

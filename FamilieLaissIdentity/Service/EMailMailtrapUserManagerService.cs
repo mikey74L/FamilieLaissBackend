@@ -32,7 +32,7 @@ namespace FamilieLaissIdentity.Service
             SmtpClient client = new SmtpClient();
 
             //Mit dem SMTP-Server verbinden
-            await client.ConnectAsync(AppSettings.MailtrapAdress, Convert.ToInt32(AppSettings.MailtrapPort), true);
+            await client.ConnectAsync(AppSettings.MailtrapAdress, Convert.ToInt32(AppSettings.MailtrapPort), false);
 
             //Da wir kein Token für eine OAUTH Autentifizierung haben entfernen wir dieses Protokoll
             client.AuthenticationMechanisms.Remove("XOAUTH2");

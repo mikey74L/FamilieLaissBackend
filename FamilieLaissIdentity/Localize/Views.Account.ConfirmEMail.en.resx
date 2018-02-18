@@ -117,16 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Description" xml:space="preserve">
+  <data name="Confirmation_Success_Body" xml:space="preserve">
     <value>Confirmation of your email address has been successfully completed.</value>
   </data>
-  <data name="Information_1" xml:space="preserve">
+  <data name="Confirmation_Success_Body_2" xml:space="preserve">
     <value>We will now check your details in your user account and will, upon successful verification, unblock your user account for our website.</value>
   </data>
-  <data name="Information_2" xml:space="preserve">
+  <data name="Confirmation_Success_Body_3" xml:space="preserve">
     <value>After successful checking and unblocking of your user account you will receive an email from us. Only when you have received this mail is a login possible on our website.</value>
   </data>
-  <data name="View_Title" xml:space="preserve">
+  <data name="Confirmation_Success_Header" xml:space="preserve">
     <value>Confirmation successful</value>
+  </data>
+  <data name="View_Heading" xml:space="preserve">
+    <value>Familie-Laiß / eMail confirmation</value>
+  </data>
+  <data name="View_Title" xml:space="preserve">
+    <value>eMail confirmation</value>
   </data>
 </root>

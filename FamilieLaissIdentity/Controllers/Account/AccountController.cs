@@ -356,7 +356,7 @@ namespace FamilieLaissIdentity.Controllers.Account
                     }
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 ModelState.AddModelError("Exception", _Localizer["ExceptionRegistration"]);
             }
@@ -415,7 +415,7 @@ namespace FamilieLaissIdentity.Controllers.Account
                 }
                 catch
                 {
-                    //Wenn das Versenden der Mail schiefläuft, dann wurde aber trotzdem das freischalten erfolgreich durchgeführt
+                    //Wenn das Versenden der Mail schief läuft, dann wurde aber trotzdem das freischalten erfolgreich durchgeführt
                     //TODO: Hier muss der Administrator noch benachrichtigt werden
                 }
             }

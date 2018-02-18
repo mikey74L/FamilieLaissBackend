@@ -117,13 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Confirmation_Error_Body" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Confirmation_Error_Body_2" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Confirmation_Error_Header" xml:space="preserve">
+    <value />
+  </data>
   <data name="Description" xml:space="preserve">
     <value>An unexpected error occurred while confirming your email address.</value>
   </data>
   <data name="Information_1" xml:space="preserve">
     <value>Please try to confirm your e-mail address at a later date. If the error persists, please contact our Suport.</value>
   </data>
+  <data name="View_Heading" xml:space="preserve">
+    <value>Familie Laiß / eMail confirmation</value>
+  </data>
   <data name="View_Title" xml:space="preserve">
-    <value>Confirmation not successful</value>
+    <value>eMail confirmation</value>
   </data>
 </root>

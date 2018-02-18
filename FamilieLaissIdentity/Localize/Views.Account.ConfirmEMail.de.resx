@@ -117,16 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Description" xml:space="preserve">
-    <value>Die Bestätigung ihrer EMail-Adresse ist erfolgreich abgeschlossen.</value>
+  <data name="Confirmation_Success_Body" xml:space="preserve">
+    <value>Die Bestätigung ihrer eMail-Adresse war erfolgreich.</value>
   </data>
-  <data name="Information_1" xml:space="preserve">
+  <data name="Confirmation_Success_Body_2" xml:space="preserve">
     <value>Wir überprüfen jetzt Ihre Angaben in Ihrem Benutzerkonto und werden bei erfolgreicher Überprüfung Ihr Benutzerkonto für unsere Web-Site freischalten.</value>
   </data>
-  <data name="Information_2" xml:space="preserve">
+  <data name="Confirmation_Success_Body_3" xml:space="preserve">
     <value>Nach erfolgreicher Überprüfung und Freischaltung Ihres Benutzerkontos erhalten Sie von uns eine Mail. Erst wenn Sie diese Mail erhalten haben ist eine Anmeldung auf unserer Web-Site möglich.</value>
   </data>
-  <data name="View_Title" xml:space="preserve">
+  <data name="Confirmation_Success_Header" xml:space="preserve">
     <value>Bestätigung erfolgreich</value>
+  </data>
+  <data name="View_Heading" xml:space="preserve">
+    <value>Familie-Laiß / eMail Bestätigung</value>
+  </data>
+  <data name="View_Title" xml:space="preserve">
+    <value>eMail Bestätigung</value>
   </data>
 </root>
