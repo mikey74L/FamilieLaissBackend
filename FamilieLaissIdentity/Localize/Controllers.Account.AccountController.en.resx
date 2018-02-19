@@ -123,4 +123,16 @@
   <data name="ExceptionRegistration" xml:space="preserve">
     <value>During the registration process an unexpected error occured. Please try again later. If the error persists then please contact our support via e-mail.</value>
   </data>
+  <data name="PasswordRequestException" xml:space="preserve">
+    <value>An unexpected error occured. Please try again later or contact our support team.</value>
+  </data>
+  <data name="PasswordRequestMailNotConfirmed" xml:space="preserve">
+    <value>You have not confirmed your e-mail address yet. As long as the e-mail address has not been confirmed, you can not reset your password. To confirm your e-mail address, please follow the instructions in the e-mail you received from us after your registration.</value>
+  </data>
+  <data name="PasswordRequestSecurityWrong" xml:space="preserve">
+    <value>The security question or the security answer does not match the information during the registration process.</value>
+  </data>
+  <data name="PasswordRequestUserNotFound" xml:space="preserve">
+    <value>Sorry, we did not find a user for this email address. Make sure you are using the email address you used when registering.</value>
+  </data>
 </root>

@@ -454,16 +454,14 @@ namespace FamilieLaissIdentity.Controllers.Account
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPasswordRequest(ResetPasswordRequestViewModel model)
-        {
+        {            
+            //Die Security-Questions zum View-Bag hinzufügen
+            AddListDataQuestionToViewbag(ViewBag);
+
             if (ModelState.IsValid)
             {
                 try
                 {
-                    //Viewbag initialisieren
-                    ViewBag.EMailNotFound = false;
-                    ViewBag.EMailNotConfirmed = false;
-                    ViewBag.SecurityWrong = false;
-
                     //Ermitteln des Users anhand der EMail-Adresse
                     var user = await _UserOperations.FindUserByMail(model.Email);
 
@@ -471,32 +469,32 @@ namespace FamilieLaissIdentity.Controllers.Account
                     //Fehlerseite gesprungen
                     if (user == null)
                     {
-                        //Das entsprechende Fehlerflag setzen
-                        ViewBag.EMailNotFound = true;
+                        //Den Model-Error hinzufügen
+                        ModelState.AddModelError("UserNotFound", _Localizer["PasswordRequestUserNotFound"]);
 
                         //Die View für einen Fehler anzeigen
-                        return View("ResetPasswordRequestError");
+                        return View(model);
                     }
 
                     //Überprüfen ob der User seine EMail-Adresse schon bestätigt hat. Wenn nicht wird auf die entsprechende
                     //Fehlerseite gesprungen
                     if (await _UserOperations.IsEMailConfirmed(user))
                     {
-                        //Das entsprechende Fehlerflag setzen
-                        ViewBag.EMailNotConfirmed = true;
+                        //Den Model-Error hinzufügen
+                        ModelState.AddModelError("MailNotConfirmed", _Localizer["PasswordRequestMailNotConfirmed"]);
 
                         //Die View für einen Fehler anzeigen
-                        return View("ResetPasswordRequestError");
+                        return View(model);
                     }
 
                     //Überprüfen ob die Sicherheitsfrage und die Sicherheitsantwort übereinstimmen
                     if (model.SecurityQuestion != user.SecurityQuestion || model.SecurityAnswer.Trim() != user.SecurityAnswer.Trim())
                     {
-                        //Das entsprechende Fehlerflag setzen
-                        ViewBag.SecurityWrong = true;
+                        //Den Model-Error hinzufügen
+                        ModelState.AddModelError("SecurityNotCorrect", _Localizer["PasswordRequestSecurityWrong"]);
 
                         //Die View für einen Fehler anzeigen
-                        return View("ResetPasswordRequestError");
+                        return View(model);
                     }
 
                     //Erstellen eines Tokens zum Ändern des Passworts
@@ -516,12 +514,10 @@ namespace FamilieLaissIdentity.Controllers.Account
                 }
                 catch
                 {
-                    return View("ResetPasswordRequestError");
+                    //Den Model-Error hinzufügen
+                    ModelState.AddModelError("Exception", _Localizer["PasswordRequestException"]);
                 }
             }
-
-            //Die Security-Questions zum View-Bag hinzufügen
-            AddListDataQuestionToViewbag(ViewBag);
 
             //Die View wird nur dann angezeigt wenn bei der Registrierung ein Fehler aufgetreten ist
             return View(model);

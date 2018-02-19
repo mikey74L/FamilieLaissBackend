@@ -123,4 +123,16 @@
   <data name="ExceptionRegistration" xml:space="preserve">
     <value>Es ist ein Unerwarteter Fehler bei der Registrierung aufgetreten. Bitte versuchen Sie es zu einem späteren Zeitpunkt nochmal. Wenn der Fehler bestehen bleibt dann verständigen Sie bitte unseren Support per Mail.</value>
   </data>
+  <data name="PasswordRequestException" xml:space="preserve">
+    <value>Es ist ein unerwarteter Fehler aufgetreten. Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut oder kontaktieren Sie unser Support-Team.</value>
+  </data>
+  <data name="PasswordRequestMailNotConfirmed" xml:space="preserve">
+    <value>Sie haben bisher Ihre EMail-Adresse nicht bestätigt. Solange die EMail-Adresse nicht bestätigt wurde, können Sie Ihr Passwort nicht zurücksetzen. Zum Bestätigen der EMail-Adresse folgen Sie bitte den Anweisungen in der Mail die Sie nach Ihrer Registrierung von uns erhalten haben.</value>
+  </data>
+  <data name="PasswordRequestSecurityWrong" xml:space="preserve">
+    <value>Die Sicherheitsfrage oder die Sicherheitsantwort stimmen nicht mit den Angaben bei der Registrierung überein.</value>
+  </data>
+  <data name="PasswordRequestUserNotFound" xml:space="preserve">
+    <value>Leider haben wir zu dieser EMail-Adresse keinen Benutzer gefunden. Stellen Sie sicher, dass Sie die EMail-Adresse verwenden mit der Sie die Registrierung durchgeführt haben.</value>
+  </data>
 </root>
