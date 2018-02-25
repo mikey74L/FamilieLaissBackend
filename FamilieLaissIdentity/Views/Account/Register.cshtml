@@ -29,6 +29,7 @@
         <p class="loader__label">Admin Pro</p>
     </div>
 </div>
+
 <!-- ============================================================== -->
 <!-- Register-Form - Style befindet sich in page spezifischem css   -->
 <!-- ============================================================== -->
@@ -57,7 +58,7 @@
             else
             {
                 <!-- Ausgeben des Formulars -->
-                <form id="formLogin" class="floating-labels m-t-40" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ReturnUrl" method="post">
+                <form id="formRegister" class="floating-labels m-t-40" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ReturnUrl" method="post">
                     <!-- Ausgeben eines Alerts für die Passwort Fehler von Identity -->
                     @if (ViewData.ModelState.ContainsKey("IdentityPassword") && ViewData.ModelState["IdentityPassword"].Errors.Count > 0)
                     {

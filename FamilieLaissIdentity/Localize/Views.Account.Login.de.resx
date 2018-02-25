@@ -126,13 +126,16 @@
   <data name="Question_Register" xml:space="preserve">
     <value>Noch kein Konto?</value>
   </data>
-  <data name="View_Description" xml:space="preserve">
-    <value>Ein lokales Benutzerkonto zur Anmeldung verwenden.</value>
-  </data>
   <data name="View_Title" xml:space="preserve">
     <value>Anmeldung</value>
   </data>
   <data name="Link_Register" xml:space="preserve">
     <value>Registrieren</value>
+  </data>
+  <data name="Link_Reset_Password" xml:space="preserve">
+    <value>Zurücksetzen</value>
+  </data>
+  <data name="View_Heading" xml:space="preserve">
+    <value>Familie-Laiß / Anmeldung</value>
   </data>
 </root>
