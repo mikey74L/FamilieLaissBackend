@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ErrorAllowed" xml:space="preserve">
+    <value>Ihr Benutzerkonto wurde bisher noch nicht von uns freigeschalten. Sobald wir Ihr Benutzerkonto freigeschalten haben erhalten Sie von uns eine entsprechende Mail.</value>
+  </data>
+  <data name="ErrorGeneral" xml:space="preserve">
+    <value>Es ist ein unerwarteter Fehler aufgetreten. Bitte versuchen Sie es zu einem späteren Zeitpunkt nochmals.</value>
+  </data>
+  <data name="ErrorLockedOut" xml:space="preserve">
+    <value>Ihr Benutzerkonto ist zur Zeit gesperrt, da Sie sich zu oft mit einem falschen Benutzernamen / Passwort angemeldet haben. Diese temporäre Sperre wird nach einiger Zeit automatisch entfernt. Bitte versuchen Sie es daher zu einem späteren Zeitpunkt nochmals.</value>
+  </data>
+  <data name="ErrorMailConfirmed" xml:space="preserve">
+    <value>Sie haben bisher Ihre EMail-Adresse noch nicht bestätigt. Zu diesem Zweck haben Sie von uns bei Ihrer Registrierung eine Mail mit Anweisungen erhalten wie Sie Ihre EMail-Adresse bestätigen können.</value>
+  </data>
+  <data name="ErrorUsername" xml:space="preserve">
+    <value>Der Benutzername oder das Passwort sind nicht korrekt.</value>
+  </data>
   <data name="Error_Wrong_Username_Or_Password" xml:space="preserve">
     <value>Falscher Benutzername oder Passwort.</value>
   </data>

@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ErrorAllowed" xml:space="preserve">
+    <value>Your account has not been activated by us yet. As soon as we have activated your user account, you will receive an appropriate mail from us.</value>
+  </data>
+  <data name="ErrorGeneral" xml:space="preserve">
+    <value>An unexpected error has occurred. Please try again later.</value>
+  </data>
+  <data name="ErrorLockedOut" xml:space="preserve">
+    <value>Your account is currently suspended because you have logged in too often with a wrong username / password. This temporary lock will be automatically removed after some time. Please try again later.</value>
+  </data>
+  <data name="ErrorMailConfirmed" xml:space="preserve">
+    <value>You have not yet confirmed your email address. For this purpose, you received a mail from us during your registration with instructions on how to confirm your email address.</value>
+  </data>
+  <data name="ErrorUsername" xml:space="preserve">
+    <value>The username or password is not correct.</value>
+  </data>
   <data name="Error_Wrong_Username_Or_Password" xml:space="preserve">
     <value>Wrong username or password.</value>
   </data>

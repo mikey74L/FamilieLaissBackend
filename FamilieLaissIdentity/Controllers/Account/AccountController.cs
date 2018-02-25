@@ -113,12 +113,6 @@ namespace FamilieLaissIdentity.Controllers.Account
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
-            //Initialisierung
-            ViewBag.IsAllowed = true;
-            ViewBag.EMailConfirmed = true;
-            ViewBag.IsLockedOut = false;
-            ViewBag.GeneralError = false;
-
             if (ModelState.IsValid)
             {
                 //Anmeldung starten
@@ -132,21 +126,8 @@ namespace FamilieLaissIdentity.Controllers.Account
                 }
                 else
                 {
-                    if (!Result.UsernameOrPasswordWrong)
-                    {
-                        //Auswerten des Fehlers
-                        ViewBag.IsAllowed = Result.IsAllowed;
-                        ViewBag.EMailConfirmed = Result.EMailConfirmed;
-                        ViewBag.IsLockedOut = Result.IsLockedOut;
-                        ViewBag.GeneralError = Result.GeneralError;
-
-                        //Die Error-View rendern
-                        return View("LoginError");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("UserPassword", _Localizer["Error_Wrong_Username_Or_Password"]);
-                    }
+                    //Fehler aus dem Result hinzufügen
+                    AddErrorsLogin(Result);
                 }
             }
 
@@ -651,6 +632,41 @@ namespace FamilieLaissIdentity.Controllers.Account
             {
                 //return RedirectToAction(nameof(HomeController.Index), "Home");
                 return Redirect("http://wwww.google.de");
+            }
+        }
+
+        //Fügt die entsprechenden Model-Error für die Login-Errors hinzu
+        //wird beim Login aufgerufen
+        private void AddErrorsLogin(FamilieLaissSigninResultModel result)
+        {
+            //Der Benutzername oder das Passwort sind falsch
+            if (result.UsernameOrPasswordWrong)
+            {
+                ModelState.AddModelError("ErrorUsername", _Localizer["ErrorUsername"]);
+            }
+
+            //Die eMail wurde bisher noch nicht bestätigt
+            if (!result.EMailConfirmed)
+            {
+                ModelState.AddModelError("ErrorMailConfirmed", _Localizer["ErrorMailConfirmed"]);
+            }
+
+            //Der Benutzer ist noch nicht vom Administrator freigeschalten worden
+            if (!result.IsAllowed)
+            {
+                ModelState.AddModelError("ErrorAllowed", _Localizer["ErrorAllowed"]);
+            }
+
+            //Der Benutzer ist gesperrt wegen zu vieler Fehlanmeldungen
+            if (result.IsLockedOut)
+            {
+                ModelState.AddModelError("ErrorLockedOut", _Localizer["ErrorLockedOut"]);
+            }
+
+            //Es ist ein allgemeiner Fehler aufgetreten
+            if (result.GeneralError)
+            {
+                ModelState.AddModelError("ErrorGeneral", _Localizer["ErrorGeneral"]);
             }
         }
 
