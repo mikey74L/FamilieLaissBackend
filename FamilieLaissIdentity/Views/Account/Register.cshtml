@@ -46,7 +46,10 @@
                 if (ViewData.ModelState.ContainsKey("Exception") && ViewData.ModelState["Exception"].Errors.Count > 0)
                 {
                     <div class="alert alert-danger m-t-40">
-                        <h4>@Localizer["Alert_Exception_Header"]</h4>
+                        <h3 class="text-danger">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            @Localizer["Alert_Exception_Header"]
+                        </h3>
                         @ViewData.ModelState["Exception"].Errors.First().ErrorMessage
                     </div>
                 }

@@ -135,4 +135,10 @@
   <data name="PasswordRequestUserNotFound" xml:space="preserve">
     <value>Leider haben wir zu dieser EMail-Adresse keinen Benutzer gefunden. Stellen Sie sicher, dass Sie die EMail-Adresse verwenden mit der Sie die Registrierung durchgeführt haben.</value>
   </data>
+  <data name="ResetPasswordException" xml:space="preserve">
+    <value>Es ist ein unerwarteter Fehler beim Ändern Ihres Passwortes aufgetreten. Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut oder kontaktieren Sie unser Support-Team.</value>
+  </data>
+  <data name="ResetPasswordUserNotFound" xml:space="preserve">
+    <value>Leider haben wir keinen passenden User gefunden. Bitte kontaktieren Sie unser Support-Team.</value>
+  </data>
 </root>

@@ -138,4 +138,7 @@
   <data name="DuplicateUserName" xml:space="preserve">
     <value>The username was already used for a registration</value>
   </data>
+  <data name="InvalidToken" xml:space="preserve">
+    <value>The required token is not valid. Please contact our support team.</value>
+  </data>
 </root>

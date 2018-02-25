@@ -50,10 +50,10 @@ namespace FamilieLaissIdentity.Controllers.Account
         #region C'tor
         public AccountController(
             ILogger<AccountController> logger,
-            IMapper mapper, 
+            IMapper mapper,
             IUserOperations userOperations,
             ISigninOperations signInOperations,
-            Func<string, IMailSender> mailSenderServiceAccessor, 
+            Func<string, IMailSender> mailSenderServiceAccessor,
             IMailGenerator mailGenerator,
             IHostingEnvironment hostingEnv,
             IStringLocalizer<AccountController> localizer,
@@ -97,7 +97,7 @@ namespace FamilieLaissIdentity.Controllers.Account
         {
             //Das bestehende externe Cookie entfernen um einen saubern Login Prozess zu gewährleisten
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-            
+
             //Model erstellen
             LoginViewModel Model = new LoginViewModel();
 
@@ -454,7 +454,7 @@ namespace FamilieLaissIdentity.Controllers.Account
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPasswordRequest(ResetPasswordRequestViewModel model)
-        {            
+        {
             //Die Security-Questions zum View-Bag hinzufügen
             AddListDataQuestionToViewbag(ViewBag);
 
@@ -530,13 +530,13 @@ namespace FamilieLaissIdentity.Controllers.Account
         public IActionResult ResetPassword(string userId = null, string code = null)
         {
             //Deklaration
-            ResetPasswordViewModel Model;
+            ResetPasswordViewModel Model = null;
 
             //Fehlerseite oder Model erzeugen
             if (code == null || userId == null)
             {
-                //Wenn keine userId oder kein Code mitgegeben wurde, wird auf die Error-View gesprungen
-                return View("ResetPasswordError");
+                //Hinzufügen des Fehlers
+                ModelState.AddModelError("UserNotFound", _Localizer["ResetPasswordUserNotFound"]);
             }
             else
             {
@@ -565,13 +565,18 @@ namespace FamilieLaissIdentity.Controllers.Account
                     //Es wurde kein User zu der UserId gefunden
                     if (User == null)
                     {
-                        return View("ResetPasswordError");
+                        //Hinzufügen des Fehlers
+                        ModelState.AddModelError("UserNotFound", _Localizer["ResetPasswordUserNotFound"]);
+
+                        //Zurückliefern der View
+                        return View(model);
                     }
 
                     //Zurücksetzen des Passwortes
                     var Result = await _UserOperations.ResetPassword(User, model.Token, model.NewPassword);
 
-                    //
+                    //Wenn das Ergebnis ohne Fehler ist, dann auf die Erfolgsseite springen
+                    //ansonsten wird der Fehler ausgegeben
                     if (Result.Succeeded)
                     {
                         return View("ResetPasswordSuccess");
@@ -583,7 +588,8 @@ namespace FamilieLaissIdentity.Controllers.Account
                 }
                 catch
                 {
-                    return View("ResetPasswordError");
+                    //Hinzufügen des Fehlers 
+                    ModelState.AddModelError("Exception", _Localizer["ResetPasswordException"]);
                 }
             }
 
@@ -648,6 +654,23 @@ namespace FamilieLaissIdentity.Controllers.Account
             }
         }
 
+        //Fügt die Entsprechenden Model-Error für die Identity-Errors hinzu
+        //Wird beim Passwort zurücksetzen aufgerufen
+        private void AddErrorsResetPassword(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                switch (error.Code)
+                {
+                    case "InvalidToken":
+                        ModelState.AddModelError("Token", error.Description);
+                        break;
+                }
+            }
+        }
+
+        //Fügt die Entsprechenden Model-Error für die Identity-Errors hinzu
+        //Wird beim Registrieren aufgerufen
         private void AddErrorsRegister(IdentityResult result)
         {
             foreach (var error in result.Errors)

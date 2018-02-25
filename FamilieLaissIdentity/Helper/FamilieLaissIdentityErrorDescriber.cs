@@ -72,7 +72,12 @@ namespace FamilieLaissIdentity.Helper
 
         public override IdentityError InvalidToken()
         {
-            return base.InvalidToken();
+            IdentityError ReturnValue = base.PasswordRequiresDigit();
+
+            ReturnValue.Code = "InvalidToken";
+            ReturnValue.Description = Localizer["InvalidToken"];
+
+            return ReturnValue;
         }
 
         public override IdentityError InvalidUserName(string name)

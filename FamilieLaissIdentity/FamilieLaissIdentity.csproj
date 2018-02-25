@@ -657,12 +657,6 @@
     <EmbeddedResource Update="Localize\Views.Account.ResetPassword.en.resx">
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Views.Account.ResetPasswordError.de.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Localize\Views.Account.ResetPasswordError.en.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Localize\Views.Account.ResetPasswordSuccess.de.resx">
       <Generator></Generator>
     </EmbeddedResource>

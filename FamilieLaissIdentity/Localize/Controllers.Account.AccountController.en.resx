@@ -135,4 +135,10 @@
   <data name="PasswordRequestUserNotFound" xml:space="preserve">
     <value>Sorry, we did not find a user for this email address. Make sure you are using the email address you used when registering.</value>
   </data>
+  <data name="ResetPasswordException" xml:space="preserve">
+    <value>An unexpected error occured while changing your password. Please try again later or contact our support team.</value>
+  </data>
+  <data name="ResetPasswordUserNotFound" xml:space="preserve">
+    <value>Sorry, we did not find a user account to reset the password. Please contact our support team.</value>
+  </data>
 </root>
