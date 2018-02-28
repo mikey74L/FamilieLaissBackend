@@ -138,4 +138,19 @@
   <data name="View_Heading" xml:space="preserve">
     <value>Familie-Laiß / Anmeldung</value>
   </data>
+  <data name="Alert_Allowed_Header" xml:space="preserve">
+    <value>Freischaltung fehlt</value>
+  </data>
+  <data name="Alert_General_Header" xml:space="preserve">
+    <value>Unerwarteter Fehler</value>
+  </data>
+  <data name="Alert_LockedOut_Header" xml:space="preserve">
+    <value>Benutzerkonto gesperrt</value>
+  </data>
+  <data name="Alert_MailConfirmed_Header" xml:space="preserve">
+    <value>eMail nicht bestätigt</value>
+  </data>
+  <data name="Alert_Username_Header" xml:space="preserve">
+    <value>Anmeldedaten falsch</value>
+  </data>
 </root>

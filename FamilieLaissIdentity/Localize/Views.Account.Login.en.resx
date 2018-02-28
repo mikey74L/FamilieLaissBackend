@@ -138,4 +138,19 @@
   <data name="View_Heading" xml:space="preserve">
     <value>Familie-Laiß / Login</value>
   </data>
+  <data name="Alert_Allowed_Header" xml:space="preserve">
+    <value>Account not confirmed</value>
+  </data>
+  <data name="Alert_General_Header" xml:space="preserve">
+    <value>Unexpected error</value>
+  </data>
+  <data name="Alert_LockedOut_Header" xml:space="preserve">
+    <value>Account locked</value>
+  </data>
+  <data name="Alert_MailConfirmed_Header" xml:space="preserve">
+    <value>eMail not confirmed</value>
+  </data>
+  <data name="Alert_Username_Header" xml:space="preserve">
+    <value>Wrong credentials</value>
+  </data>
 </root>

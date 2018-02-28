@@ -41,10 +41,10 @@ namespace FamilieLaissIdentity.Service
                     ReturnValue.EMailConfirmed = await _UserOperations.IsEMailConfirmed(user);
 
                     //Überprüfen ob der Benutzer schon freigeschalten wurde
-                    ReturnValue.IsAllowed = _UserOperations.Users.Count(x => x.Id == user.Id && x.IsAllowed) > 0;
+                    if (ReturnValue.EMailConfirmed) ReturnValue.IsAllowed = _UserOperations.Users.Count(x => x.Id == user.Id && x.IsAllowed) > 0;
 
                     //Überprüfen ob der Benutzer gesperrt wurde
-                    ReturnValue.IsLockedOut = await _UserOperations.IsLockedOut(userName);
+                    if (ReturnValue.IsAllowed) ReturnValue.IsLockedOut = await _UserOperations.IsLockedOut(userName);
 
                     //Nur wenn bisher keine Fehler aufgetaucht sind wird weitergemacht
                     if (ReturnValue.EMailConfirmed && ReturnValue.IsAllowed && !ReturnValue.IsLockedOut && !ReturnValue.UsernameOrPasswordWrong)
